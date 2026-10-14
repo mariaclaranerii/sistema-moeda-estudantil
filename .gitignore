@@ -1,0 +1,19 @@
+# Artefatos de build
+target/
+build/
+out/
+
+# IDEs e sistema operacional
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# Arquivos locais e temporarios
+.env
+*.log
+tmp/

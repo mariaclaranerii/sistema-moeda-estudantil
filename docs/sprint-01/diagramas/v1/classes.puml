@@ -1,0 +1,112 @@
+@startuml
+title Sistema de Moeda Estudantil - Diagrama de Classes de Domínio - v1
+hide circle
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #475569
+}
+
+abstract class Usuario {
+  - id: Long
+  - login: String
+  - senhaHash: String
+  - ativo: boolean
+}
+
+class Aluno {
+  - nome: String
+  - email: String
+  - cpf: String
+  - rg: String
+  - endereco: String
+  - curso: String
+  - saldoMoedas: long
+}
+
+class Professor {
+  - nome: String
+  - cpf: String
+  - departamento: String
+  - saldoMoedas: long
+}
+
+class EmpresaParceira {
+  - nome: String
+  - email: String
+}
+
+class InstituicaoEnsino {
+  - id: Long
+  - nome: String
+}
+
+class Vantagem {
+  - id: Long
+  - descricao: String
+  - fotoReferencia: String
+  - custoMoedas: long
+}
+
+class TransferenciaMoeda {
+  - id: Long
+  - quantidade: long
+  - motivo: String
+  - realizadaEm: Instant
+}
+
+class ResgateVantagem {
+  - id: Long
+  - codigo: String
+  - custoMoedas: long
+  - realizadoEm: Instant
+}
+
+class CreditoSemestral {
+  - id: Long
+  - quantidade: long = 1000
+  - semestreReferencia: String
+  - creditadoEm: Instant
+}
+
+Usuario <|-- Aluno
+Usuario <|-- Professor
+Usuario <|-- EmpresaParceira
+
+InstituicaoEnsino "1" <-- "0..*" Aluno : pertence a
+InstituicaoEnsino "1" <-- "0..*" Professor : vincula
+
+Professor "1" -- "0..*" TransferenciaMoeda : envia >
+Aluno "1" -- "0..*" TransferenciaMoeda : recebe >
+
+EmpresaParceira "1" -- "0..*" Vantagem : oferece >
+Aluno "1" -- "0..*" ResgateVantagem : realiza >
+Vantagem "1" -- "0..*" ResgateVantagem : é resgatada em >
+
+Professor "1" -- "0..*" CreditoSemestral : recebe >
+
+note right of TransferenciaMoeda
+  quantidade > 0
+  motivo obrigatório
+  saldo do professor suficiente
+  débito e crédito atômicos
+end note
+
+note right of ResgateVantagem
+  saldo do aluno suficiente
+  custo copiado no momento do resgate
+  código único enviado às duas partes
+end note
+
+note right of CreditoSemestral
+  Um registro por professor e semestre.
+  O saldo anterior é preservado.
+end note
+
+note bottom of EmpresaParceira
+  nome e email são premissas PM05.
+  Outros dados empresariais não foram inventados.
+end note
+@enduml

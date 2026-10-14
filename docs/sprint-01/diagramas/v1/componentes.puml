@@ -1,0 +1,71 @@
+@startuml
+title Sistema de Moeda Estudantil - Diagrama de Componentes MVC - v1
+left to right direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #475569
+}
+
+actor "Aluno / Professor /\nEmpresa parceira" as Usuario
+
+node "Cliente" {
+  [Navegador web] as Browser
+}
+
+node "Aplicação Java\n(Spring Boot)" {
+  package "View" {
+    [Templates Thymeleaf] as ViewTemplates
+  }
+
+  package "Controller" {
+    [Controladores MVC] as MvcControllers
+    [Autenticação e autorização] as AuthModule
+  }
+
+  package "Model" {
+    [Serviços de aplicação] as AppService
+    [Modelo de domínio] as DomainModel
+    [Portas de repositório] as RepoPorts
+  }
+
+  package "Infraestrutura" {
+    [Adaptadores de persistência] as Persistence
+    [Adaptador de e-mail] as MailAdapter
+    [Agendador semestral] as Scheduler
+  }
+}
+
+database "Banco de dados relacional\n(tecnologia definida na Sprint 02)" as Database
+cloud "Servidor SMTP" as SMTP
+
+Usuario --> Browser
+Browser --> AuthModule : requisições protegidas
+Browser --> MvcControllers : cadastro inicial / requisições HTTP
+AuthModule --> MvcControllers : identidade e perfil
+MvcControllers --> AppService : comandos e consultas
+MvcControllers --> ViewTemplates : modelo de apresentação
+ViewTemplates --> Browser : HTML
+
+AppService --> DomainModel : aplica regras de negócio
+AppService --> RepoPorts : persiste / consulta
+AuthModule --> RepoPorts : carrega credenciais
+Persistence ..> RepoPorts : implementa
+Persistence --> Database : ORM / SQL
+
+Scheduler --> AppService : crédito de 1.000 por semestre
+AppService --> MailAdapter : eventos de transferência e resgate
+MailAdapter --> SMTP : envia notificações
+
+note bottom of AppService
+  Coordena transferências e resgates de forma atômica,
+  valida saldos e produz dados para os extratos.
+end note
+
+note bottom of RepoPorts
+  A estratégia concreta de acesso ao banco
+  é entregável da Sprint 02.
+end note
+@enduml
