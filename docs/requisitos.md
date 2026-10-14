@@ -1,6 +1,6 @@
 # Requisitos do Sistema de Moeda Estudantil
 
-Fonte obrigatória: enunciado do Laboratório 3 da disciplina Projeto de Software, PUC Minas, 2º semestre de 2026.
+Fonte: enunciado do Laboratório 3 da disciplina Projeto de Software, PUC Minas, 2º semestre de 2026.
 
 ## Objetivo
 
@@ -56,24 +56,3 @@ Estimular o reconhecimento do mérito estudantil por meio de uma moeda virtual d
 | RN09 | Todo resgate concluído debita do aluno exatamente o custo da vantagem. |
 | RN10 | Aluno e empresa parceira recebem, para o mesmo resgate, o mesmo código gerado pelo sistema. |
 | RN11 | Professores e instituições de ensino são pré-cadastrados, não havendo no enunciado um fluxo de cadastro público para esses atores. |
-
-## Restrições e critérios de qualidade
-
-- A linguagem principal da implementação deve ser Java.
-- O sistema deve seguir a arquitetura MVC.
-- Modelos de classes e de arquitetura devem permanecer alinhados ao código.
-- Os modelos devem ser atualizados quando o projeto evoluir, preservando suas versões no GitHub.
-- A qualidade final considera a adequação do sistema aos requisitos apresentados.
-- O grupo deve apresentar semanalmente o andamento; a ausência implica perda de 50% dos pontos da sprint.
-
-## Entregáveis por sprint
-
-| Sprint | Entregáveis obrigatórios | Situação neste repositório |
-|---|---|---|
-| Lab03S01 | Diagrama de casos de uso, histórias de usuário, diagrama de classes e diagrama de componentes. | Produzidos para revisão. |
-| Lab03S02 | Modelo ER, definição e implementação da estratégia de acesso ao banco, versão inicial dos CRUDs de aluno e empresa parceira com front-end e comunicação com back-end. | Não iniciado. |
-| Lab03S03 | Versão final dos CRUDs, apresentação da arquitetura e persistência, slides, protótipo e tutorial das tecnologias; apresentação de 20 minutos. | Não iniciado. |
-
-## Limites da Sprint 01
-
-Nesta sprint não são produzidos modelo ER, esquema físico de banco, código Java, front-end, CRUD funcional, testes de implementação, slides, protótipo executável ou tutorial. Esses itens pertencem às sprints posteriores e dependem de aprovação.
