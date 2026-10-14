@@ -10,8 +10,8 @@ As histórias abaixo derivam do enunciado e mantêm os identificadores usados na
 
 Critérios de aceitação:
 
-- CA01.1 - Credenciais válidas iniciam uma sessão vinculada a exatamente um perfil.
-- CA01.2 - Credenciais inválidas não concedem acesso.
+- CA01.1 - Credenciais corretas iniciam uma sessão vinculada a exatamente um perfil.
+- CA01.2 - Credenciais incorretas não concedem acesso.
 - CA01.3 - Operações marcadas como protegidas somente podem ser realizadas em sessão autenticada.
 
 ## HU02 - Gerenciar cadastro de aluno

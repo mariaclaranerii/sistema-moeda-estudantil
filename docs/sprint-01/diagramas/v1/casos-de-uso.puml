@@ -111,7 +111,7 @@ UC17 .> UC20 : <<include>>
 
 note bottom of UC09
   Todos os casos marcados
-  <<autenticado>> exigem sessão válida.
+  <<autenticado>> exigem sessão autenticada.
   UC01 e UC05 criam as credenciais iniciais.
 end note
 

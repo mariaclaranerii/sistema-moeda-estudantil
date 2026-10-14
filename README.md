@@ -6,7 +6,7 @@ O sistema reconhece o mérito estudantil por meio de uma moeda virtual. Professo
 
 ## Situação atual
 
-Sprint 01 - Lab03S01 em revisão. Esta versão contém somente os artefatos de modelagem solicitados para a sprint; não há implementação funcional nem artefatos antecipados das sprints seguintes.
+Sprint 01 - Lab03S01 concluída. Esta versão contém somente os artefatos de modelagem solicitados para a sprint; não há implementação funcional nem artefatos antecipados das sprints seguintes.
 
 ## Organização
 
@@ -24,7 +24,7 @@ docs/
       componentes.puml
       renderizados/
 src/
-  main/java/          # reservado para a implementação aprovada em sprint futura
+  main/java/          # reservado para implementação em sprint futura
   main/resources/     # reservado para recursos da implementação
   test/java/          # reservado para testes automatizados
 ```

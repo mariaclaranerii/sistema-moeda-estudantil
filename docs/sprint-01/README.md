@@ -19,15 +19,4 @@ Produzir a modelagem inicial do Sistema de Moeda Estudantil, coerente com o enun
 - Decisões não explícitas no PDF ficam registradas em `../premissas-de-modelagem.md`.
 - `../rastreabilidade.md` liga requisitos, histórias e elementos UML.
 - Os modelos cobrem o sistema descrito, mas nenhum item da Sprint 02 foi implementado.
-- A versão `v1` é preservada; alterações relevantes após revisão deverão originar uma nova versão ou ficar registradas no histórico Git.
-
-## Estado da validação
-
-- [x] Enunciado textual e visual revisado integralmente.
-- [x] Atores e fronteiras do sistema identificados.
-- [x] Histórias confrontadas com os requisitos funcionais e regras de negócio.
-- [x] Classes de domínio confrontadas com os dados e movimentações exigidos.
-- [x] Componentes organizados em arquitetura MVC compatível com Java.
-- [x] Sintaxe PlantUML validada; SVGs e PNGs renderizados e inspecionados visualmente.
-- [ ] Revisão e aprovação da responsável pelo projeto.
-- [x] Aprovação explícita para commit e push recebida.
+- A versão `v1` é preservada; alterações relevantes deverão originar uma nova versão ou ficar registradas no histórico Git.

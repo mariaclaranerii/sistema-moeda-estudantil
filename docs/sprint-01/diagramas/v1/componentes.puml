@@ -61,7 +61,7 @@ MailAdapter --> SMTP : envia notificações
 
 note bottom of AppService
   Coordena transferências e resgates de forma atômica,
-  valida saldos e produz dados para os extratos.
+  aplica as regras de saldo e produz dados para os extratos.
 end note
 
 note bottom of RepoPorts

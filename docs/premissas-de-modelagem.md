@@ -18,7 +18,7 @@ O enunciado não define todos os detalhes necessários para uma modelagem consis
 | PM12 | O extrato do professor exibe envios e o saldo; o do aluno exibe recebimentos, resgates e o saldo. A carga semestral fica registrada para auditoria, mas sua exibição não é exigida. | Reproduz exatamente as transações mencionadas no enunciado e ainda permite comprovar a composição do saldo do professor. |
 | PM13 | A tecnologia específica do banco de dados e a estratégia definitiva de persistência serão decididas na Sprint 02. | São entregáveis explícitos da Lab03S02 e não devem ser antecipados. |
 
-## Pontos que permanecem abertos para validação antes da Sprint 02
+## Pontos em aberto para a Sprint 02
 
 - Campos empresariais adicionais, como CNPJ, endereço e razão social, não foram exigidos e não foram incluídos.
 - O enunciado não define expiração, uso único ou cancelamento do cupom de resgate.

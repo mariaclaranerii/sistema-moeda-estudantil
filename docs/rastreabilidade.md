@@ -1,6 +1,6 @@
 # Matriz de rastreabilidade - versão 1
 
-Esta matriz verifica a correspondência entre os requisitos, as histórias de usuário e os três modelos UML da Lab03S01.
+Esta matriz relaciona os requisitos, as histórias de usuário e os três modelos UML da Lab03S01.
 
 ## Requisitos funcionais
 
@@ -36,11 +36,3 @@ Esta matriz verifica a correspondência entre os requisitos, as histórias de us
 | RN08 e RN09 | CA10.1 e CA10.2 | UC17; `ResgateVantagem`; Serviços de aplicação |
 | RN10 | CA10.3 a CA10.5 | UC18 a UC20; `ResgateVantagem`; Adaptador de e-mail |
 | RN11 | Pré-condições do domínio | Legenda do diagrama de casos de uso; `InstituicaoEnsino` e `Professor` |
-
-## Verificação de consistência
-
-- Todos os RF possuem ao menos uma evidência em história ou pré-condição, caso de uso, classe e componente.
-- Os CRUDs exigidos para aluno e empresa parceira estão modelados como criação, consulta, atualização e desativação, sem implementar a Sprint 02.
-- O diagrama de classes contém somente dados exigidos ou premissas registradas.
-- Transferência e resgate possuem um único registro de domínio para alimentar saldos, extratos e notificações de forma coerente.
-- O diagrama de componentes posiciona a View, o Controller e o Model de forma explícita e mantém persistência, e-mail e agendamento como adaptadores de infraestrutura.

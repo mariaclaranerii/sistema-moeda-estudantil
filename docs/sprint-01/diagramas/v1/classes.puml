@@ -107,6 +107,6 @@ end note
 
 note bottom of EmpresaParceira
   nome e email são premissas PM05.
-  Outros dados empresariais não foram inventados.
+  Outros dados empresariais permanecem fora do escopo.
 end note
 @enduml
