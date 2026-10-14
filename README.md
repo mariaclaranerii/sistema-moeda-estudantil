@@ -43,10 +43,9 @@ Os arquivos `.puml` são as fontes editáveis dos diagramas. As imagens SVG e PN
 
 Nenhuma biblioteca ou framework foi implementado nesta sprint. A definição acima apenas mantém os modelos de classes e componentes compatíveis com uma futura aplicação Java MVC.
 
-## Sprints do enunciado
+## Integrantes
 
-- Sprint 01 - Lab03S01: casos de uso, histórias de usuário, classes e componentes.
-- Sprint 02 - Lab03S02: modelo ER, estratégia de acesso ao banco e versão inicial dos CRUDs de aluno e empresa parceira.
-- Sprint 03 - Lab03S03: versão final dos CRUDs, apresentação da arquitetura e persistência, slides, protótipo e tutorial tecnológico.
-
-O avanço para outra sprint depende de aprovação explícita.
+- Bárbara Marcella Inácio da Silva
+- Lucas Gabriel de Oliveira Franco
+- Maria Clara Neri Stankunas
+- Yago Garzon Chaves
