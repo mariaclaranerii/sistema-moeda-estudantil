@@ -1,8 +1,11 @@
 @startuml
+!pragma layout smetana
 title Sistema de Moeda Estudantil - Diagrama de Componentes MVC - v1
-left to right direction
+top to bottom direction
 skinparam shadowing false
 skinparam componentStyle rectangle
+skinparam nodesep 55
+skinparam ranksep 55
 skinparam component {
   BackgroundColor #F8FAFC
   BorderColor #334155
@@ -10,62 +13,60 @@ skinparam component {
 }
 
 actor "Aluno / Professor /\nEmpresa parceira" as Usuario
+component "Navegador web" as Browser
 
-node "Cliente" {
-  [Navegador web] as Browser
+rectangle "Aplicação Java (Spring Boot)" {
+  package "View" #E0F2FE {
+    component "Templates\nThymeleaf" as ViewTemplates
+  }
+
+  package "Controller" #EDE9FE {
+    component "Autenticação e\nautorização" as AuthModule
+    component "Controladores MVC" as MvcControllers
+  }
+
+  package "Model" #DCFCE7 {
+    component "Serviços de\naplicação" as AppService
+    component "Modelo de domínio" as DomainModel
+    component "Portas de\nrepositório" as RepoPorts
+  }
+
+  package "Infraestrutura" #FEF3C7 {
+    component "Agendador\nsemestral" as Scheduler
+    component "Adaptadores de\npersistência" as Persistence
+    component "Adaptador\nde e-mail" as MailAdapter
+  }
+
+  ViewTemplates -[hidden]right- AuthModule
+  AuthModule -[hidden]right- MvcControllers
+  MvcControllers -[hidden]down- AppService
+  AppService -[hidden]right- DomainModel
+  DomainModel -[hidden]right- RepoPorts
+  AppService -[hidden]down- Scheduler
+  Scheduler -[hidden]right- Persistence
+  Persistence -[hidden]right- MailAdapter
 }
 
-node "Aplicação Java\n(Spring Boot)" {
-  package "View" {
-    [Templates Thymeleaf] as ViewTemplates
-  }
-
-  package "Controller" {
-    [Controladores MVC] as MvcControllers
-    [Autenticação e autorização] as AuthModule
-  }
-
-  package "Model" {
-    [Serviços de aplicação] as AppService
-    [Modelo de domínio] as DomainModel
-    [Portas de repositório] as RepoPorts
-  }
-
-  package "Infraestrutura" {
-    [Adaptadores de persistência] as Persistence
-    [Adaptador de e-mail] as MailAdapter
-    [Agendador semestral] as Scheduler
-  }
-}
-
-database "Banco de dados relacional\n(tecnologia definida na Sprint 02)" as Database
+database "Banco de dados relacional\n(definição na Sprint 02)" as Database
 cloud "Servidor SMTP" as SMTP
 
-Usuario --> Browser
-Browser --> AuthModule : requisições protegidas
-Browser --> MvcControllers : cadastro inicial / requisições HTTP
-AuthModule --> MvcControllers : identidade e perfil
-MvcControllers --> AppService : comandos e consultas
-MvcControllers --> ViewTemplates : modelo de apresentação
-ViewTemplates --> Browser : HTML
+Usuario -down-> Browser
+Browser -down-> AuthModule : acesso protegido
+Browser -down-> MvcControllers : HTTP
+AuthModule -right-> MvcControllers : identidade
+MvcControllers -left-> ViewTemplates : dados da página
+ViewTemplates -up-> Browser : HTML
+MvcControllers -down-> AppService : comandos e consultas
 
-AppService --> DomainModel : aplica regras de negócio
-AppService --> RepoPorts : persiste / consulta
-AuthModule --> RepoPorts : carrega credenciais
-Persistence ..> RepoPorts : implementa
-Persistence --> Database : ORM / SQL
+AppService -down-> DomainModel : regras do domínio
+AppService -right-> RepoPorts : consulta e registra
+AuthModule -down-> RepoPorts : credenciais
 
-Scheduler --> AppService : crédito de 1.000 por semestre
-AppService --> MailAdapter : eventos de transferência e resgate
-MailAdapter --> SMTP : envia notificações
+Scheduler -up-> AppService : crédito semestral
+Persistence -up..> RepoPorts : implementa
+AppService -down-> MailAdapter : notificações
 
-note bottom of AppService
-  Coordena transferências e resgates de forma atômica,
-  aplica as regras de saldo e produz dados para os extratos.
-end note
-
-note bottom of RepoPorts
-  A estratégia concreta de acesso ao banco
-  é entregável da Sprint 02.
-end note
+Persistence -down-> Database : ORM / SQL
+MailAdapter -down-> SMTP : e-mail
+Database -[hidden]right- SMTP
 @enduml

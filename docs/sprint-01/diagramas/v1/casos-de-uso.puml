@@ -3,126 +3,102 @@ title Sistema de Moeda Estudantil - Diagrama de Casos de Uso - v1
 left to right direction
 
 skinparam shadowing false
+skinparam linetype ortho
 skinparam packageStyle rectangle
 skinparam actorStyle awesome
+skinparam nodesep 50
+skinparam ranksep 55
 skinparam usecase {
   BackgroundColor #F8FAFC
   BorderColor #334155
   ArrowColor #475569
 }
 
-actor "Usuário" as Usuario
-actor "Aluno" as Aluno
-actor "Professor" as Professor
-actor "Empresa parceira" as Empresa
-actor "Agendador semestral" as Agendador
-actor "Serviço de e-mail" as Email
+package "Atores principais" {
+  actor "Usuário\n(qualquer perfil)" as Usuario
+  actor "Aluno" as Aluno
+  actor "Professor" as Professor
+  actor "Empresa parceira" as Empresa
 
-Usuario <|-- Aluno
-Usuario <|-- Professor
-Usuario <|-- Empresa
-
-rectangle "Sistema de Moeda Estudantil" {
-  usecase "UC09\nAutenticar-se" as UC09
-
-  package "Cadastros" {
-    usecase "UC01\nCadastrar aluno" as UC01
-    usecase "UC02\nConsultar próprio\ncadastro de aluno" as UC02 <<autenticado>>
-    usecase "UC03\nAtualizar próprio\ncadastro de aluno" as UC03 <<autenticado>>
-    usecase "UC04\nDesativar próprio\ncadastro de aluno" as UC04 <<autenticado>>
-
-    usecase "UC05\nCadastrar empresa\nparceira" as UC05
-    usecase "UC06\nConsultar próprio\ncadastro de empresa" as UC06 <<autenticado>>
-    usecase "UC07\nAtualizar próprio\ncadastro de empresa" as UC07 <<autenticado>>
-    usecase "UC08\nDesativar próprio\ncadastro de empresa" as UC08 <<autenticado>>
-
-    UC01 -[hidden]right-> UC05
-    UC02 -[hidden]right-> UC06
-    UC03 -[hidden]right-> UC07
-    UC04 -[hidden]right-> UC08
-    UC01 -[hidden]down-> UC02
-    UC02 -[hidden]down-> UC03
-    UC03 -[hidden]down-> UC04
-    UC05 -[hidden]down-> UC06
-    UC06 -[hidden]down-> UC07
-    UC07 -[hidden]down-> UC08
-  }
-
-  package "Moedas e extratos" {
-    usecase "UC10\nCreditar 1.000 moedas\npor semestre" as UC10
-    usecase "UC11\nTransferir moedas\na um aluno" as UC11 <<autenticado>>
-    usecase "UC12\nNotificar recebimento\npor e-mail" as UC12
-    usecase "UC13\nConsultar extrato\ndo professor" as UC13 <<autenticado>>
-    usecase "UC14\nConsultar extrato\ndo aluno" as UC14 <<autenticado>>
-
-    UC10 -[hidden]right-> UC11
-    UC12 -[hidden]right-> UC13
-    UC10 -[hidden]down-> UC12
-    UC11 -[hidden]down-> UC13
-    UC13 -[hidden]down-> UC14
-  }
-
-  package "Vantagens" {
-    usecase "UC15\nCadastrar vantagem" as UC15 <<autenticado>>
-    usecase "UC16\nConsultar vantagens" as UC16 <<autenticado>>
-    usecase "UC17\nResgatar vantagem" as UC17 <<autenticado>>
-    usecase "UC18\nGerar código\nde resgate" as UC18
-    usecase "UC19\nEnviar cupom\nao aluno" as UC19
-    usecase "UC20\nNotificar empresa\nsobre o resgate" as UC20
-
-    UC15 -[hidden]right-> UC16
-    UC17 -[hidden]right-> UC18
-    UC19 -[hidden]right-> UC20
-    UC15 -[hidden]down-> UC17
-    UC17 -[hidden]down-> UC19
-    UC16 -[hidden]down-> UC18
-    UC18 -[hidden]down-> UC20
-  }
+  Usuario -[hidden]down- Aluno
+  Aluno -[hidden]down- Professor
+  Professor -[hidden]down- Empresa
 }
 
-Usuario --> UC09
+rectangle "Sistema de Moeda Estudantil" {
+  usecase "UC01\nAutenticar-se" as UC01
 
-Aluno --> UC01
+  package "Funções do aluno" {
+    usecase "UC02\nGerenciar cadastro de aluno\n(cadastrar, consultar,\natualizar e desativar)" as UC02 <<acesso misto>>
+    usecase "UC07\nConsultar extrato" as UC07 <<autenticado>>
+    usecase "UC09\nConsultar vantagens" as UC09 <<autenticado>>
+    usecase "UC10\nResgatar vantagem" as UC10 <<autenticado>>
+
+    UC02 -[hidden]right- UC07
+    UC07 -[hidden]right- UC09
+    UC09 -[hidden]right- UC10
+  }
+
+  package "Funções do professor" {
+    usecase "UC05\nTransferir moedas\na um aluno" as UC05 <<autenticado>>
+    usecase "UC06\nConsultar extrato" as UC06 <<autenticado>>
+
+    UC05 -[hidden]right- UC06
+  }
+
+  package "Funções da empresa parceira" {
+    usecase "UC03\nGerenciar cadastro da empresa\n(cadastrar, consultar,\natualizar e desativar)" as UC03 <<acesso misto>>
+    usecase "UC08\nCadastrar vantagem" as UC08 <<autenticado>>
+
+    UC03 -[hidden]right- UC08
+  }
+
+  package "Processos automáticos" {
+    usecase "UC04\nCreditar 1.000 moedas\npor semestre" as UC04
+    usecase "UC11\nNotificar recebimento\nde moedas" as UC11
+    usecase "UC12\nEnviar cupom ao aluno\ne à empresa" as UC12
+
+    UC04 -[hidden]down- UC11
+    UC11 -[hidden]down- UC12
+  }
+
+  UC01 -[hidden]down- UC02
+  UC02 -[hidden]down- UC05
+  UC05 -[hidden]down- UC03
+  UC01 -[hidden]right- UC04
+}
+
+package "Serviços externos" {
+  actor "Agendador\nsemestral" as Agendador
+  actor "Serviço de e-mail" as Email
+
+  Agendador -[hidden]down- Email
+}
+
+Usuario --> UC01
+
 Aluno --> UC02
-Aluno --> UC03
-Aluno --> UC04
-Aluno --> UC14
-Aluno --> UC16
-Aluno --> UC17
+Aluno --> UC07
+Aluno --> UC09
+Aluno --> UC10
 
-Professor --> UC11
-Professor --> UC13
+Professor --> UC05
+Professor --> UC06
 
-Empresa --> UC05
-Empresa --> UC06
-Empresa --> UC07
+Empresa --> UC03
 Empresa --> UC08
-Empresa --> UC15
 
-Agendador --> UC10
-Email --> UC12
-Email --> UC19
-Email --> UC20
+UC04 --> Agendador
+UC11 --> Email
+UC12 --> Email
 
-UC11 .> UC12 : <<include>>
-UC17 .> UC18 : <<include>>
-UC17 .> UC19 : <<include>>
-UC17 .> UC20 : <<include>>
-
-note bottom of UC09
-  Todos os casos marcados
-  <<autenticado>> exigem sessão autenticada.
-  UC01 e UC05 criam as credenciais iniciais.
-end note
-
-note bottom of UC10
-  Disparo automático e idempotente,
-  conforme a premissa PM07.
-end note
+UC05 .> UC11 : <<include>>
+UC10 .> UC12 : <<include>>
 
 legend bottom left
-  Instituições e professores são pré-cadastrados.
-  O mecanismo administrativo não foi especificado
-  e permanece fora dos fluxos públicos (PM11).
+  Os casos marcados como autenticados exigem usuário ativo e sessão iniciada.
+  Em acesso misto, o cadastro inicial é público; as demais operações exigem sessão.
+  Instituições e professores são pré-cadastrados; o mecanismo administrativo
+  não faz parte dos fluxos públicos do sistema.
 endlegend
 @enduml

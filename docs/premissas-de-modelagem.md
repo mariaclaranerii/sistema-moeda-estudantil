@@ -17,6 +17,7 @@ O enunciado não define todos os detalhes necessários para uma modelagem consis
 | PM11 | Instituições e professores são carregados por processo administrativo fora dos fluxos públicos desta versão. | O enunciado afirma que ambos já estarão pré-cadastrados e não descreve interface, ator operador ou formato de importação. |
 | PM12 | O extrato do professor exibe envios e o saldo; o do aluno exibe recebimentos, resgates e o saldo. A carga semestral fica registrada para auditoria, mas sua exibição não é exigida. | Reproduz exatamente as transações mencionadas no enunciado e ainda permite comprovar a composição do saldo do professor. |
 | PM13 | A tecnologia específica do banco de dados e a estratégia definitiva de persistência serão decididas na Sprint 02. | São entregáveis explícitos da Lab03S02 e não devem ser antecipados. |
+| PM14 | Cada aluno e professor possui uma conta própria para o saldo; créditos, transferências e resgates especializam uma transação comum. | Separa os dados de identidade do estado monetário e mantém um histórico uniforme para os extratos, sem acrescentar operações ao escopo. |
 
 ## Pontos em aberto para a Sprint 02
 

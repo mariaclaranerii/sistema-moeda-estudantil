@@ -1,8 +1,12 @@
 @startuml
+!pragma layout smetana
 title Sistema de Moeda Estudantil - Diagrama de Classes de Domínio - v1
+top to bottom direction
 hide circle
 skinparam shadowing false
 skinparam classAttributeIconSize 0
+skinparam nodesep 55
+skinparam ranksep 50
 skinparam class {
   BackgroundColor #F8FAFC
   BorderColor #334155
@@ -11,31 +15,46 @@ skinparam class {
 
 abstract class Usuario {
   - id: Long
+  - nome: String
   - login: String
   - senhaHash: String
   - ativo: boolean
+  --
+  + autenticar(senha: String): boolean
 }
 
 class Aluno {
-  - nome: String
   - email: String
   - cpf: String
   - rg: String
   - endereco: String
   - curso: String
-  - saldoMoedas: long
+  --
+  + consultarExtrato(): List<Transacao>
+  + resgatar(vantagem: Vantagem): ResgateVantagem
 }
 
 class Professor {
-  - nome: String
   - cpf: String
   - departamento: String
-  - saldoMoedas: long
+  --
+  + distribuirMoedas(aluno, quantidade, motivo): TransferenciaMoeda
+  + consultarExtrato(): List<Transacao>
 }
 
 class EmpresaParceira {
-  - nome: String
   - email: String
+  --
+  + cadastrarVantagem(vantagem: Vantagem): void
+}
+
+class Conta {
+  - id: Long
+  - saldoMoedas: long
+  --
+  + creditar(quantidade: long): void
+  + debitar(quantidade: long): void
+  + possuiSaldo(quantidade: long): boolean
 }
 
 class InstituicaoEnsino {
@@ -50,63 +69,50 @@ class Vantagem {
   - custoMoedas: long
 }
 
-class TransferenciaMoeda {
+abstract class Transacao {
   - id: Long
-  - quantidade: long
-  - motivo: String
+  - quantidadeMoedas: long
   - realizadaEm: Instant
 }
 
-class ResgateVantagem {
-  - id: Long
-  - codigo: String
-  - custoMoedas: long
-  - realizadoEm: Instant
+class TransferenciaMoeda {
+  - motivo: String
 }
 
 class CreditoSemestral {
-  - id: Long
-  - quantidade: long = 1000
   - semestreReferencia: String
-  - creditadoEm: Instant
 }
 
-Usuario <|-- Aluno
-Usuario <|-- Professor
-Usuario <|-- EmpresaParceira
+class ResgateVantagem {
+  - codigo: String
+}
 
-InstituicaoEnsino "1" <-- "0..*" Aluno : pertence a
-InstituicaoEnsino "1" <-- "0..*" Professor : vincula
+Usuario <|--down- Aluno
+Usuario <|--down- Professor
+Usuario <|--down- EmpresaParceira
+
+Aluno "1" *-- "1" Conta : possui >
+Professor "1" *-- "1" Conta : possui >
+
+InstituicaoEnsino "1" -- "0..*" Aluno : reúne >
+InstituicaoEnsino "1" -- "0..*" Professor : reúne >
+EmpresaParceira "1" *-- "0..*" Vantagem : oferece >
+
+Transacao <|--down- TransferenciaMoeda
+Transacao <|--down- CreditoSemestral
+Transacao <|--down- ResgateVantagem
 
 Professor "1" -- "0..*" TransferenciaMoeda : envia >
 Aluno "1" -- "0..*" TransferenciaMoeda : recebe >
-
-EmpresaParceira "1" -- "0..*" Vantagem : oferece >
-Aluno "1" -- "0..*" ResgateVantagem : realiza >
-Vantagem "1" -- "0..*" ResgateVantagem : é resgatada em >
-
 Professor "1" -- "0..*" CreditoSemestral : recebe >
+Aluno "1" -- "0..*" ResgateVantagem : realiza >
+Vantagem "1" -- "0..*" ResgateVantagem : origina >
 
-note right of TransferenciaMoeda
-  quantidade > 0
-  motivo obrigatório
-  saldo do professor suficiente
-  débito e crédito atômicos
-end note
+Aluno -[hidden]right- Professor
+Professor -[hidden]right- EmpresaParceira
+InstituicaoEnsino -[hidden]right- Conta
+Conta -[hidden]right- Vantagem
+TransferenciaMoeda -[hidden]right- CreditoSemestral
+CreditoSemestral -[hidden]right- ResgateVantagem
 
-note right of ResgateVantagem
-  saldo do aluno suficiente
-  custo copiado no momento do resgate
-  código único enviado às duas partes
-end note
-
-note right of CreditoSemestral
-  Um registro por professor e semestre.
-  O saldo anterior é preservado.
-end note
-
-note bottom of EmpresaParceira
-  nome e email são premissas PM05.
-  Outros dados empresariais permanecem fora do escopo.
-end note
 @enduml
