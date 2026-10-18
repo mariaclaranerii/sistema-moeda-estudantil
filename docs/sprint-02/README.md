@@ -6,6 +6,7 @@ Iniciar a implementação do Sistema de Moeda Estudantil com persistência relac
 
 ## Escopo implementado
 
+- modelo entidade-relacionamento da persistência da Sprint 02, com chaves, cardinalidades e restrições;
 - aplicação Java 17 com Spring Boot, Spring MVC e Thymeleaf;
 - persistência com Spring Data JPA, Hibernate e banco relacional H2;
 - herança JPA entre `Usuario`, `Aluno` e `EmpresaParceira`, coerente com o modelo da Sprint 01;
@@ -16,6 +17,18 @@ Iniciar a implementação do Sistema de Moeda Estudantil com persistência relac
 - senhas armazenadas somente como hash BCrypt;
 - testes de integração dos serviços e dos principais endpoints MVC;
 - interface web responsiva para demonstração dos fluxos.
+
+## Entregáveis
+
+- [Modelo ER - fonte PlantUML](diagramas/v1/modelo-er.puml)
+- [Modelo ER - SVG](diagramas/v1/renderizados/modelo-er.svg)
+- [Modelo ER - PNG](diagramas/v1/renderizados/modelo-er.png)
+- [Modelo ER - PDF](../../output/pdf/modelo-er-sprint-02.pdf)
+- [Decisão e estratégia de persistência](decisao-persistencia.md)
+- CRUD inicial de aluno: interface web, controller, serviço, repositório e entidades JPA
+- CRUD inicial de empresa parceira: interface web, controller, serviço, repositório e entidades JPA
+
+O Modelo ER documenta o esquema físico produzido pela estratégia `JOINED`: os atributos comuns ficam em `USUARIOS`, enquanto `ALUNOS` e `EMPRESAS_PARCEIRAS` compartilham o mesmo identificador como chave primária e estrangeira. A associação entre aluno e instituição é obrigatória e muitos alunos podem pertencer à mesma instituição.
 
 ## Decisão de persistência
 

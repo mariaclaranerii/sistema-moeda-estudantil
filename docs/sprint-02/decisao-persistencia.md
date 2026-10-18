@@ -15,6 +15,8 @@ Adotar:
 - exclusão lógica por meio do atributo `ativo`, preservando referências históricas;
 - controle otimista de concorrência por meio do atributo de versão das entidades de usuário.
 
+O esquema resultante, incluindo chaves, restrições e cardinalidades, está documentado no [Modelo ER da Sprint 02](diagramas/v1/modelo-er.puml).
+
 ## Justificativa
 
 H2 não exige instalação ou serviço externo, mantém os dados entre execuções quando usado em modo arquivo e suporta as restrições relacionais necessárias ao laboratório. JPA mantém as entidades independentes do dialeto específico do banco e oferece um caminho direto para PostgreSQL caso a implantação futura exija múltiplos usuários concorrentes ou infraestrutura externa.

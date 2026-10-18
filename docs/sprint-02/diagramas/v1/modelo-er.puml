@@ -1,0 +1,68 @@
+@startuml
+title Sistema de Moeda Estudantil - Modelo Entidade-Relacionamento - Sprint 02 v1
+top to bottom direction
+hide circle
+skinparam shadowing false
+skinparam linetype ortho
+skinparam dpi 150
+skinparam nodesep 90
+skinparam ranksep 80
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #475569
+}
+
+entity "USUARIOS" as usuarios {
+  * id : BIGINT <<PK, IDENTITY>>
+  --
+  * nome : VARCHAR(120)
+  * login : VARCHAR(80) <<UQ>>
+  * senha_hash : VARCHAR(100)
+  * ativo : BOOLEAN
+  * versao : BIGINT
+}
+
+entity "ALUNOS" as alunos {
+  * id : BIGINT <<PK, FK>>
+  --
+  * email : VARCHAR(160) <<UQ>>
+  * cpf : VARCHAR(11) <<UQ>>
+  * rg : VARCHAR(20) <<UQ>>
+  * endereco : VARCHAR(240)
+  * curso : VARCHAR(120)
+  * instituicao_id : BIGINT <<FK>>
+}
+
+entity "EMPRESAS_PARCEIRAS" as empresas {
+  * id : BIGINT <<PK, FK>>
+  --
+  * email : VARCHAR(160) <<UQ>>
+}
+
+entity "INSTITUICOES_ENSINO" as instituicoes {
+  * id : BIGINT <<PK, IDENTITY>>
+  --
+  * nome : VARCHAR(160) <<UQ>>
+}
+
+usuarios ||--o| alunos
+usuarios ||--o| empresas
+instituicoes ||--o{ alunos
+
+alunos -[hidden]right- empresas
+
+note bottom of usuarios
+  Herança JOINED do JPA:
+  os dados comuns ficam em USUARIOS e cada subtipo
+  utiliza o mesmo identificador como chave primária e estrangeira.
+end note
+
+legend bottom
+  |= Símbolo |= Significado |
+  | PK | chave primária |
+  | FK | chave estrangeira |
+  | UQ | restrição de unicidade |
+  | * | coluna obrigatória (NOT NULL) |
+endlegend
+@enduml

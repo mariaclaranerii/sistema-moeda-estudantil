@@ -6,7 +6,7 @@ O sistema reconhece o mérito estudantil por meio de uma moeda virtual. Professo
 
 ## Situação atual
 
-Sprint 02 - Lab03S02 implementada. O projeto agora contém a aplicação Spring Boot, persistência relacional e os CRUDs MVC de alunos e empresas parceiras. A modelagem da Sprint 01 permanece preservada em `docs/sprint-01`.
+Sprint 02 - Lab03S02 implementada. O projeto contém o Modelo ER, a estratégia de persistência relacional e os CRUDs MVC de alunos e empresas parceiras. A modelagem da Sprint 01 permanece preservada em `docs/sprint-01`.
 
 ## Organização
 
@@ -26,6 +26,9 @@ docs/
   sprint-02/
     README.md
     decisao-persistencia.md
+    diagramas/v1/
+      modelo-er.puml
+      renderizados/
 src/
   main/java/          # domínio, repositórios, serviços e controllers MVC
   main/resources/     # configuração, templates Thymeleaf e estilos
@@ -43,6 +46,8 @@ Os arquivos `.puml` são as fontes editáveis dos diagramas. As imagens SVG e PN
 - Spring Data JPA com Hibernate: estratégia ORM adotada na Sprint 02.
 - H2 em modo arquivo: banco relacional da Sprint 02, substituível por outro SGBD compatível com JPA.
 - PlantUML: diagramas UML editáveis, versionáveis como texto e renderizáveis em SVG.
+
+Os artefatos completos da Sprint 02, inclusive o Modelo ER em formatos editável e renderizados, estão relacionados em [`docs/sprint-02/README.md`](docs/sprint-02/README.md).
 
 ## Execução
 
