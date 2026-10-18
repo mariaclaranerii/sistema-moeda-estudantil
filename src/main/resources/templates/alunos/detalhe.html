@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Detalhes do aluno')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page narrow-page">
+    <a class="back-link" th:href="@{/alunos}">← Voltar para alunos</a>
+    <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+    <section class="detail-card">
+        <div class="detail-header">
+            <div class="avatar" th:text="${#strings.substring(aluno.nome, 0, 1)}">A</div>
+            <div>
+                <span class="eyebrow">Aluno</span>
+                <h1 th:text="${aluno.nome}">Nome do aluno</h1>
+                <span class="status" th:classappend="${aluno.ativo} ? 'active' : 'inactive'" th:text="${aluno.ativo} ? 'Ativo' : 'Inativo'">Ativo</span>
+            </div>
+        </div>
+        <dl class="detail-grid">
+            <div><dt>E-mail</dt><dd th:text="${aluno.email}">email</dd></div>
+            <div><dt>Login</dt><dd th:text="${aluno.login}">login</dd></div>
+            <div><dt>CPF</dt><dd th:text="${aluno.cpf}">cpf</dd></div>
+            <div><dt>RG</dt><dd th:text="${aluno.rg}">rg</dd></div>
+            <div><dt>Curso</dt><dd th:text="${aluno.curso}">curso</dd></div>
+            <div><dt>Instituição</dt><dd th:text="${aluno.instituicao.nome}">instituição</dd></div>
+            <div class="span-2"><dt>Endereço</dt><dd th:text="${aluno.endereco}">endereço</dd></div>
+        </dl>
+        <div class="detail-actions">
+            <a class="button primary" th:href="@{/alunos/{id}/editar(id=${aluno.id})}">Editar cadastro</a>
+            <form th:action="@{/alunos/{id}/situacao(id=${aluno.id})}" method="post">
+                <button class="button danger" type="submit" th:text="${aluno.ativo} ? 'Desativar aluno' : 'Reativar aluno'">Alterar situação</button>
+            </form>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

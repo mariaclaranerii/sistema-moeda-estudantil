@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' · Moeda Estudantil'">Moeda Estudantil</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="site-header" th:fragment="header">
+    <div class="shell header-content">
+        <a class="brand" th:href="@{/}" aria-label="Página inicial">
+            <span class="brand-mark" aria-hidden="true">M</span>
+            <span><strong>Moeda</strong><small>Estudantil</small></span>
+        </a>
+        <nav aria-label="Navegação principal">
+            <a th:href="@{/alunos}">Alunos</a>
+            <a th:href="@{/empresas}">Empresas</a>
+        </nav>
+    </div>
+</header>
+<footer th:fragment="footer">
+    <div class="shell footer-content">
+        <span>PUC Minas · Projeto de Software</span>
+        <span>Sprint 02</span>
+    </div>
+</footer>
+</body>
+</html>

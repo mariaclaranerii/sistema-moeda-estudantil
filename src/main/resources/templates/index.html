@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Início')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <section class="hero">
+        <div class="shell hero-grid">
+            <div>
+                <span class="eyebrow">Laboratório 3 · Sprint 02</span>
+                <h1>Reconhecimento que<br>circula pela comunidade.</h1>
+                <p>Uma base simples e confiável para conectar alunos, instituições e empresas parceiras.</p>
+                <div class="hero-actions">
+                    <a class="button primary" th:href="@{/alunos/novo}">Cadastrar aluno</a>
+                    <a class="button secondary" th:href="@{/empresas/nova}">Cadastrar empresa</a>
+                </div>
+            </div>
+            <div class="coin-stage" aria-hidden="true">
+                <div class="coin coin-back">M</div>
+                <div class="coin coin-front">M</div>
+                <span class="spark spark-one">✦</span>
+                <span class="spark spark-two">✦</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="shell feature-section" aria-labelledby="recursos">
+        <div class="section-heading">
+            <span class="eyebrow">Entregas desta versão</span>
+            <h2 id="recursos">Cadastros prontos para evoluir</h2>
+        </div>
+        <div class="card-grid">
+            <article class="feature-card">
+                <span class="feature-number">01</span>
+                <h3>Alunos</h3>
+                <p>Cadastro completo, instituição participante, edição e desativação com histórico preservado.</p>
+                <a th:href="@{/alunos}">Gerenciar alunos <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="feature-card accent-card">
+                <span class="feature-number">02</span>
+                <h3>Empresas parceiras</h3>
+                <p>Entrada de parceiros, dados de contato, credenciais protegidas e controle de situação.</p>
+                <a th:href="@{/empresas}">Gerenciar empresas <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="feature-card dark-card">
+                <span class="feature-number">03</span>
+                <h3>Persistência</h3>
+                <p>Dados relacionais armazenados com JPA, Hibernate e H2, seguindo o modelo de domínio.</p>
+                <span class="card-note">Base técnica da Sprint 02</span>
+            </article>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

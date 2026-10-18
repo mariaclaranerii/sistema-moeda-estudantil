@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${titulo})}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page narrow-page">
+    <section class="empty-state error-state">
+        <span>!</span>
+        <h1 th:text="${titulo}">Algo não saiu como esperado</h1>
+        <p th:text="${mensagem}">Não foi possível concluir a solicitação.</p>
+        <a class="button primary" th:href="@{/}">Voltar ao início</a>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

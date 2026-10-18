@@ -16,10 +16,10 @@ O enunciado não define todos os detalhes necessários para uma modelagem consis
 | PM10 | O código de resgate é único e não previsível; o mesmo valor é enviado ao aluno e à empresa parceira. | O enunciado exige um código para conferência, e unicidade é necessária para identificar o resgate correto. |
 | PM11 | Instituições e professores são carregados por processo administrativo fora dos fluxos públicos desta versão. | O enunciado afirma que ambos já estarão pré-cadastrados e não descreve interface, ator operador ou formato de importação. |
 | PM12 | O extrato do professor exibe envios e o saldo; o do aluno exibe recebimentos, resgates e o saldo. A carga semestral fica registrada para auditoria, mas sua exibição não é exigida. | Reproduz exatamente as transações mencionadas no enunciado e ainda permite comprovar a composição do saldo do professor. |
-| PM13 | A tecnologia específica do banco de dados e a estratégia definitiva de persistência serão decididas na Sprint 02. | São entregáveis explícitos da Lab03S02 e não devem ser antecipados. |
+| PM13 | A Sprint 02 adotou H2 em modo arquivo, Spring Data JPA e Hibernate; o acesso por JPA mantém aberta a migração futura para PostgreSQL. | A solução é relacional, executável sem infraestrutura externa e suficiente para os CRUDs iniciais. A decisão está detalhada em `sprint-02/decisao-persistencia.md`. |
 | PM14 | Cada aluno e professor possui uma conta própria para o saldo; créditos, transferências e resgates especializam uma transação comum. | Separa os dados de identidade do estado monetário e mantém um histórico uniforme para os extratos, sem acrescentar operações ao escopo. |
 
-## Pontos em aberto para a Sprint 02
+## Pontos ainda em aberto após a Sprint 02
 
 - Campos empresariais adicionais, como CNPJ, endereço e razão social, não foram exigidos e não foram incluídos.
 - O enunciado não define expiração, uso único ou cancelamento do cupom de resgate.

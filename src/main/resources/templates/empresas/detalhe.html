@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Detalhes da empresa')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page narrow-page">
+    <a class="back-link" th:href="@{/empresas}">← Voltar para empresas</a>
+    <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+    <section class="detail-card">
+        <div class="detail-header">
+            <div class="avatar company" th:text="${#strings.substring(empresa.nome, 0, 1)}">E</div>
+            <div>
+                <span class="eyebrow">Empresa parceira</span>
+                <h1 th:text="${empresa.nome}">Empresa</h1>
+                <span class="status" th:classappend="${empresa.ativo} ? 'active' : 'inactive'" th:text="${empresa.ativo} ? 'Ativa' : 'Inativa'">Ativa</span>
+            </div>
+        </div>
+        <dl class="detail-grid">
+            <div><dt>E-mail</dt><dd th:text="${empresa.email}">email</dd></div>
+            <div><dt>Login</dt><dd th:text="${empresa.login}">login</dd></div>
+        </dl>
+        <div class="detail-actions">
+            <a class="button primary" th:href="@{/empresas/{id}/editar(id=${empresa.id})}">Editar cadastro</a>
+            <form th:action="@{/empresas/{id}/situacao(id=${empresa.id})}" method="post">
+                <button class="button danger" type="submit" th:text="${empresa.ativo} ? 'Desativar empresa' : 'Reativar empresa'">Alterar situação</button>
+            </form>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

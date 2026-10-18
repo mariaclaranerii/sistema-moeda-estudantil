@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Alunos')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page">
+    <div class="page-heading heading-actions">
+        <div>
+            <span class="eyebrow">Cadastros</span>
+            <h1>Alunos</h1>
+            <p>Consulte e mantenha os alunos participantes do programa.</p>
+        </div>
+        <a class="button primary" th:href="@{/alunos/novo}">Novo aluno</a>
+    </div>
+
+    <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+
+    <div class="empty-state" th:if="${#lists.isEmpty(alunos)}">
+        <span>ME</span>
+        <h2>Nenhum aluno cadastrado</h2>
+        <p>Comece adicionando o primeiro participante.</p>
+        <a class="button primary" th:href="@{/alunos/novo}">Cadastrar aluno</a>
+    </div>
+
+    <div class="table-wrap" th:unless="${#lists.isEmpty(alunos)}">
+        <table>
+            <thead><tr><th>Aluno</th><th>Curso</th><th>Instituição</th><th>Situação</th><th></th></tr></thead>
+            <tbody>
+            <tr th:each="aluno : ${alunos}" th:classappend="${!aluno.ativo} ? 'muted-row'">
+                <td><strong th:text="${aluno.nome}">Nome</strong><small th:text="${aluno.email}">email</small></td>
+                <td th:text="${aluno.curso}">Curso</td>
+                <td th:text="${aluno.instituicao.nome}">Instituição</td>
+                <td><span class="status" th:classappend="${aluno.ativo} ? 'active' : 'inactive'" th:text="${aluno.ativo} ? 'Ativo' : 'Inativo'">Ativo</span></td>
+                <td class="table-action"><a th:href="@{/alunos/{id}(id=${aluno.id})}" aria-label="Ver detalhes">Ver →</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
