@@ -30,6 +30,9 @@ public class Aluno extends Usuario {
     @JoinColumn(name = "instituicao_id", nullable = false)
     private InstituicaoEnsino instituicao;
 
+    @Column(nullable = false)
+    private Integer saldo = 0;
+
     protected Aluno() {
     }
 
@@ -42,6 +45,7 @@ public class Aluno extends Usuario {
         this.endereco = endereco;
         this.curso = curso;
         this.instituicao = instituicao;
+        this.saldo = 0;
     }
 
     public void atualizarCadastro(String nome, String login, String email, String cpf,
@@ -78,5 +82,26 @@ public class Aluno extends Usuario {
 
     public InstituicaoEnsino getInstituicao() {
         return instituicao;
+    }
+
+    public Integer getSaldo() {
+        return saldo == null ? 0 : saldo;
+    }
+
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo == null ? 0 : saldo;
+    }
+
+    public void creditarMoedas(int quantidade) {
+        if (quantidade > 0) {
+            this.saldo = getSaldo() + quantidade;
+        }
+    }
+
+    public void debitarMoedas(int quantidade) {
+        if (getSaldo() < quantidade) {
+            throw new IllegalArgumentException("Saldo insuficiente.");
+        }
+        this.saldo = getSaldo() - quantidade;
     }
 }

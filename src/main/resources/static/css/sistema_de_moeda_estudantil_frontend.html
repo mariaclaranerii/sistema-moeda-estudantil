@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <!-- Role / User Profile Mock Switcher -->
+        <!-- Role / User Profile Switcher -->
         <div class="px-4 py-3 bg-slate-800/60 mx-3 my-4 rounded-lg border border-slate-700/50 flex flex-col gap-1">
             <label for="user-role-select" class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Visão Atual / Perfil:</label>
             <select id="user-role-select" onchange="switchUserRole(this.value)" class="bg-slate-900 text-xs text-emerald-400 font-medium rounded border border-slate-700 p-1.5 focus:outline-none focus:border-emerald-500">
@@ -105,15 +105,10 @@
             </button>
         </nav>
 
-        <!-- API Config Footer -->
-        <div class="p-4 border-t border-slate-800 bg-slate-950/40 text-xs text-slate-400 flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-                <span class="flex items-center gap-1.5">
-                    <span id="api-status-indicator" class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>
-                    <span id="api-status-text">Modo Simulação</span>
-                </span>
-                <button onclick="openConfigModal()" class="hover:text-white text-slate-400 underline text-[11px]">API Config</button>
-            </div>
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-slate-800 bg-slate-950/40 text-xs text-slate-500 flex items-center justify-between">
+            <span>Moeda Estudantil</span>
+            <span class="text-[11px] text-emerald-400 font-medium">PUC Minas</span>
         </div>
     </aside>
 
@@ -488,115 +483,75 @@
         </div>
     </div>
 
-    <!-- Modal 5: Configuração de Backend API -->
-    <div id="modal-config-api" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl p-6 space-y-4">
-            <div class="flex items-center justify-between border-b pb-3">
-                <h3 class="font-bold text-slate-800 text-base">Configuração de Servidor API</h3>
-                <button onclick="closeModal('modal-config-api')" class="text-slate-400"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <p class="text-xs text-slate-500">Defina a URL base do seu servidor Spring Boot Java para conectar o frontend em modo real.</p>
-            <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">URL Base da API REST</label>
-                <input type="text" id="api-base-url-input" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-slate-800" placeholder="http://localhost:8080/api">
-            </div>
-            <div class="flex items-center gap-2">
-                <input type="checkbox" id="api-use-mock-chk" class="rounded text-emerald-600 focus:ring-0">
-                <label for="api-use-mock-chk" class="text-xs text-slate-600">Forçar Modo Simulação/Mock (Sem servidor Spring)</label>
-            </div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button onclick="saveApiConfig()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-medium">Salvar Preferências</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Application Script Logic -->
     <script>
         /**
-         * APPLICATION STATE & MOCK SEEDS
+         * APPLICATION STATE (Conectado diretamente à API Java)
          */
+        const API_BASE_URL = window.location.port === '8080'
+            ? `${window.location.origin}/api`
+            : 'http://localhost:8080/api';
+
         const APP_STATE = {
-            apiBaseUrl: localStorage.getItem('moeda_api_url') || 'http://localhost:8080/api',
-            useMock: localStorage.getItem('moeda_use_mock') !== 'false',
+            apiBaseUrl: API_BASE_URL,
             currentRole: 'PROFESSOR',
             alunos: [],
             empresas: [],
             transacoes: [],
             vantagens: [],
-            instituicoes: [
-                { id: 1, nome: 'PUC Minas - Coração Eucarístico' },
-                { id: 2, nome: 'PUC Minas - Praça da Liberdade' },
-                { id: 3, nome: 'PUC Minas - Barreiro' }
-            ]
+            instituicoes: [],
+            currentViewId: 'dashboard'
         };
 
-        // Seed Default Data into LocalStorage if empty
-        function initializeMockData() {
-            if (!localStorage.getItem('moeda_alunos')) {
-                const initialAlunos = [
-                    { id: 1, nome: 'Ana Silva', cpf: '123.456.789-01', rg: 'MG-12.345.678', email: 'ana.silva@aluno.pucminas.br', endereco: 'Rua Claudio Manoel, 100 - BH', instituicaoId: 1, instituicaoNome: 'PUC Minas - Coração Eucarístico', curso: 'Engenharia de Software', saldo: 350 },
-                    { id: 2, nome: 'Lucas Oliveira', cpf: '987.654.321-02', rg: 'MG-98.765.432', email: 'lucas.o@aluno.pucminas.br', endereco: 'Av. Afonso Pena, 500 - BH', instituicaoId: 2, instituicaoNome: 'PUC Minas - Praça da Liberdade', curso: 'Ciência da Computação', saldo: 120 },
-                    { id: 3, nome: 'Mariana Costa', cpf: '456.789.123-03', rg: 'MG-45.678.901', email: 'mariana.costa@aluno.pucminas.br', endereco: 'Rua dos Goitacazes, 30 - BH', instituicaoId: 1, instituicaoNome: 'PUC Minas - Coração Eucarístico', curso: 'Sistemas de Informação', saldo: 500 }
-                ];
-                localStorage.setItem('moeda_alunos', JSON.stringify(initialAlunos));
-            }
-
-            if (!localStorage.getItem('moeda_empresas')) {
-                const initialEmpresas = [
-                    { id: 1, nomeFantasia: 'Livraria Acadêmica', razaoSocial: 'Livraria Acadêmica LTDA', cnpj: '12.345.678/0001-90', email: 'contato@livrariaacademica.com', endereco: 'Rua da Bahia, 1200 - Centro', vantagens: 'Desconto de 20% em Livros Didáticos e 15% em Material de Papelaria.' },
-                    { id: 2, nomeFantasia: 'TechBytes Informática', razaoSocial: 'TechBytes Comercio de Informatica SA', cnpj: '98.765.432/0001-10', email: 'parcerias@techbytes.com.br', endereco: 'Av. do Contorno, 3000 - Savassi', vantagens: 'Cupom de R$ 50,00 em Acessórios Gamer e Manutenção de Notebooks.' },
-                    { id: 3, nomeFantasia: 'Café & Estudo', razaoSocial: 'Cafeteria Estudantil EIRELI', cnpj: '45.678.901/0001-55', email: 'cafe@estudo.com.br', endereco: 'Praça da Liberdade, 40 - BH', vantagens: 'Vale Café Expresso + Pão de Queijo Duplo por apenas 30 moedas.' }
-                ];
-                localStorage.setItem('moeda_empresas', JSON.stringify(initialEmpresas));
-            }
-
-            if (!localStorage.getItem('moeda_transacoes')) {
-                const initialTransacoes = [
-                    { id: 101, data: '2026-10-20 14:30', tipo: 'ENVIO_PROFESSOR', origem: 'Prof. Carlos Eduardo', destino: 'Ana Silva', motivo: 'Excelente nota no trabalho de arquitetura', valor: 100 },
-                    { id: 102, data: '2026-10-21 09:15', tipo: 'RESGATE_VANTAGEM', origem: 'Ana Silva', destino: 'Café & Estudo', motivo: 'Resgate: Vale Café Expresso + Pão de Queijo', valor: 30 },
-                    { id: 103, data: '2026-10-21 11:00', tipo: 'ENVIO_PROFESSOR', origem: 'Profa. Beatriz Lima', destino: 'Mariana Costa', motivo: 'Monitoria destacada na disciplina de Algoritmos', valor: 200 }
-                ];
-                localStorage.setItem('moeda_transacoes', JSON.stringify(initialTransacoes));
-            }
-
-            if (!localStorage.getItem('moeda_vantagens')) {
-                const initialVantagens = [
-                    { id: 1, empresaId: 1, empresaNome: 'Livraria Acadêmica', titulo: 'Desconto 20% em Livros', custoMoedas: 150, descricao: 'Válido para qualquer livro técnico ou didático na loja física ou online.', icone: 'fa-book-open' },
-                    { id: 2, empresaId: 2, empresaNome: 'TechBytes Informática', titulo: 'Cupom de R$ 50 em Periféricos', custoMoedas: 300, descricao: 'Válido para teclados, mouses, headsets e acessórios diversos.', icone: 'fa-laptop-code' },
-                    { id: 3, empresaId: 3, empresaNome: 'Café & Estudo', titulo: 'Combo Café + Pão de Queijo', custoMoedas: 30, descricao: 'Apresente o código gerado no caixa do estabelecimento.', icone: 'fa-mug-hot' }
-                ];
-                localStorage.setItem('moeda_vantagens', JSON.stringify(initialVantagens));
-            }
-
-            loadStateFromStorage();
+        /**
+         * API COMMUNICATION HELPERS
+         */
+        async function fetchFromApi(endpoint, options = {}) {
+            const url = `${APP_STATE.apiBaseUrl}${endpoint}`;
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            };
+            const config = { ...defaultOptions, ...options, headers: { ...defaultOptions.headers, ...(options.headers || {}) } };
+            return await fetch(url, config);
         }
 
-        function loadStateFromStorage() {
-            APP_STATE.alunos = JSON.parse(localStorage.getItem('moeda_alunos')) || [];
-            APP_STATE.empresas = JSON.parse(localStorage.getItem('moeda_empresas')) || [];
-            APP_STATE.transacoes = JSON.parse(localStorage.getItem('moeda_transacoes')) || [];
-            APP_STATE.vantagens = JSON.parse(localStorage.getItem('moeda_vantagens')) || [];
-        }
+        async function loadDataFromApi() {
+            try {
+                const [instRes, alunosRes, empresasRes, txRes, vantRes] = await Promise.all([
+                    fetchFromApi('/instituicoes'),
+                    fetchFromApi('/alunos'),
+                    fetchFromApi('/empresas'),
+                    fetchFromApi('/transacoes'),
+                    fetchFromApi('/vantagens')
+                ]);
 
-        function saveStateToStorage() {
-            localStorage.setItem('moeda_alunos', JSON.stringify(APP_STATE.alunos));
-            localStorage.setItem('moeda_empresas', JSON.stringify(APP_STATE.empresas));
-            localStorage.setItem('moeda_transacoes', JSON.stringify(APP_STATE.transacoes));
-            localStorage.setItem('moeda_vantagens', JSON.stringify(APP_STATE.vantagens));
+                if (instRes.ok) APP_STATE.instituicoes = await instRes.json();
+                if (alunosRes.ok) APP_STATE.alunos = await alunosRes.json();
+                if (empresasRes.ok) APP_STATE.empresas = await empresasRes.json();
+                if (txRes.ok) APP_STATE.transacoes = await txRes.json();
+                if (vantRes.ok) APP_STATE.vantagens = await vantRes.json();
+
+                refreshCurrentView(APP_STATE.currentViewId);
+                return true;
+            } catch (err) {
+                console.error('Erro ao comunicar com a API Java:', err);
+                return false;
+            }
         }
 
         /**
          * ROUTING & VIEW NAVIGATION
          */
         function navigateTo(viewId) {
-            // Hide all views
+            APP_STATE.currentViewId = viewId;
             document.querySelectorAll('.content-view').forEach(view => view.classList.add('hidden'));
             
-            // Show target view
             const target = document.getElementById(`view-${viewId}`);
             if (target) target.classList.remove('hidden');
 
-            // Update Active Nav Button Styling
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('bg-slate-800', 'text-white');
                 btn.classList.add('text-slate-300');
@@ -607,7 +562,6 @@
                 activeBtn.classList.remove('text-slate-300');
             }
 
-            // Update Page Titles
             const titles = {
                 dashboard: { title: 'Dashboard', subtitle: 'Estatísticas e panorama do sistema de moedas' },
                 alunos: { title: 'Gestão de Alunos', subtitle: 'Listagem e cadastro de discentes beneficiários' },
@@ -621,7 +575,6 @@
                 document.getElementById('page-subtitle').innerText = titles[viewId].subtitle;
             }
 
-            // Refresh view data
             refreshCurrentView(viewId);
         }
 
@@ -639,7 +592,6 @@
          * RENDER FUNCTIONS
          */
         function renderDashboard() {
-            // Stat Cards
             document.getElementById('stat-total-alunos').innerText = APP_STATE.alunos.length;
             document.getElementById('stat-total-empresas').innerText = APP_STATE.empresas.length;
             
@@ -647,17 +599,15 @@
             document.getElementById('stat-total-moedas').innerHTML = `${totalMoedas.toLocaleString()} <span class="text-xs text-slate-400 font-normal">$M</span>`;
             document.getElementById('stat-total-transacoes').innerText = APP_STATE.transacoes.length;
 
-            // Recent Transactions Table
             const recentTxTable = document.getElementById('dashboard-recent-tx-table');
             recentTxTable.innerHTML = '';
             
-            const sortedTx = [...APP_STATE.transacoes].reverse().slice(0, 5);
+            const sortedTx = [...APP_STATE.transacoes].slice(0, 5);
             if (sortedTx.length === 0) {
                 recentTxTable.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhuma transação registrada.</td></tr>`;
             } else {
                 sortedTx.forEach(tx => {
                     const isEnvio = tx.tipo === 'ENVIO_PROFESSOR';
-                    const badgeClass = isEnvio ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800';
                     const amountSign = isEnvio ? '+' : '-';
                     const amountColor = isEnvio ? 'text-emerald-600 font-bold' : 'text-slate-700 font-semibold';
 
@@ -672,7 +622,6 @@
                 });
             }
 
-            // Popular Advantages List
             const popularContainer = document.getElementById('dashboard-popular-vantagens');
             popularContainer.innerHTML = '';
             APP_STATE.vantagens.forEach(v => {
@@ -699,13 +648,13 @@
 
             const filterText = (document.getElementById('aluno-search-input')?.value || '').toLowerCase();
             const filtered = APP_STATE.alunos.filter(a => 
-                a.nome.toLowerCase().includes(filterText) ||
-                a.cpf.includes(filterText) ||
-                a.curso.toLowerCase().includes(filterText)
+                (a.nome || '').toLowerCase().includes(filterText) ||
+                (a.cpf || '').includes(filterText) ||
+                (a.curso || '').toLowerCase().includes(filterText)
             );
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nenhum aluno encontrado.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nenhum aluno encontrado no servidor Java.</td></tr>`;
                 return;
             }
 
@@ -755,12 +704,12 @@
 
             const filterText = (document.getElementById('empresa-search-input')?.value || '').toLowerCase();
             const filtered = APP_STATE.empresas.filter(e => 
-                e.nomeFantasia.toLowerCase().includes(filterText) ||
-                e.cnpj.includes(filterText)
+                (e.nomeFantasia || '').toLowerCase().includes(filterText) ||
+                (e.cnpj || '').includes(filterText)
             );
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400 bg-white rounded-xl border border-slate-200">Nenhuma empresa parceira cadastrada.</div>`;
+                grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400 bg-white rounded-xl border border-slate-200">Nenhuma empresa parceira cadastrada no servidor Java.</div>`;
                 return;
             }
 
@@ -783,10 +732,10 @@
                             </div>
 
                             <h3 class="font-bold text-slate-800 text-base leading-snug">${emp.nomeFantasia}</h3>
-                            <p class="text-xs text-slate-400 mb-2">${emp.razaoSocial}</p>
+                            <p class="text-xs text-slate-400 mb-2">${emp.razaoSocial || emp.nomeFantasia}</p>
                             
                             <div class="space-y-1 my-3 text-xs text-slate-600">
-                                <p><i class="fa-solid fa-id-card text-slate-400 w-4"></i> CNPJ: <span class="font-mono">${emp.cnpj}</span></p>
+                                <p><i class="fa-solid fa-id-card text-slate-400 w-4"></i> CNPJ: <span class="font-mono">${emp.cnpj || 'Não informado'}</span></p>
                                 <p><i class="fa-solid fa-envelope text-slate-400 w-4"></i> ${emp.email}</p>
                                 <p><i class="fa-solid fa-location-dot text-slate-400 w-4"></i> ${emp.endereco || 'Endereço não informado'}</p>
                             </div>
@@ -810,14 +759,14 @@
             tbody.innerHTML = '';
 
             const typeFilter = document.getElementById('tx-type-filter').value;
-            let list = [...APP_STATE.transacoes].reverse();
+            let list = [...APP_STATE.transacoes];
 
             if (typeFilter !== 'ALL') {
                 list = list.filter(t => t.tipo === typeFilter);
             }
 
             if (list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Nenhuma movimentação registrada para este filtro.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Nenhuma movimentação registrada no servidor Java.</td></tr>`;
                 return;
             }
 
@@ -846,10 +795,14 @@
             const grid = document.getElementById('vantagens-catalog-grid');
             grid.innerHTML = '';
 
-            // Update Current User Balance Display
             const sampleAluno = APP_STATE.alunos[0];
-            const currentBalance = sampleAluno ? sampleAluno.saldo : 0;
+            const currentBalance = sampleAluno ? (sampleAluno.saldo || 0) : 0;
             document.getElementById('user-current-balance').innerText = `${currentBalance} $M`;
+
+            if (APP_STATE.vantagens.length === 0) {
+                grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400 bg-white rounded-xl border border-slate-200">Nenhuma vantagem cadastrada no servidor Java.</div>`;
+                return;
+            }
 
             APP_STATE.vantagens.forEach(v => {
                 const canAfford = currentBalance >= v.custoMoedas;
@@ -862,7 +815,7 @@
                             </div>
                             <span class="text-[11px] font-bold uppercase tracking-wider text-amber-600">${v.empresaNome}</span>
                             <h3 class="font-bold text-slate-800 text-lg my-1">${v.titulo}</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">${v.descricao}</p>
+                            <p class="text-xs text-slate-500 leading-relaxed">${v.descricao || ''}</p>
                         </div>
                         <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
                             <div>
@@ -879,7 +832,7 @@
         }
 
         /**
-         * ACTIONS & MODAL HANDLERS
+         * MODAL CONTROLS
          */
         function openModal(modalId) {
             document.getElementById(modalId)?.classList.remove('hidden');
@@ -889,16 +842,18 @@
             document.getElementById(modalId)?.classList.add('hidden');
         }
 
-        // Populate Institutions Select Options
         function populateInstituicoesSelect() {
             const select = document.getElementById('aluno-instituicao');
+            if (!select) return;
             select.innerHTML = '<option value="">Selecione uma Instituição...</option>';
             APP_STATE.instituicoes.forEach(inst => {
                 select.innerHTML += `<option value="${inst.id}">${inst.nome}</option>`;
             });
         }
 
-        // Open Aluno Modal (Create/Edit)
+        /**
+         * CRUD ALUNO (CHAMADAS HTTP REST PARA JAVA)
+         */
         function openAlunoFormModal(alunoId = null) {
             populateInstituicoesSelect();
             const form = document.getElementById('form-aluno');
@@ -909,13 +864,13 @@
                 if (aluno) {
                     document.getElementById('modal-aluno-title').innerText = 'Editar Aluno';
                     document.getElementById('aluno-id').value = aluno.id;
-                    document.getElementById('aluno-nome').value = aluno.nome;
-                    document.getElementById('aluno-cpf').value = aluno.cpf;
-                    document.getElementById('aluno-rg').value = aluno.rg;
-                    document.getElementById('aluno-email').value = aluno.email;
-                    document.getElementById('aluno-endereco').value = aluno.endereco;
-                    document.getElementById('aluno-instituicao').value = aluno.instituicaoId;
-                    document.getElementById('aluno-curso').value = aluno.curso;
+                    document.getElementById('aluno-nome').value = aluno.nome || '';
+                    document.getElementById('aluno-cpf').value = aluno.cpf || '';
+                    document.getElementById('aluno-rg').value = aluno.rg || '';
+                    document.getElementById('aluno-email').value = aluno.email || '';
+                    document.getElementById('aluno-endereco').value = aluno.endereco || '';
+                    document.getElementById('aluno-instituicao').value = aluno.instituicaoId || '';
+                    document.getElementById('aluno-curso').value = aluno.curso || '';
                 }
             } else {
                 document.getElementById('modal-aluno-title').innerText = 'Cadastrar Novo Aluno';
@@ -925,47 +880,61 @@
             openModal('modal-aluno');
         }
 
-        function handleSaveAluno(e) {
+        async function handleSaveAluno(e) {
             e.preventDefault();
             const id = document.getElementById('aluno-id').value;
             const instSelect = document.getElementById('aluno-instituicao');
-            const instNome = instSelect.options[instSelect.selectedIndex]?.text || '';
 
             const payload = {
-                id: id ? parseInt(id) : Date.now(),
-                nome: document.getElementById('aluno-nome').value,
-                cpf: document.getElementById('aluno-cpf').value,
-                rg: document.getElementById('aluno-rg').value,
-                email: document.getElementById('aluno-email').value,
-                endereco: document.getElementById('aluno-endereco').value,
-                instituicaoId: parseInt(instSelect.value),
-                instituicaoNome: instNome,
-                curso: document.getElementById('aluno-curso').value,
-                saldo: id ? (APP_STATE.alunos.find(a => a.id == id)?.saldo || 0) : 0
+                nome: document.getElementById('aluno-nome').value.trim(),
+                cpf: document.getElementById('aluno-cpf').value.trim(),
+                rg: document.getElementById('aluno-rg').value.trim(),
+                email: document.getElementById('aluno-email').value.trim(),
+                endereco: document.getElementById('aluno-endereco').value.trim(),
+                instituicaoId: parseInt(instSelect.value) || null,
+                curso: document.getElementById('aluno-curso').value.trim()
             };
 
-            if (id) {
-                const index = APP_STATE.alunos.findIndex(a => a.id == id);
-                if (index !== -1) APP_STATE.alunos[index] = payload;
-                showToast('Cadastro do aluno atualizado com sucesso!', 'success');
-            } else {
-                APP_STATE.alunos.push(payload);
-                showToast('Novo aluno cadastrado com sucesso!', 'success');
-            }
+            try {
+                const endpoint = id ? `/alunos/${id}` : '/alunos';
+                const method = id ? 'PUT' : 'POST';
 
-            saveStateToStorage();
-            closeModal('modal-aluno');
-            renderAlunos();
-            renderDashboard();
+                const response = await fetchFromApi(endpoint, {
+                    method: method,
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Erro ao salvar aluno no servidor Java.');
+                }
+
+                closeModal('modal-aluno');
+                showToast(id ? 'Aluno atualizado no Java com sucesso!' : 'Novo aluno cadastrado no Java!', 'success');
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast(err.message || 'Erro de comunicação ao salvar aluno.', 'error');
+            }
         }
 
-        function deleteAluno(id) {
-            if (confirm('Tem certeza que deseja remover este aluno?')) {
-                APP_STATE.alunos = APP_STATE.alunos.filter(a => a.id !== id);
-                saveStateToStorage();
+        async function deleteAluno(id) {
+            if (!confirm('Tem certeza que deseja remover este aluno?')) return;
+
+            try {
+                const response = await fetchFromApi(`/alunos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao remover aluno no servidor.');
+                }
+
                 showToast('Aluno removido do sistema.', 'info');
-                renderAlunos();
-                renderDashboard();
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast('Não foi possível excluir o aluno no servidor Java.', 'error');
             }
         }
 
@@ -1016,7 +985,9 @@
             openModal('modal-aluno-detalhes');
         }
 
-        // Open Empresa Modal (Create/Edit)
+        /**
+         * CRUD EMPRESA (CHAMADAS HTTP REST PARA JAVA)
+         */
         function openEmpresaFormModal(empresaId = null) {
             const form = document.getElementById('form-empresa');
             form.reset();
@@ -1026,12 +997,12 @@
                 if (emp) {
                     document.getElementById('modal-empresa-title').innerText = 'Editar Empresa Parceira';
                     document.getElementById('empresa-id').value = emp.id;
-                    document.getElementById('empresa-nome-fantasia').value = emp.nomeFantasia;
-                    document.getElementById('empresa-razao-social').value = emp.razaoSocial;
-                    document.getElementById('empresa-cnpj').value = emp.cnpj;
-                    document.getElementById('empresa-email').value = emp.email;
-                    document.getElementById('empresa-endereco').value = emp.endereco;
-                    document.getElementById('empresa-vantagens').value = emp.vantagens;
+                    document.getElementById('empresa-nome-fantasia').value = emp.nomeFantasia || '';
+                    document.getElementById('empresa-razao-social').value = emp.razaoSocial || '';
+                    document.getElementById('empresa-cnpj').value = emp.cnpj || '';
+                    document.getElementById('empresa-email').value = emp.email || '';
+                    document.getElementById('empresa-endereco').value = emp.endereco || '';
+                    document.getElementById('empresa-vantagens').value = emp.vantagens || '';
                 }
             } else {
                 document.getElementById('modal-empresa-title').innerText = 'Cadastrar Empresa Parceira';
@@ -1041,46 +1012,65 @@
             openModal('modal-empresa');
         }
 
-        function handleSaveEmpresa(e) {
+        async function handleSaveEmpresa(e) {
             e.preventDefault();
             const id = document.getElementById('empresa-id').value;
 
             const payload = {
-                id: id ? parseInt(id) : Date.now(),
-                nomeFantasia: document.getElementById('empresa-nome-fantasia').value,
-                razaoSocial: document.getElementById('empresa-razao-social').value,
-                cnpj: document.getElementById('empresa-cnpj').value,
-                email: document.getElementById('empresa-email').value,
-                endereco: document.getElementById('empresa-endereco').value,
-                vantagens: document.getElementById('empresa-vantagens').value
+                nomeFantasia: document.getElementById('empresa-nome-fantasia').value.trim(),
+                razaoSocial: document.getElementById('empresa-razao-social').value.trim(),
+                cnpj: document.getElementById('empresa-cnpj').value.trim(),
+                email: document.getElementById('empresa-email').value.trim(),
+                endereco: document.getElementById('empresa-endereco').value.trim(),
+                vantagens: document.getElementById('empresa-vantagens').value.trim()
             };
 
-            if (id) {
-                const index = APP_STATE.empresas.findIndex(e => e.id == id);
-                if (index !== -1) APP_STATE.empresas[index] = payload;
-                showToast('Empresa parceira atualizada!', 'success');
-            } else {
-                APP_STATE.empresas.push(payload);
-                showToast('Empresa parceira cadastrada com sucesso!', 'success');
-            }
+            try {
+                const endpoint = id ? `/empresas/${id}` : '/empresas';
+                const method = id ? 'PUT' : 'POST';
 
-            saveStateToStorage();
-            closeModal('modal-empresa');
-            renderEmpresas();
-            renderDashboard();
-        }
+                const response = await fetchFromApi(endpoint, {
+                    method: method,
+                    body: JSON.stringify(payload)
+                });
 
-        function deleteEmpresa(id) {
-            if (confirm('Deseja cancelar o cadastro desta empresa parceira?')) {
-                APP_STATE.empresas = APP_STATE.empresas.filter(e => e.id !== id);
-                saveStateToStorage();
-                showToast('Empresa removida do sistema.', 'info');
-                renderEmpresas();
-                renderDashboard();
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Erro ao salvar empresa parceira no servidor.');
+                }
+
+                closeModal('modal-empresa');
+                showToast(id ? 'Empresa atualizada no servidor Java!' : 'Empresa parceira cadastrada no Java com sucesso!', 'success');
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast(err.message || 'Erro de comunicação ao salvar empresa.', 'error');
             }
         }
 
-        // Open Send Coins Modal
+        async function deleteEmpresa(id) {
+            if (!confirm('Deseja cancelar o cadastro desta empresa parceira?')) return;
+
+            try {
+                const response = await fetchFromApi(`/empresas/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao remover empresa.');
+                }
+
+                showToast('Empresa parceira removida.', 'info');
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast('Não foi possível remover a empresa no servidor Java.', 'error');
+            }
+        }
+
+        /**
+         * TRANSAÇÕES: ENVIAR MOEDAS & RESGATAR VANTAGEM (CHAMADAS HTTP REST PARA JAVA)
+         */
         function openSendCoinsModal() {
             const select = document.getElementById('send-aluno-id');
             select.innerHTML = '<option value="">Selecione o Aluno...</option>';
@@ -1092,80 +1082,81 @@
             openModal('modal-send-coins');
         }
 
-        function handleSendCoins(e) {
+        async function handleSendCoins(e) {
             e.preventDefault();
             const alunoId = parseInt(document.getElementById('send-aluno-id').value);
             const amount = parseInt(document.getElementById('send-amount').value);
-            const reason = document.getElementById('send-reason').value;
+            const reason = document.getElementById('send-reason').value.trim();
 
-            const aluno = APP_STATE.alunos.find(a => a.id === alunoId);
-            if (!aluno) {
-                showToast('Por favor, selecione um aluno válido.', 'error');
+            if (!alunoId || !amount || amount <= 0) {
+                showToast('Por favor, informe um aluno e uma quantidade válida de moedas.', 'error');
                 return;
             }
 
-            // Update Aluno Balance
-            aluno.saldo = (aluno.saldo || 0) + amount;
-
-            // Register Transaction
-            const now = new Date();
-            const dateStr = now.toISOString().replace('T', ' ').substring(0, 16);
-
-            const tx = {
-                id: Date.now(),
-                data: dateStr,
-                tipo: 'ENVIO_PROFESSOR',
-                origem: 'Prof. Carlos Eduardo', // Logged in Professor
-                destino: aluno.nome,
+            const payload = {
+                alunoId: alunoId,
+                valor: amount,
                 motivo: reason,
-                valor: amount
+                professor: 'Prof. Carlos Eduardo'
             };
 
-            APP_STATE.transacoes.push(tx);
-            saveStateToStorage();
+            try {
+                const response = await fetchFromApi('/transacoes/enviar', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
 
-            showToast(`${amount} Moedas enviadas com sucesso para ${aluno.nome}!`, 'success');
-            closeModal('modal-send-coins');
+                if (!response.ok) {
+                    throw new Error('Erro ao processar envio de moedas no servidor.');
+                }
 
-            renderDashboard();
-            renderAlunos();
-            renderTransacoes();
+                closeModal('modal-send-coins');
+                showToast(`${amount} Moedas transferidas com sucesso via Java API!`, 'success');
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast('Não foi possível enviar as moedas para o servidor Java.', 'error');
+            }
         }
 
-        // Redeem Advantage
-        function redeemVantagem(vantagemId) {
+        async function redeemVantagem(vantagemId) {
             const vantagem = APP_STATE.vantagens.find(v => v.id === vantagemId);
-            const aluno = APP_STATE.alunos[0]; // Active Aluno Mock
+            const aluno = APP_STATE.alunos[0];
 
-            if (!vantagem || !aluno) return;
+            if (!vantagem || !aluno) {
+                showToast('Aluno ou vantagem não disponível.', 'error');
+                return;
+            }
 
-            if (aluno.saldo < vantagem.custoMoedas) {
+            if ((aluno.saldo || 0) < vantagem.custoMoedas) {
                 showToast('Saldo insuficiente de moedas para este resgate.', 'error');
                 return;
             }
 
-            if (confirm(`Confirmar o resgate de "${vantagem.titulo}" por ${vantagem.custoMoedas} $M?`)) {
-                aluno.saldo -= vantagem.custoMoedas;
+            if (!confirm(`Confirmar o resgate de "${vantagem.titulo}" por ${vantagem.custoMoedas} $M?`)) {
+                return;
+            }
 
-                const now = new Date();
-                const dateStr = now.toISOString().replace('T', ' ').substring(0, 16);
-
-                const tx = {
-                    id: Date.now(),
-                    data: dateStr,
-                    tipo: 'RESGATE_VANTAGEM',
-                    origem: aluno.nome,
-                    destino: vantagem.empresaNome,
-                    motivo: `Resgate de Código de Vantagem: ${vantagem.titulo}`,
-                    valor: vantagem.custoMoedas
+            try {
+                const payload = {
+                    vantagemId: vantagemId,
+                    alunoId: aluno.id
                 };
 
-                APP_STATE.transacoes.push(tx);
-                saveStateToStorage();
+                const response = await fetchFromApi('/transacoes/resgatar', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
 
-                showToast(`Resgate efetuado! Apresente seu código no parceiro ${vantagem.empresaNome}.`, 'success');
-                renderVantagens();
-                renderDashboard();
+                if (!response.ok) {
+                    throw new Error('Falha ao registrar resgate no servidor.');
+                }
+
+                showToast(`Resgate efetuado com sucesso no servidor Java! Apresente seu código no parceiro ${vantagem.empresaNome}.`, 'success');
+                await loadDataFromApi();
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao resgatar vantagem no servidor Java.', 'error');
             }
         }
 
@@ -1175,37 +1166,6 @@
         function switchUserRole(role) {
             APP_STATE.currentRole = role;
             showToast(`Visão alterada para: ${role}`, 'info');
-        }
-
-        function openConfigModal() {
-            document.getElementById('api-base-url-input').value = APP_STATE.apiBaseUrl;
-            document.getElementById('api-use-mock-chk').checked = APP_STATE.useMock;
-            openModal('modal-config-api');
-        }
-
-        function saveApiConfig() {
-            APP_STATE.apiBaseUrl = document.getElementById('api-base-url-input').value;
-            APP_STATE.useMock = document.getElementById('api-use-mock-chk').checked;
-
-            localStorage.setItem('moeda_api_url', APP_STATE.apiBaseUrl);
-            localStorage.setItem('moeda_use_mock', APP_STATE.useMock);
-
-            closeModal('modal-config-api');
-            updateApiIndicator();
-            showToast('Configurações de API salvas com sucesso.', 'success');
-        }
-
-        function updateApiIndicator() {
-            const indicator = document.getElementById('api-status-indicator');
-            const text = document.getElementById('api-status-text');
-
-            if (APP_STATE.useMock) {
-                indicator.className = 'w-2 h-2 rounded-full bg-amber-500 inline-block';
-                text.innerText = 'Modo Simulação (Mock)';
-            } else {
-                indicator.className = 'w-2 h-2 rounded-full bg-emerald-500 inline-block';
-                text.innerText = 'API Backend Conectada';
-            }
         }
 
         /**
@@ -1235,12 +1195,10 @@
 
             container.appendChild(toast);
 
-            // Animate In
             setTimeout(() => {
                 toast.classList.remove('translate-y-2', 'opacity-0');
             }, 10);
 
-            // Remove after delay
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-2');
                 setTimeout(() => toast.remove(), 300);
@@ -1250,10 +1208,9 @@
         /**
          * INITIALIZATION ON WINDOW LOAD
          */
-        window.onload = function() {
-            initializeMockData();
-            updateApiIndicator();
+        window.onload = async function() {
             navigateTo('dashboard');
+            await loadDataFromApi();
         };
     </script>
 </body>

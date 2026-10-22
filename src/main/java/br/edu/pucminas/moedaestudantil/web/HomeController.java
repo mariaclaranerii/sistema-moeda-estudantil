@@ -10,4 +10,9 @@ public class HomeController {
     public String inicio() {
         return "index";
     }
+
+    @GetMapping("/app")
+    public String app() {
+        return "redirect:/css/sistema_de_moeda_estudantil_frontend.html";
+    }
 }
