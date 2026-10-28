@@ -1,0 +1,34 @@
+@startuml
+title Sistema de Moeda Estudantil — Componentes MVC (Sprint 03, v2)
+skinparam componentStyle rectangle
+skinparam shadowing false
+top to bottom direction
+
+actor "Aluno / Professor / Empresa" as Ator
+component "Navegador" as Browser
+package "Spring Boot — MVC" {
+  component "Thymeleaf (View)" as View
+  component "Controllers MVC e REST" as Controller
+  component "Spring Security\nLogin, sessão, CSRF" as Security
+  component "Serviços de aplicação\nCadastros, Movimentações, Créditos" as Service
+  component "Modelo JPA" as Domain
+  component "Spring Data Repositories" as Repo
+  component "Notificações\nFila persistida" as Email
+  component "Agendamento semestral" as Schedule
+}
+database "H2 arquivo" as DB
+cloud "SMTP (configurável)" as SMTP
+Ator --> Browser
+Browser --> Security
+Browser --> Controller
+Controller --> View
+Controller --> Service
+Security --> Repo
+Service --> Domain
+Service --> Repo
+Schedule --> Service
+Service --> Email
+Email --> Repo
+Email --> SMTP
+Repo --> DB
+@enduml

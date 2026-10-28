@@ -1,0 +1,105 @@
+@startuml
+title Sistema de Moeda Estudantil — Modelo ER implementado (Sprint 03, v2)
+hide circle
+skinparam linetype ortho
+
+entity USUARIOS {
+ * id : BIGINT <<PK>>
+ --
+ nome : VARCHAR(120)
+ login : VARCHAR(80) <<UQ>>
+ senha_hash : VARCHAR(100)
+ ativo : BOOLEAN
+ versao : BIGINT
+}
+entity ALUNOS {
+ * id : BIGINT <<PK, FK>>
+ --
+ email : VARCHAR(160) <<UQ>>
+ cpf : VARCHAR(11) <<UQ>>
+ rg : VARCHAR(20) <<UQ>>
+ endereco : VARCHAR(240)
+ curso : VARCHAR(120)
+ instituicao_id : BIGINT <<FK>>
+ saldo : INTEGER
+}
+entity PROFESSORES {
+ * id : BIGINT <<PK, FK>>
+ --
+ cpf : VARCHAR(11) <<UQ>>
+ departamento : VARCHAR(120)
+ instituicao_id : BIGINT <<FK>>
+ saldo : INTEGER
+}
+entity EMPRESAS_PARCEIRAS {
+ * id : BIGINT <<PK, FK>>
+ --
+ email : VARCHAR(160) <<UQ>>
+ cnpj : VARCHAR(20)
+ razao_social : VARCHAR(160)
+ endereco : VARCHAR(240)
+ vantagens : VARCHAR(1000)
+}
+entity INSTITUICOES_ENSINO {
+ * id : BIGINT <<PK>>
+ --
+ nome : VARCHAR(160) <<UQ>>
+}
+entity VANTAGENS {
+ * id : BIGINT <<PK>>
+ --
+ empresa_id : BIGINT
+ empresa_nome : VARCHAR(120)
+ titulo : VARCHAR(160)
+ custo_moedas : INTEGER
+ descricao : VARCHAR(1000)
+ foto_referencia : VARCHAR(1000)
+ icone : VARCHAR(60)
+}
+entity TRANSACOES {
+ * id : BIGINT <<PK>>
+ --
+ tipo : VARCHAR(40)
+ origem : VARCHAR(120)
+ destino : VARCHAR(120)
+ motivo : VARCHAR(500)
+ valor : INTEGER
+ data_hora : TIMESTAMP
+ aluno_id : BIGINT
+ professor_id : BIGINT
+ empresa_id : BIGINT
+ vantagem_id : BIGINT
+ codigo_resgate : VARCHAR(40) <<UQ>>
+}
+entity CREDITOS_SEMESTRAIS {
+ * id : BIGINT <<PK>>
+ --
+ professor_id : BIGINT <<FK>>
+ semestre : VARCHAR(10)
+ quantidade : INTEGER
+ criado_em : TIMESTAMP
+}
+entity NOTIFICACOES_EMAIL {
+ * id : BIGINT <<PK>>
+ --
+ destinatario : VARCHAR(160)
+ assunto : VARCHAR(200)
+ mensagem : VARCHAR(3000)
+ enviada : BOOLEAN
+ tentativas : INTEGER
+ criada_em : TIMESTAMP
+}
+USUARIOS ||--o| ALUNOS
+USUARIOS ||--o| PROFESSORES
+USUARIOS ||--o| EMPRESAS_PARCEIRAS
+INSTITUICOES_ENSINO ||--o{ ALUNOS
+INSTITUICOES_ENSINO ||--o{ PROFESSORES
+PROFESSORES ||--o{ CREDITOS_SEMESTRAIS
+EMPRESAS_PARCEIRAS .. VANTAGENS : empresa_id (lógico)
+ALUNOS .. TRANSACOES : aluno_id (lógico)
+PROFESSORES .. TRANSACOES : professor_id (lógico)
+EMPRESAS_PARCEIRAS .. TRANSACOES : empresa_id (lógico)
+note bottom of CREDITOS_SEMESTRAIS
+  UNIQUE(professor_id, semestre)
+end note
+@enduml

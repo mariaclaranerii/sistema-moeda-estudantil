@@ -1,0 +1,109 @@
+@startuml
+title Sistema de Moeda Estudantil — Classes implementadas (Sprint 03, v2)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+abstract class Usuario {
+  - id: Long
+  - nome: String
+  - login: String
+  - senhaHash: String
+  - ativo: boolean
+  - versao: long
+}
+class Aluno {
+  - email: String
+  - cpf: String
+  - rg: String
+  - endereco: String
+  - curso: String
+  - saldo: Integer
+  + creditarMoedas(int): void
+  + debitarMoedas(int): void
+}
+class Professor {
+  - cpf: String
+  - departamento: String
+  - saldo: Integer
+  + creditar(int): void
+  + debitar(int): void
+}
+class EmpresaParceira {
+  - email: String
+  - cnpj: String
+  - razaoSocial: String
+  - endereco: String
+  - vantagens: String
+}
+class InstituicaoEnsino {
+  - id: Long
+  - nome: String
+}
+class Vantagem {
+  - id: Long
+  - empresaId: Long
+  - empresaNome: String
+  - titulo: String
+  - custoMoedas: Integer
+  - descricao: String
+  - fotoReferencia: String
+  - icone: String
+}
+class Transacao {
+  - id: Long
+  - tipo: String
+  - origem: String
+  - destino: String
+  - motivo: String
+  - valor: Integer
+  - dataHora: LocalDateTime
+  - alunoId: Long
+  - professorId: Long
+  - empresaId: Long
+  - vantagemId: Long
+  - codigoResgate: String
+}
+class CreditoSemestral {
+  - id: Long
+  - semestre: String
+  - quantidade: int
+  - criadoEm: LocalDateTime
+}
+class NotificacaoEmail {
+  - id: Long
+  - destinatario: String
+  - assunto: String
+  - mensagem: String
+  - enviada: boolean
+  - tentativas: int
+}
+class SessaoService
+class MovimentacaoService
+class CreditoSemestralService
+class NotificacaoService
+Usuario <|-- Aluno
+Usuario <|-- Professor
+Usuario <|-- EmpresaParceira
+Aluno "*" --> "1" InstituicaoEnsino
+Professor "*" --> "1" InstituicaoEnsino
+Professor "1" -- "*" CreditoSemestral
+EmpresaParceira "1" ..> "*" Vantagem : empresaId
+Aluno "1" ..> "*" Transacao : alunoId
+Professor "1" ..> "*" Transacao : professorId
+EmpresaParceira "1" ..> "*" Transacao : empresaId
+Vantagem "1" ..> "*" Transacao : vantagemId
+MovimentacaoService ..> Aluno
+MovimentacaoService ..> Professor
+MovimentacaoService ..> Transacao
+MovimentacaoService ..> Vantagem
+MovimentacaoService ..> NotificacaoService
+CreditoSemestralService ..> Professor
+CreditoSemestralService ..> CreditoSemestral
+NotificacaoService ..> NotificacaoEmail
+SessaoService ..> Usuario
+note right of Transacao
+  IDs da transação são referências lógicas,
+  sem restrições FK físicas nesta versão.
+end note
+@enduml
