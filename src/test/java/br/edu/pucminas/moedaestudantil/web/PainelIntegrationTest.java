@@ -60,8 +60,9 @@ class PainelIntegrationTest {
             .andExpect(view().name("painel"))
             .andExpect(content().string(containsString("Distribuir moedas")))
             .andExpect(content().string(containsString("Meu perfil")))
-            .andExpect(content().string(not(containsString("Cadastrar aluno"))))
-            .andExpect(content().string(not(containsString("Cadastrar empresa"))));
+            .andExpect(content().string(containsString("Cadastrar aluno")))
+            .andExpect(content().string(containsString("Cadastrar empresa")))
+            .andExpect(content().string(not(containsString(">Entrar</a>"))));
     }
 
     @Test
@@ -93,14 +94,64 @@ class PainelIntegrationTest {
     }
 
     @Test
-    void autenticadosNaoPodemAbrirOuEnviarNovosCadastros() throws Exception {
+    void alunosEEmpresasNaoPodemAbrirOuEnviarNovosCadastros() throws Exception {
         mockMvc.perform(get("/alunos/novo").with(user("aluno.teste").roles("ALUNO")))
             .andExpect(status().isForbidden());
-        mockMvc.perform(get("/empresas/nova").with(user("professor.teste").roles("PROFESSOR")))
+        mockMvc.perform(get("/empresas/nova").with(user("aluno.teste").roles("ALUNO")))
             .andExpect(status().isForbidden());
         mockMvc.perform(post("/alunos").with(user("aluno.teste").roles("ALUNO")).with(csrf()))
             .andExpect(status().isForbidden());
         mockMvc.perform(post("/api/empresas").with(user("empresa.teste").roles("EMPRESA")).with(csrf()))
+            .andExpect(status().isForbidden());
+    }
+
+
+    @Test
+    void professorPodeAbrirERealizarCadastros() throws Exception {
+        mockMvc.perform(get("/alunos/novo").with(user("prof.cadastro").roles("PROFESSOR")))
+            .andExpect(status().isOk()).andExpect(view().name("alunos/formulario"));
+        mockMvc.perform(get("/empresas/nova").with(user("prof.cadastro").roles("PROFESSOR")))
+            .andExpect(status().isOk()).andExpect(view().name("empresas/formulario"));
+
+        long instituicaoId = instituicoes.findAll().get(0).getId();
+        mockMvc.perform(post("/alunos").with(user("prof.cadastro").roles("PROFESSOR")).with(csrf())
+            .param("nome", "Aluno cadastrado pelo professor")
+            .param("email", "criado.professor@exemplo.com")
+            .param("cpf", "89765432100")
+            .param("rg", "MG-1974653")
+            .param("endereco", "Rua Cadastro, 13")
+            .param("curso", "Engenharia de Software")
+            .param("login", "aluno.criado.professor")
+            .param("senha", "senha12345")
+            .param("instituicaoId", Long.toString(instituicaoId)))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/painel"));
+
+        mockMvc.perform(post("/empresas").with(user("prof.cadastro").roles("PROFESSOR")).with(csrf())
+            .param("nome", "Empresa cadastrada pelo professor")
+            .param("email", "empresa.cadastro@exemplo.com")
+            .param("login", "empresa.criada.professor")
+            .param("senha", "senha12345"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/painel"));
+    }
+
+    @Test
+    void professorPodeCadastrarPorApiSemLiberarParaAluno() throws Exception {
+        long instituicaoId = instituicoes.findAll().get(0).getId();
+        String aluno = """
+            {"nome":"Cadastro API", "email":"cadastro.api@exemplo.com",
+             "login":"cadastro.api", "senha":"senha12345", "cpf":"65432109876",
+             "rg":"MG-14578", "endereco":"Rua API, 25",
+             "curso":"Software", "instituicaoId":%d}
+            """.formatted(instituicaoId);
+        mockMvc.perform(post("/api/alunos").with(user("prof.cadastro").roles("PROFESSOR")).with(csrf())
+            .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+            .content(aluno))
+            .andExpect(status().isCreated());
+        mockMvc.perform(post("/api/alunos").with(user("aluno.outro").roles("ALUNO")).with(csrf())
+            .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+            .content(aluno))
             .andExpect(status().isForbidden());
     }
 

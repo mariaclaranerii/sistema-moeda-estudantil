@@ -9,6 +9,7 @@ import br.edu.pucminas.moedaestudantil.service.ConflitoCadastroException;
 import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
 import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,7 +54,8 @@ public class AlunoController {
 
     @PostMapping
     public String criar(@Valid @ModelAttribute AlunoForm alunoForm, BindingResult bindingResult,
-                        Model model, RedirectAttributes redirectAttributes) {
+                        Model model, RedirectAttributes redirectAttributes,
+                        Authentication authentication) {
         if (alunoForm.getSenha() == null || alunoForm.getSenha().isBlank()) {
             bindingResult.rejectValue("senha", "senha.obrigatoria", "Informe uma senha.");
         }
@@ -64,6 +66,10 @@ public class AlunoController {
         try {
             Aluno aluno = alunoService.criar(alunoForm);
             redirectAttributes.addFlashAttribute("sucesso", "Aluno cadastrado com sucesso.");
+            if (authentication != null && authentication.getAuthorities().stream()
+                    .anyMatch(role -> role.getAuthority().equals("ROLE_PROFESSOR"))) {
+                return "redirect:/painel";
+            }
             return "redirect:/login?cadastro";
         } catch (ConflitoCadastroException exception) {
             bindingResult.reject("cadastro.conflito", exception.getMessage());

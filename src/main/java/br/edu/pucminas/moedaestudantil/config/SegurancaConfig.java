@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 public class SegurancaConfig {
@@ -30,8 +31,10 @@ public class SegurancaConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/login", "/css/app.css", "/error", "/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/instituicoes").permitAll()
-                .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova").anonymous()
-                .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas").anonymous()
+                .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova")
+                    .access(new WebExpressionAuthorizationManager("isAnonymous() or hasRole('PROFESSOR')"))
+                .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas")
+                    .access(new WebExpressionAuthorizationManager("isAnonymous() or hasRole('PROFESSOR')"))
                 .requestMatchers("/h2-console/**").denyAll()
                 .requestMatchers("/painel", "/painel/**", "/perfil", "/api/**", "/alunos/**", "/empresas/**", "/app",
                     "/sistema_de_moeda_estudantil_frontend.html").authenticated()

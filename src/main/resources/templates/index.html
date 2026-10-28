@@ -18,6 +18,8 @@
                 <div class="hero-actions" th:if="${cabecalho.autenticado}">
                     <a class="button primary" th:href="@{/painel}">Acessar meu painel</a>
                     <a class="button secondary" th:href="@{/perfil}">Meu perfil</a>
+                    <a class="button secondary" th:if="${cabecalho.perfil == 'Professor'}" th:href="@{/alunos/novo}">Cadastrar aluno</a>
+                    <a class="button secondary" th:if="${cabecalho.perfil == 'Professor'}" th:href="@{/empresas/nova}">Cadastrar empresa</a>
                 </div>
             </div>
             <div class="coin-stage" aria-hidden="true">
@@ -39,14 +41,14 @@
                 <span class="feature-number">01</span>
                 <h3>Alunos</h3>
                 <p>Cadastro completo, instituição participante, edição e desativação com histórico preservado.</p>
-                <a th:unless="${cabecalho.autenticado}" th:href="@{/alunos/novo}">Cadastrar aluno <span aria-hidden="true">→</span></a>
+                <a th:if="${!cabecalho.autenticado or cabecalho.perfil == 'Professor'}" th:href="@{/alunos/novo}">Cadastrar aluno <span aria-hidden="true">→</span></a>
                 <a th:if="${cabecalho.autenticado and cabecalho.perfil == 'Aluno'}" th:href="@{/perfil}">Meu cadastro <span aria-hidden="true">→</span></a>
             </article>
             <article class="feature-card accent-card">
                 <span class="feature-number">02</span>
                 <h3>Empresas parceiras</h3>
                 <p>Entrada de parceiros, dados de contato, credenciais protegidas e controle de situação.</p>
-                <a th:unless="${cabecalho.autenticado}" th:href="@{/empresas/nova}">Cadastrar empresa <span aria-hidden="true">→</span></a>
+                <a th:if="${!cabecalho.autenticado or cabecalho.perfil == 'Professor'}" th:href="@{/empresas/nova}">Cadastrar empresa <span aria-hidden="true">→</span></a>
                 <a th:if="${cabecalho.autenticado and cabecalho.perfil == 'Empresa parceira'}" th:href="@{/perfil}">Meu cadastro <span aria-hidden="true">→</span></a>
             </article>
             <article class="feature-card dark-card">

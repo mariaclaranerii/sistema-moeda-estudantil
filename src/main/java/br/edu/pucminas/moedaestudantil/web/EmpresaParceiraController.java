@@ -6,6 +6,7 @@ import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
 import br.edu.pucminas.moedaestudantil.service.SessaoService;
 import br.edu.pucminas.moedaestudantil.web.form.EmpresaParceiraForm;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +45,7 @@ public class EmpresaParceiraController {
     @PostMapping
     public String criar(@Valid @ModelAttribute EmpresaParceiraForm empresaParceiraForm,
                         BindingResult bindingResult, Model model,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes, Authentication authentication) {
         if (empresaParceiraForm.getSenha() == null || empresaParceiraForm.getSenha().isBlank()) {
             bindingResult.rejectValue("senha", "senha.obrigatoria", "Informe uma senha.");
         }
@@ -55,6 +56,10 @@ public class EmpresaParceiraController {
         try {
             EmpresaParceira empresa = empresaService.criar(empresaParceiraForm);
             redirectAttributes.addFlashAttribute("sucesso", "Empresa parceira cadastrada com sucesso.");
+            if (authentication != null && authentication.getAuthorities().stream()
+                    .anyMatch(role -> role.getAuthority().equals("ROLE_PROFESSOR"))) {
+                return "redirect:/painel";
+            }
             return "redirect:/login?cadastro";
         } catch (ConflitoCadastroException exception) {
             bindingResult.reject("cadastro.conflito", exception.getMessage());
