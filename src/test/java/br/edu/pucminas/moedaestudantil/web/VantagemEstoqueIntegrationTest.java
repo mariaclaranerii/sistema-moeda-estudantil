@@ -157,6 +157,10 @@ class VantagemEstoqueIntegrationTest {
         Vantagem item = vantagem(loja, "Cupom oculto");
         item.desativar();
         vantagens.save(item);
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        alunos.save(new Aluno("Aluno Catálogo", "aluno.api", encoder.encode("senha12345"),
+            "catalogo.api@exemplo.com", "21212121212", "MG-211212",
+            "Rua do Catálogo, 11", "Software", instituicao));
         mockMvc.perform(get("/api/vantagens").with(user("aluno.api").roles("ALUNO")))
             .andExpect(status().isOk())
             .andExpect(content().string(not(containsString("Cupom oculto"))));
