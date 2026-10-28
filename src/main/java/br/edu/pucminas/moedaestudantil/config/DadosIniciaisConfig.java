@@ -26,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DadosIniciaisConfig {
 
     @Bean
+    @org.springframework.core.annotation.Order(1)
     ApplicationRunner cadastrarInstituicoesIniciais(InstituicaoEnsinoRepository repository) {
         return (ApplicationArguments ignored) -> {
             if (repository.count() == 0) {
@@ -40,6 +41,7 @@ public class DadosIniciaisConfig {
 
     @Bean
     @Profile("demo")
+    @org.springframework.core.annotation.Order(2)
     ApplicationRunner cadastrarDadosDemonstracao(
             AlunoRepository alunoRepository,
             EmpresaParceiraRepository empresaRepository,

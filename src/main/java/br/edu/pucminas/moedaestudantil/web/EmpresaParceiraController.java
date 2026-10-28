@@ -3,6 +3,7 @@ package br.edu.pucminas.moedaestudantil.web;
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
 import br.edu.pucminas.moedaestudantil.service.ConflitoCadastroException;
 import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
+import br.edu.pucminas.moedaestudantil.service.SessaoService;
 import br.edu.pucminas.moedaestudantil.web.form.EmpresaParceiraForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -20,15 +21,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class EmpresaParceiraController {
 
     private final EmpresaParceiraService empresaService;
+    private final SessaoService sessao;
 
-    public EmpresaParceiraController(EmpresaParceiraService empresaService) {
+    public EmpresaParceiraController(EmpresaParceiraService empresaService, SessaoService sessao) {
+        this.sessao = sessao;
         this.empresaService = empresaService;
     }
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("empresas", empresaService.listar());
-        return "empresas/lista";
+        sessao.empresa();
+        return "redirect:/empresas/" + sessao.usuario().getId();
     }
 
     @GetMapping("/nova")
@@ -52,7 +55,7 @@ public class EmpresaParceiraController {
         try {
             EmpresaParceira empresa = empresaService.criar(empresaParceiraForm);
             redirectAttributes.addFlashAttribute("sucesso", "Empresa parceira cadastrada com sucesso.");
-            return "redirect:/empresas/" + empresa.getId();
+            return "redirect:/login?cadastro";
         } catch (ConflitoCadastroException exception) {
             bindingResult.reject("cadastro.conflito", exception.getMessage());
             model.addAttribute("modo", "novo");
@@ -62,12 +65,16 @@ public class EmpresaParceiraController {
 
     @GetMapping("/{id}")
     public String detalhar(@PathVariable Long id, Model model) {
+        sessao.empresa();
+        sessao.exigirProprietario(id);
         model.addAttribute("empresa", empresaService.buscar(id));
         return "empresas/detalhe";
     }
 
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
+        sessao.empresa();
+        sessao.exigirProprietario(id);
         model.addAttribute("empresaParceiraForm", EmpresaParceiraForm.from(empresaService.buscar(id)));
         prepararEdicao(model, id);
         return "empresas/formulario";
@@ -78,6 +85,8 @@ public class EmpresaParceiraController {
                             @Valid @ModelAttribute EmpresaParceiraForm empresaParceiraForm,
                             BindingResult bindingResult, Model model,
                             RedirectAttributes redirectAttributes) {
+        sessao.empresa();
+        sessao.exigirProprietario(id);
         if (bindingResult.hasErrors()) {
             prepararEdicao(model, id);
             return "empresas/formulario";
@@ -95,6 +104,8 @@ public class EmpresaParceiraController {
 
     @PostMapping("/{id}/situacao")
     public String alternarSituacao(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        sessao.empresa();
+        sessao.exigirProprietario(id);
         empresaService.alternarSituacao(id);
         redirectAttributes.addFlashAttribute("sucesso", "Situação da empresa alterada.");
         return "redirect:/empresas/" + id;

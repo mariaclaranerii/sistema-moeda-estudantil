@@ -4,6 +4,7 @@ import br.edu.pucminas.moedaestudantil.model.Aluno;
 import br.edu.pucminas.moedaestudantil.model.InstituicaoEnsino;
 import br.edu.pucminas.moedaestudantil.repository.InstituicaoEnsinoRepository;
 import br.edu.pucminas.moedaestudantil.service.AlunoService;
+import br.edu.pucminas.moedaestudantil.service.SessaoService;
 import br.edu.pucminas.moedaestudantil.service.ConflitoCadastroException;
 import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
 import jakarta.validation.Valid;
@@ -23,9 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AlunoController {
 
     private final AlunoService alunoService;
+    private final SessaoService sessao;
     private final InstituicaoEnsinoRepository instituicaoRepository;
 
-    public AlunoController(AlunoService alunoService, InstituicaoEnsinoRepository instituicaoRepository) {
+    public AlunoController(AlunoService alunoService, InstituicaoEnsinoRepository instituicaoRepository, SessaoService sessao) {
+        this.sessao = sessao;
         this.alunoService = alunoService;
         this.instituicaoRepository = instituicaoRepository;
     }
@@ -37,8 +40,8 @@ public class AlunoController {
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("alunos", alunoService.listar());
-        return "alunos/lista";
+        sessao.aluno();
+        return "redirect:/alunos/" + sessao.usuario().getId();
     }
 
     @GetMapping("/novo")
@@ -61,7 +64,7 @@ public class AlunoController {
         try {
             Aluno aluno = alunoService.criar(alunoForm);
             redirectAttributes.addFlashAttribute("sucesso", "Aluno cadastrado com sucesso.");
-            return "redirect:/alunos/" + aluno.getId();
+            return "redirect:/login?cadastro";
         } catch (ConflitoCadastroException exception) {
             bindingResult.reject("cadastro.conflito", exception.getMessage());
             model.addAttribute("modo", "novo");
@@ -71,12 +74,16 @@ public class AlunoController {
 
     @GetMapping("/{id}")
     public String detalhar(@PathVariable Long id, Model model) {
+        sessao.aluno();
+        sessao.exigirProprietario(id);
         model.addAttribute("aluno", alunoService.buscar(id));
         return "alunos/detalhe";
     }
 
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
+        sessao.aluno();
+        sessao.exigirProprietario(id);
         model.addAttribute("alunoForm", AlunoForm.from(alunoService.buscar(id)));
         model.addAttribute("alunoId", id);
         model.addAttribute("modo", "editar");
@@ -87,6 +94,8 @@ public class AlunoController {
     public String atualizar(@PathVariable Long id, @Valid @ModelAttribute AlunoForm alunoForm,
                             BindingResult bindingResult, Model model,
                             RedirectAttributes redirectAttributes) {
+        sessao.aluno();
+        sessao.exigirProprietario(id);
         if (bindingResult.hasErrors()) {
             prepararEdicao(model, id);
             return "alunos/formulario";
@@ -104,6 +113,8 @@ public class AlunoController {
 
     @PostMapping("/{id}/situacao")
     public String alternarSituacao(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        sessao.aluno();
+        sessao.exigirProprietario(id);
         alunoService.alternarSituacao(id);
         redirectAttributes.addFlashAttribute("sucesso", "Situação do aluno alterada.");
         return "redirect:/alunos/" + id;

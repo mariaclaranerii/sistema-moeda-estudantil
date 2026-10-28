@@ -94,7 +94,8 @@ public class MovimentacaoService {
     public Vantagem cadastrarVantagem(String titulo, Integer custo, String descricao, String foto) {
         EmpresaParceira empresa = sessao.empresa();
         if (titulo == null || titulo.isBlank() || custo == null || custo <= 0 ||
-            descricao == null || descricao.isBlank() || foto == null || foto.isBlank()) {
+            descricao == null || descricao.isBlank() || foto == null || !foto.startsWith("https://") ||
+            foto.length() > 1000 || titulo.length() > 160 || descricao.length() > 1000) {
             throw new IllegalArgumentException("Informe título, custo, descrição e referência da foto.");
         }
         Vantagem vantagem = new Vantagem(empresa.getId(), empresa.getNome(), titulo.trim(),

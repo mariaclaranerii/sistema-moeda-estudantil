@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Meu painel')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page">
+  <div class="page-heading heading-actions">
+    <div>
+      <span class="eyebrow" th:text="${tipo == 'ALUNO' ? 'Área do aluno' : (tipo == 'PROFESSOR' ? 'Área do professor' : 'Área da empresa parceira')}">Meu perfil</span>
+      <h1 th:text="'Olá, ' + ${usuario.nome}">Meu painel</h1>
+      <p>Conta de moeda estudantil · movimentações e vantagens</p>
+    </div>
+    <form th:action="@{/logout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <button class="button secondary" type="submit">Sair</button>
+    </form>
+  </div>
+  <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+  <div class="notice" th:if="${erro}" th:text="${erro}"></div>
+
+  <section th:if="${tipo == 'ALUNO' or tipo == 'PROFESSOR'}" class="detail-card" style="margin-bottom:1.5rem">
+    <span class="eyebrow">Saldo disponível</span>
+    <h2 th:text="${saldo} + ' moedas'">0 moedas</h2>
+  </section>
+
+  <section th:if="${tipo == 'PROFESSOR'}" class="detail-card" style="margin-bottom:1.5rem">
+    <h2>Distribuir moedas</h2>
+    <p>Selecione um aluno e descreva o motivo do reconhecimento.</p>
+    <form th:action="@{/painel/enviar}" method="post" style="display:grid;gap:1rem;max-width:520px;margin-top:1rem">
+      <label>Aluno
+        <select name="alunoId" required style="display:block;width:100%;padding:.7rem">
+          <option value="">Selecione</option>
+          <option th:each="a : ${alunos}" th:value="${a.id}" th:text="${a.nome + ' — ' + a.curso}"></option>
+        </select>
+      </label>
+      <label>Quantidade <input name="quantidade" type="number" min="1" step="1" required style="display:block;width:100%;padding:.7rem"></label>
+      <label>Motivo <textarea name="motivo" rows="3" required maxlength="500" style="display:block;width:100%;padding:.7rem"></textarea></label>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <button class="button primary" type="submit">Enviar moedas</button>
+    </form>
+  </section>
+
+  <section th:if="${tipo == 'ALUNO'}" style="margin-bottom:1.5rem">
+    <div class="section-heading"><h2>Vantagens disponíveis</h2></div>
+    <div class="card-grid">
+      <article class="feature-card" th:each="v : ${vantagens}">
+        <img th:if="${v.fotoReferencia != null and !v.fotoReferencia.isBlank()}" th:src="${v.fotoReferencia}"
+             th:alt="'Foto de ' + ${v.titulo}" style="width:100%;height:155px;object-fit:cover;border-radius:.5rem">
+        <h3 th:text="${v.titulo}">Vantagem</h3>
+        <p th:text="${v.empresaNome}">Parceiro</p>
+        <p th:text="${v.descricao}">Descrição</p>
+        <strong th:text="${v.custoMoedas} + ' moedas'">100 moedas</strong>
+        <form th:action="@{/painel/resgatar}" method="post" style="margin-top:1rem">
+          <input type="hidden" name="vantagemId" th:value="${v.id}">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          <button class="button primary" type="submit" th:disabled="${saldo < v.custoMoedas}">Resgatar vantagem</button>
+        </form>
+      </article>
+    </div>
+    <p th:if="${#lists.isEmpty(vantagens)}">Nenhuma vantagem cadastrada.</p>
+  </section>
+
+  <section th:if="${tipo == 'EMPRESA'}" class="detail-card" style="margin-bottom:1.5rem">
+    <h2>Cadastrar vantagem</h2>
+    <form th:action="@{/painel/vantagens}" method="post" style="display:grid;gap:1rem;max-width:520px;margin-top:1rem">
+      <label>Título <input name="titulo" maxlength="160" required style="display:block;width:100%;padding:.7rem"></label>
+      <label>Custo em moedas <input name="custo" type="number" min="1" required style="display:block;width:100%;padding:.7rem"></label>
+      <label>Descrição <textarea name="descricao" rows="3" required maxlength="1000" style="display:block;width:100%;padding:.7rem"></textarea></label>
+      <label>URL HTTPS da foto <input name="fotoReferencia" type="url" pattern="https://.*" maxlength="1000" placeholder="https://..." required style="display:block;width:100%;padding:.7rem"></label>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <button class="button primary" type="submit">Cadastrar vantagem</button>
+    </form>
+    <h3 style="margin-top:2rem">Minhas vantagens</h3>
+    <div th:each="v : ${vantagens}" style="padding:.7rem 0;border-bottom:1px solid #e2e8f0">
+      <strong th:text="${v.titulo}"></strong>
+      <span th:text="' · ' + ${v.custoMoedas} + ' moedas'"></span>
+    </div>
+  </section>
+
+  <section class="detail-card">
+    <h2 th:text="${tipo == 'EMPRESA' ? 'Resgates recebidos' : 'Extrato de moedas'}">Extrato</h2>
+    <p th:if="${#lists.isEmpty(extrato)}">Nenhuma movimentação registrada.</p>
+    <div class="table-wrap" th:unless="${#lists.isEmpty(extrato)}">
+      <table><thead><tr><th>Data</th><th>Tipo</th><th>Origem</th><th>Destino</th><th>Motivo / cupom</th><th>Moedas</th></tr></thead>
+      <tbody><tr th:each="t : ${extrato}">
+        <td th:text="${#temporals.format(t.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${t.tipo}"></td>
+        <td th:text="${t.origem}"></td>
+        <td th:text="${t.destino}"></td>
+        <td><span th:text="${t.motivo}"></span>
+          <small th:if="${t.codigoResgate != null}" th:text="'Código: ' + ${t.codigoResgate}"></small>
+        </td>
+        <td th:text="${t.valor}"></td>
+      </tr></tbody></table>
+    </div>
+  </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

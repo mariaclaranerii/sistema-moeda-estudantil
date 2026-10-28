@@ -28,11 +28,12 @@ public class SegurancaConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/css/**", "/error").permitAll()
+                .requestMatchers("/", "/login", "/css/app.css", "/error").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/instituicoes").permitAll()
                 .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova").permitAll()
                 .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas").permitAll()
                 .requestMatchers("/h2-console/**").denyAll()
-                .requestMatchers("/painel/**", "/api/**", "/alunos/**", "/empresas/**", "/app",
+                .requestMatchers("/painel", "/painel/**", "/api/**", "/alunos/**", "/empresas/**", "/app",
                     "/sistema_de_moeda_estudantil_frontend.html").authenticated()
                 .anyRequest().denyAll())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/painel", true).permitAll())

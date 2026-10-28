@@ -13,6 +13,6 @@ public class HomeController {
 
     @GetMapping("/app")
     public String app() {
-        return "redirect:/css/sistema_de_moeda_estudantil_frontend.html";
+        return "redirect:/painel";
     }
 }
