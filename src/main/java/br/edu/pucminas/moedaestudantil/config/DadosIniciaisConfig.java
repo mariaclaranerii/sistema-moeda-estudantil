@@ -119,11 +119,11 @@ public class DadosIniciaisConfig {
 
             if (vantagemRepository.count() == 0) {
                 vantagemRepository.saveAll(List.of(
-                        new Vantagem(1L, "Livraria Acadêmica", "Desconto 20% em Livros", 150,
+                        new Vantagem(empresaRepository.findAll().stream().filter(e -> e.getNome().equals("Livraria Acadêmica")).findFirst().orElseThrow().getId(), "Livraria Acadêmica", "Desconto 20% em Livros", 150,
                                 "Válido para qualquer livro técnico ou didático na loja física ou online.", "fa-book-open"),
-                        new Vantagem(2L, "TechBytes Informática", "Cupom de R$ 50 em Periféricos", 300,
+                        new Vantagem(empresaRepository.findAll().stream().filter(e -> e.getNome().equals("TechBytes Informática")).findFirst().orElseThrow().getId(), "TechBytes Informática", "Cupom de R$ 50 em Periféricos", 300,
                                 "Válido para teclados, mouses, headsets e acessórios diversos.", "fa-laptop-code"),
-                        new Vantagem(3L, "Café & Estudo", "Combo Café + Pão de Queijo", 30,
+                        new Vantagem(empresaRepository.findAll().stream().filter(e -> e.getNome().equals("Café & Estudo")).findFirst().orElseThrow().getId(), "Café & Estudo", "Combo Café + Pão de Queijo", 30,
                                 "Apresente o código gerado no caixa do estabelecimento.", "fa-mug-hot")
                 ));
             }

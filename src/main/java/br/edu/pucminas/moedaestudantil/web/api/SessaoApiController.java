@@ -4,6 +4,7 @@ import br.edu.pucminas.moedaestudantil.model.*;
 import br.edu.pucminas.moedaestudantil.service.SessaoService;
 import java.util.Map;
 import org.springframework.security.web.csrf.CsrfToken;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,7 +14,8 @@ public class SessaoApiController {
     public SessaoApiController(SessaoService sessao) { this.sessao = sessao; }
 
     @GetMapping
-    public Map<String, Object> atual(CsrfToken csrf) {
+    public Map<String, Object> atual(HttpServletRequest request) {
+        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         Usuario usuario = sessao.usuario();
         String perfil = usuario instanceof Aluno ? "ALUNO" :
                          usuario instanceof Professor ? "PROFESSOR" : "EMPRESA";

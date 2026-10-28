@@ -1,63 +1,58 @@
 # Sistema de Moeda Estudantil
 
-Projeto acadêmico da disciplina Projeto de Software, do curso de Engenharia de Software da PUC Minas (Laboratório 3, 2º semestre de 2026).
+Projeto de Software · Engenharia de Software · PUC Minas · Laboratório 3 (2026/2)
 
-O sistema reconhece o mérito estudantil por meio de uma moeda virtual. Professores distribuem moedas a alunos, que podem trocá-las por vantagens oferecidas por empresas parceiras.
+Aplicação MVC para reconhecimento do mérito acadêmico. Professores recebem uma carga semestral de moedas, podem distribuí-las aos alunos e os alunos as trocam por vantagens de empresas parceiras.
 
-## Situação atual
+## Funcionalidades
 
-Sprint 02 - Lab03S02 implementada. O projeto contém o Modelo ER, a estratégia de persistência relacional e os CRUDs MVC de alunos e empresas parceiras. A modelagem da Sprint 01 permanece preservada em `docs/sprint-01`.
+- Cadastros de aluno e empresa parceira, com edição e desativação lógica.
+- Autenticação por login/senha e acesso individual aos dados.
+- Cadastro prévio de instituições e professores.
+- Crédito semestral acumulativo de 1.000 moedas por professor.
+- Transferência com motivo, conferência de saldo e extratos.
+- Vantagens com custo, descrição e foto.
+- Resgate com código exclusivo e notificações ao aluno e à empresa.
+- Persistência H2, ORM JPA e testes de integração.
 
-## Organização
+## Tecnologias
 
-```text
-docs/
-  requisitos.md
-  premissas-de-modelagem.md
-  rastreabilidade.md
-  sprint-01/
-    README.md
-    historias-de-usuario.md
-    diagramas/v1/
-      casos-de-uso.puml
-      classes.puml
-      componentes.puml
-      renderizados/
-  sprint-02/
-    README.md
-    decisao-persistencia.md
-    diagramas/v1/
-      modelo-er.puml
-      renderizados/
-src/
-  main/java/          # domínio, repositórios, serviços e controllers MVC
-  main/resources/     # configuração, templates Thymeleaf e estilos
-  test/java/          # testes automatizados de integração
-```
+Java 17, Spring Boot 3.5.7, Spring MVC, Spring Security, Thymeleaf, Spring Data JPA, Hibernate, H2, Spring Mail, Maven e PlantUML.
 
-Os arquivos `.puml` são as fontes editáveis dos diagramas. As imagens SVG e PNG são versões renderizadas para consulta. Novas versões dos modelos deverão ser adicionadas em uma nova pasta de versão, mantendo as anteriores e o histórico Git.
+## Executar
 
-## Tecnologias definidas para orientar a modelagem
-
-- Java 17 LTS: versão estável, amplamente suportada e suficiente para o contexto acadêmico.
-- Spring Boot com Spring MVC: implementação direta do padrão MVC exigido e baixo custo de configuração.
-- Thymeleaf: views renderizadas no servidor, evitando a complexidade de uma aplicação front-end separada.
-- Maven: build e dependências com estrutura convencional para projetos Java.
-- Spring Data JPA com Hibernate: estratégia ORM adotada na Sprint 02.
-- H2 em modo arquivo: banco relacional da Sprint 02, substituível por outro SGBD compatível com JPA.
-- PlantUML: diagramas UML editáveis, versionáveis como texto e renderizáveis em SVG.
-
-Os artefatos completos da Sprint 02, inclusive o Modelo ER em formatos editável e renderizados, estão relacionados em [`docs/sprint-02/README.md`](docs/sprint-02/README.md).
-
-## Execução
-
-Com Java 17 e Maven 3.9 ou superior instalados:
+Requer JDK 17 e Maven 3.9+.
 
 ```bash
 mvn spring-boot:run
 ```
 
-A aplicação ficará disponível em `http://localhost:8080`. Execute a suíte automatizada com `mvn test`.
+Acesse **http://localhost:8080**. Para iniciar com dados e contas de demonstração:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=demo
+```
+
+| Perfil | Login de demonstração | Senha |
+|---|---|---|
+| Aluno | `ana.silva` | `12345678` |
+| Professor | `prof.carlos` | `12345678` |
+| Empresa parceira | `livraria.academica` | `12345678` |
+
+**Use o perfil `demo` somente localmente.** Os dados ficam em `data/`, fora do versionamento Git. Para testar: `mvn test`.
+
+Notificações ficam registradas na base. O envio externo exige SMTP configurado por variáveis de ambiente. Consulte a documentação da Sprint 03 para mais detalhes.
+
+## Documentação e modelagem
+
+- [Sprint 01 — Casos de uso, histórias e diagramas](docs/sprint-01/README.md)
+- [Sprint 02 — Modelo ER, persistência e CRUDs iniciais](docs/sprint-02/README.md)
+- [Sprint 03 — Arquitetura, implementação final e demonstração](docs/sprint-03/README.md)
+- [Requisitos](docs/requisitos.md)
+- [Rastreabilidade](docs/rastreabilidade.md)
+- [Premissas de modelagem](docs/premissas-de-modelagem.md)
+
+Os diagramas antigos permanecem preservados. As fontes atualizadas do diagrama de classes, componentes e Modelo ER estão em `docs/sprint-03/diagramas/v2/`.
 
 ## Integrantes
 

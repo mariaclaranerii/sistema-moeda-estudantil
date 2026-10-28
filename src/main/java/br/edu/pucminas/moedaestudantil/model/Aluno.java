@@ -89,12 +89,13 @@ public class Aluno extends Usuario {
     }
 
     public void setSaldo(Integer saldo) {
+        if (saldo != null && saldo < 0) throw new IllegalArgumentException("Saldo inválido.");
         this.saldo = saldo == null ? 0 : saldo;
     }
 
     public void creditarMoedas(int quantidade) {
         if (quantidade > 0) {
-            this.saldo = getSaldo() + quantidade;
+            this.saldo = Math.addExact(getSaldo(), quantidade);
         }
     }
 
