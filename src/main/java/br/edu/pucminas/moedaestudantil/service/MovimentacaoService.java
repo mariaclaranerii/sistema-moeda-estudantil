@@ -1,0 +1,105 @@
+package br.edu.pucminas.moedaestudantil.service;
+
+import br.edu.pucminas.moedaestudantil.model.*;
+import br.edu.pucminas.moedaestudantil.repository.*;
+import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.util.HexFormat;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class MovimentacaoService {
+    private static final SecureRandom RANDOM = new SecureRandom();
+    private final SessaoService sessao;
+    private final AlunoRepository alunos;
+    private final ProfessorRepository professores;
+    private final EmpresaParceiraRepository empresas;
+    private final VantagemRepository vantagens;
+    private final TransacaoRepository transacoes;
+    private final NotificacaoService notificacoes;
+    private final CreditoSemestralRepository creditos;
+
+    public MovimentacaoService(SessaoService sessao, AlunoRepository alunos,
+                              ProfessorRepository professores, EmpresaParceiraRepository empresas,
+                              VantagemRepository vantagens, TransacaoRepository transacoes,
+                              NotificacaoService notificacoes, CreditoSemestralRepository creditos) {
+        this.sessao = sessao;
+        this.alunos = alunos;
+        this.professores = professores;
+        this.empresas = empresas;
+        this.vantagens = vantagens;
+        this.transacoes = transacoes;
+        this.notificacoes = notificacoes;
+        this.creditos = creditos;
+    }
+
+    @Transactional
+    public Transacao enviar(Long alunoId, Integer quantidade, String motivo) {
+        Professor professor = sessao.professor();
+        if (alunoId == null || quantidade == null || quantidade <= 0 || motivo == null || motivo.isBlank()) {
+            throw new IllegalArgumentException("Informe aluno, quantidade positiva e motivo obrigatório.");
+        }
+        Aluno aluno = alunos.findById(alunoId)
+            .orElseThrow(() -> new RegistroNaoEncontradoException("Aluno não encontrado."));
+        if (!aluno.isAtivo()) throw new IllegalArgumentException("Aluno inativo.");
+        professor.debitar(quantidade);
+        aluno.creditarMoedas(quantidade);
+        professores.save(professor);
+        alunos.save(aluno);
+        Transacao t = new Transacao("ENVIO_PROFESSOR", professor.getNome(), aluno.getNome(),
+            motivo.trim(), quantidade);
+        t.vincularTransferencia(professor.getId(), aluno.getId());
+        t = transacoes.save(t);
+        notificacoes.registrar(aluno.getEmail(), "Você recebeu moedas estudantis",
+            "Você recebeu " + quantidade + " moedas de " + professor.getNome() + ".\nMotivo: " + motivo.trim());
+        return t;
+    }
+
+    @Transactional
+    public Transacao resgatar(Long vantagemId) {
+        Aluno aluno = sessao.aluno();
+        if (vantagemId == null) throw new IllegalArgumentException("Selecione uma vantagem.");
+        Vantagem vantagem = vantagens.findById(vantagemId)
+            .orElseThrow(() -> new RegistroNaoEncontradoException("Vantagem não encontrada."));
+        EmpresaParceira empresa = empresas.findById(vantagem.getEmpresaId())
+            .orElseThrow(() -> new RegistroNaoEncontradoException("Empresa da vantagem não encontrada."));
+        if (!empresa.isAtivo()) throw new IllegalArgumentException("Empresa inativa.");
+        if (vantagem.getCustoMoedas() == null || vantagem.getCustoMoedas() <= 0)
+            throw new IllegalArgumentException("Valor da vantagem inválido.");
+        aluno.debitarMoedas(vantagem.getCustoMoedas());
+        alunos.save(aluno);
+        String codigo = HexFormat.of().formatHex(RANDOM.generateSeed(16)).toUpperCase();
+        Transacao t = new Transacao("RESGATE_VANTAGEM", aluno.getNome(), empresa.getNome(),
+                "Resgate: " + vantagem.getTitulo(), vantagem.getCustoMoedas());
+        t.vincularResgate(aluno.getId(), empresa.getId(), vantagemId, codigo);
+        t = transacoes.save(t);
+        String mensagem = "Cupom de resgate: " + codigo + "\nVantagem: " + vantagem.getTitulo()
+                + "\nAluno: " + aluno.getNome() + "\nCusto: " + vantagem.getCustoMoedas() + " moedas.";
+        notificacoes.registrar(aluno.getEmail(), "Cupom de resgate de vantagem", mensagem);
+        notificacoes.registrar(empresa.getEmail(), "Conferência de resgate de vantagem", mensagem);
+        return t;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Transacao> extrato() {
+        Usuario usuario = sessao.usuario();
+        if (usuario instanceof Aluno) return transacoes.findAllByAlunoIdOrderByDataHoraDesc(usuario.getId());
+        if (usuario instanceof Professor) return transacoes.findAllByProfessorIdOrderByDataHoraDesc(usuario.getId());
+        return transacoes.findAllByEmpresaIdOrderByDataHoraDesc(usuario.getId());
+    }
+
+    @Transactional
+    public Vantagem cadastrarVantagem(String titulo, Integer custo, String descricao, String foto) {
+        EmpresaParceira empresa = sessao.empresa();
+        if (titulo == null || titulo.isBlank() || custo == null || custo <= 0 ||
+            descricao == null || descricao.isBlank() || foto == null || foto.isBlank()) {
+            throw new IllegalArgumentException("Informe título, custo, descrição e referência da foto.");
+        }
+        Vantagem vantagem = new Vantagem(empresa.getId(), empresa.getNome(), titulo.trim(),
+            custo, descricao.trim(), "fa-gift");
+        vantagem.setFotoReferencia(foto.trim());
+        return vantagens.save(vantagem);
+    }
+}
