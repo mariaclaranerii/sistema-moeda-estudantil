@@ -20,3 +20,23 @@ jobs:
           cache: maven
       - name: Executar testes
         run: mvn -B test
+      - name: Empacotar aplicacao
+        run: mvn -B -DskipTests package
+      - name: Verificar inicializacao com dados de demonstracao
+        shell: bash
+        run: |
+          java -jar target/moeda-estudantil-0.0.1-SNAPSHOT.jar --spring.profiles.active=demo > /tmp/moeda-demo.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 50); do
+            if curl --fail --silent http://localhost:8080/login > /dev/null; then
+              echo 'Aplicacao iniciada com sucesso.'
+              exit 0
+            fi
+            if ! kill -0 "$PID" 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          tail -n 100 /tmp/moeda-demo.log
+          exit 1
