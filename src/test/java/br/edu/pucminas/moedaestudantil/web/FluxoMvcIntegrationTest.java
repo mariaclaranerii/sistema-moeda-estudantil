@@ -3,6 +3,8 @@ package br.edu.pucminas.moedaestudantil.web;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 import br.edu.pucminas.moedaestudantil.repository.InstituicaoEnsinoRepository;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,17 @@ class FluxoMvcIntegrationTest {
         mockMvc.perform(get("/painel")).andExpect(status().is3xxRedirection());
         mockMvc.perform(get("/alunos/novo")).andExpect(status().isOk());
         mockMvc.perform(get("/empresas/nova")).andExpect(status().isOk());
+    }
+
+    @Test
+    void cabecalhoDeVisitanteMostraCadastroEEntrada() throws Exception {
+        mockMvc.perform(get("/"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Cadastrar aluno")))
+            .andExpect(content().string(containsString("Cadastrar empresa")))
+            .andExpect(content().string(containsString("Entrar")))
+            .andExpect(content().string(not(containsString("Sair da conta"))))
+            .andExpect(content().string(not(containsString("Meu perfil"))));
     }
 
     @Test

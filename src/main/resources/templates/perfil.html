@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Meu perfil')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page narrow-page">
+    <a class="back-link" th:href="@{/painel}">← Voltar ao meu painel</a>
+    <section class="detail-card">
+        <span class="eyebrow">Minha conta</span>
+        <h1>Meu perfil</h1>
+        <p>Informações do seu cadastro no sistema.</p>
+        <dl class="detail-grid">
+            <div><dt>Nome</dt><dd th:text="${nome}">Nome</dd></div>
+            <div><dt>Perfil</dt><dd th:text="${tipo}">Perfil</dd></div>
+            <div><dt>Login</dt><dd th:text="${login}">Login</dd></div>
+            <div th:if="${email != null}"><dt>E-mail</dt><dd th:text="${email}">E-mail</dd></div>
+            <div th:if="${curso != null}"><dt>Curso</dt><dd th:text="${curso}">Curso</dd></div>
+            <div th:if="${departamento != null}"><dt>Departamento</dt><dd th:text="${departamento}">Departamento</dd></div>
+        </dl>
+        <div class="detail-actions" th:if="${cadastroUrl != null}">
+            <a class="button secondary" th:href="${cadastroUrl}">Ver e editar meus dados</a>
+            <a class="button primary" th:href="@{/painel}">Voltar ao painel</a>
+        </div>
+        <div class="detail-actions" th:unless="${cadastroUrl != null}">
+            <a class="button primary" th:href="@{/painel}">Voltar ao painel</a>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

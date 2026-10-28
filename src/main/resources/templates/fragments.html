@@ -13,11 +13,21 @@
             <span class="brand-mark" aria-hidden="true">M</span>
             <span><strong>Moeda</strong><small>Estudantil</small></span>
         </a>
-        <nav aria-label="Navegação principal">
-            <a th:href="@{/painel}">Meu painel</a>
-            <a th:href="@{/login}">Entrar</a>
-            <a th:href="@{/alunos/novo}">Cadastrar aluno</a>
-            <a th:href="@{/empresas/nova}">Cadastrar empresa</a>
+        <nav class="header-nav" aria-label="Navegação principal">
+            <th:block th:if="${cabecalho.autenticado}">
+                <span class="header-role" th:text="${cabecalho.perfil}">Meu acesso</span>
+                <a th:href="@{/painel}">Meu painel</a>
+                <a th:href="@{/perfil}">Meu perfil</a>
+                <form class="header-logout-form" th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="header-logout-button" type="submit">Sair da conta</button>
+                </form>
+            </th:block>
+            <th:block th:unless="${cabecalho.autenticado}">
+                <a th:href="@{/login}">Entrar</a>
+                <a th:href="@{/alunos/novo}">Cadastrar aluno</a>
+                <a th:href="@{/empresas/nova}">Cadastrar empresa</a>
+            </th:block>
         </nav>
     </div>
 </header>

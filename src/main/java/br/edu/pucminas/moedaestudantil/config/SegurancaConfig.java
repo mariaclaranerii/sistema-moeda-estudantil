@@ -30,10 +30,10 @@ public class SegurancaConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/login", "/css/app.css", "/error", "/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/instituicoes").permitAll()
-                .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova").permitAll()
-                .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas").permitAll()
+                .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova").anonymous()
+                .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas").anonymous()
                 .requestMatchers("/h2-console/**").denyAll()
-                .requestMatchers("/painel", "/painel/**", "/api/**", "/alunos/**", "/empresas/**", "/app",
+                .requestMatchers("/painel", "/painel/**", "/perfil", "/api/**", "/alunos/**", "/empresas/**", "/app",
                     "/sistema_de_moeda_estudantil_frontend.html").authenticated()
                 .anyRequest().denyAll())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/painel", true).permitAll())

@@ -174,3 +174,21 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
     .detail-actions { align-items: stretch; }.detail-actions > *, .detail-actions .button { width: 100%; }
     th:nth-child(3), td:nth-child(3) { display: none; }
 }
+
+/* Navegação da sessão: links de visitante ou opções do usuário autenticado. */
+.header-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.header-nav .header-role { color: var(--muted); font-size: 12px; font-weight: 800; padding: 8px 6px; white-space: nowrap; }
+.header-logout-form { margin: 0; }
+.header-logout-button {
+    appearance: none; width: auto; border: 1px solid var(--line); border-radius: 999px;
+    padding: 10px 15px; background: var(--paper); color: var(--ink);
+    cursor: pointer; font: inherit; font-weight: 650; line-height: 1.55;
+}
+.header-logout-button:hover, .header-logout-button:focus-visible { background: var(--green-light); }
+@media (max-width: 780px) {
+    .header-content { flex-wrap: wrap; padding-block: 12px; }
+    .header-nav { width: 100%; justify-content: flex-start; }
+}
+@media (max-width: 520px) {
+    .header-nav a, .header-logout-button { padding: 8px 10px; font-size: 13px; }
+}
