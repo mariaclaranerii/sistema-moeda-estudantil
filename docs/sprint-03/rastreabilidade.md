@@ -26,9 +26,9 @@ A matriz relaciona os requisitos funcionais à implementação final e aos artef
 
 ## Modelos
 
-- [Diagrama de classes v2](diagramas/v2/classes.puml)
-- [Diagrama de componentes v2](diagramas/v2/componentes.puml)
-- [Modelo ER v2](diagramas/v2/modelo-er.puml)
+- [Diagrama de classes — PNG](diagramas/v2/classes.png) · [SVG](diagramas/v2/classes.svg) · [PlantUML](diagramas/v2/classes.puml)
+- [Diagrama de componentes — PNG](diagramas/v2/componentes.png) · [SVG](diagramas/v2/componentes.svg) · [PlantUML](diagramas/v2/componentes.puml)
+- [Modelo ER — PNG](diagramas/v2/modelo-er.png) · [SVG](diagramas/v2/modelo-er.svg) · [PlantUML](diagramas/v2/modelo-er.puml)
 
 As representações completas da arquitetura e do acesso ao banco estão em [arquitetura-e-persistencia.md](arquitetura-e-persistencia.md).
 
