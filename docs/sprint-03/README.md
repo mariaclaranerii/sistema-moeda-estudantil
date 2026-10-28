@@ -19,11 +19,19 @@ A aplicação segue MVC, com controllers Spring MVC e REST, serviços responsáv
 
 Modelos da versão final:
 
-- [Diagrama de classes — v2](diagramas/v2/classes.puml)
-- [Diagrama de componentes — v2](diagramas/v2/componentes.puml)
-- [Modelo ER — v2](diagramas/v2/modelo-er.puml)
+- [Diagrama de classes — PNG](diagramas/v2/classes.png) · [SVG](diagramas/v2/classes.svg) · [PlantUML](diagramas/v2/classes.puml)
+- [Diagrama de componentes — PNG](diagramas/v2/componentes.png) · [SVG](diagramas/v2/componentes.svg) · [PlantUML](diagramas/v2/componentes.puml)
+- [Modelo ER — PNG](diagramas/v2/modelo-er.png) · [SVG](diagramas/v2/modelo-er.svg) · [PlantUML](diagramas/v2/modelo-er.puml)
 - [Detalhamento da arquitetura e persistência](arquitetura-e-persistencia.md)
 - [Rastreabilidade funcional](rastreabilidade.md)
+
+### Diagramas em imagem
+
+![Diagrama de classes — Sprint 03](diagramas/v2/classes.png)
+
+![Diagrama de componentes — Sprint 03](diagramas/v2/componentes.png)
+
+![Modelo entidade-relacionamento — Sprint 03](diagramas/v2/modelo-er.png)
 
 As versões da Sprint 01 e o Modelo ER da Sprint 02 permanecem em seus respectivos diretórios.
 
