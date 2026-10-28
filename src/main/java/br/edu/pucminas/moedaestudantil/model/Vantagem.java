@@ -36,6 +36,10 @@ public class Vantagem {
     @Column(name = "foto_referencia", length = 1000)
     private String fotoReferencia;
 
+    // Coluna aceita NULL para preservar vantagens cadastradas antes desta versão.
+    @Column(name = "ativo")
+    private Boolean ativo = true;
+
     protected Vantagem() {
     }
 
@@ -78,4 +82,17 @@ public class Vantagem {
 
     public String getFotoReferencia() { return fotoReferencia; }
     public void setFotoReferencia(String fotoReferencia) { this.fotoReferencia = fotoReferencia; }
+
+    public boolean isAtivo() { return !Boolean.FALSE.equals(ativo); }
+
+    public void atualizar(String titulo, Integer custoMoedas, String descricao, String fotoReferencia) {
+        this.titulo = titulo;
+        this.custoMoedas = custoMoedas;
+        this.descricao = descricao;
+        this.fotoReferencia = fotoReferencia;
+    }
+
+    public void desativar() { this.ativo = false; }
+
+    public void reativar() { this.ativo = true; }
 }

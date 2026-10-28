@@ -192,3 +192,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
 @media (max-width: 520px) {
     .header-nav a, .header-logout-button { padding: 8px 10px; font-size: 13px; }
 }
+
+/* Ações da listagem de vantagens, inclusive em telas pequenas. */
+.estoque-acoes { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.estoque-acoes form { margin:0; }
+.estoque-acoes .button { min-height:36px; padding:6px 12px; font-size:13px; white-space:nowrap; }

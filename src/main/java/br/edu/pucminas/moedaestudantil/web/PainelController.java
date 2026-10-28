@@ -33,14 +33,14 @@ public class PainelController {
         model.addAttribute("extrato", movimentacao.extrato());
         if (usuario instanceof Aluno aluno) {
             model.addAttribute("saldo", aluno.getSaldo());
-            model.addAttribute("vantagens", vantagens.findAllByOrderByTituloAsc());
+            model.addAttribute("vantagens", vantagens.findAllByOrderByTituloAsc().stream()
+                .filter(Vantagem::isAtivo).toList());
         } else if (usuario instanceof Professor professor) {
             model.addAttribute("saldo", professor.getSaldo());
             model.addAttribute("alunos", alunos.findAll().stream()
                 .filter(Aluno::isAtivo).toList());
         } else if (usuario instanceof EmpresaParceira empresa) {
-            model.addAttribute("vantagens", vantagens.findAllByOrderByTituloAsc().stream()
-                .filter(v -> empresa.getId().equals(v.getEmpresaId())).toList());
+            model.addAttribute("vantagens", vantagens.findByEmpresaIdOrderByTituloAsc(empresa.getId()));
         }
         return "painel";
     }
@@ -65,6 +65,35 @@ public class PainelController {
         } catch (RuntimeException ex) {
             redirect.addFlashAttribute("erro", ex.getMessage());
         }
+        return "redirect:/painel";
+    }
+
+    @GetMapping("/vantagens/{id}/editar")
+    public String editarVantagem(@PathVariable Long id, Model model) {
+        model.addAttribute("vantagem", movimentacao.consultarVantagemDaEmpresa(id));
+        return "vantagens/editar";
+    }
+
+    @PostMapping("/vantagens/{id}/editar")
+    public String salvarVantagem(@PathVariable Long id, @RequestParam String titulo,
+                                @RequestParam Integer custo, @RequestParam String descricao,
+                                @RequestParam String fotoReferencia, RedirectAttributes redirect) {
+        try {
+            movimentacao.atualizarVantagem(id, titulo, custo, descricao, fotoReferencia);
+            redirect.addFlashAttribute("sucesso", "Vantagem atualizada com sucesso.");
+            return "redirect:/painel";
+        } catch (IllegalArgumentException ex) {
+            redirect.addFlashAttribute("erro", ex.getMessage());
+            return "redirect:/painel/vantagens/" + id + "/editar";
+        }
+    }
+
+    @PostMapping("/vantagens/{id}/situacao")
+    public String alterarSituacaoVantagem(@PathVariable Long id, RedirectAttributes redirect) {
+        Vantagem vantagem = movimentacao.alternarSituacaoVantagem(id);
+        redirect.addFlashAttribute("sucesso", vantagem.isAtivo()
+            ? "Vantagem reativada e disponível para resgate."
+            : "Vantagem desativada. Os resgates anteriores foram preservados.");
         return "redirect:/painel";
     }
 

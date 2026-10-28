@@ -11,7 +11,8 @@
 - Crédito de 1.000 moedas por semestre, acumulativo, com registro único por professor/semestre.
 - Envio de moedas com motivo obrigatório e conferência do saldo do professor.
 - Extrato individual por perfil, com movimentações vinculadas ao identificador do usuário.
-- Cadastro de vantagens com custo, descrição e referência HTTPS da foto.
+- Cadastro e estoque de vantagens por empresa parceira: listagem de ativas/inativas, edição dos próprios itens e ativação/desativação sem excluir o histórico.
+- Apenas vantagens ativas ficam disponíveis para novos resgates; custo, descrição e foto podem ser editados pela empresa titular.
 - Resgate de vantagens, desconto do saldo, código único de conferência e avisos ao aluno e à empresa.
 - Fila de notificações persistida; envio SMTP executado quando a integração está configurada.
 
