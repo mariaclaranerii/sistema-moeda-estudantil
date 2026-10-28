@@ -24,6 +24,7 @@ Modelos da versão final:
 - [Modelo ER — PNG](diagramas/v2/modelo-er.png) · [SVG](diagramas/v2/modelo-er.svg) · [PlantUML](diagramas/v2/modelo-er.puml)
 - [Detalhamento da arquitetura e persistência](arquitetura-e-persistencia.md)
 - [Rastreabilidade funcional](rastreabilidade.md)
+- [Apresentação da Sprint 03 (PDF)](apresentacao-sprint-03.pdf)
 
 ### Diagramas em imagem
 
