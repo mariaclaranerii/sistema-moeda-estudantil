@@ -53,6 +53,29 @@ class FluxoMvcIntegrationTest {
     }
 
     @Test
+    void professorNaoPodeCadastrarCPFComMaisDeOnzeDigitos() throws Exception {
+        long id = instituicoes.findAll().get(0).getId();
+        mockMvc.perform(get("/alunos/novo").with(user("prof.cpf").roles("PROFESSOR")))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("maxlength=\"11\"")))
+            .andExpect(content().string(containsString("pattern=\"[0-9]{11}\"")));
+
+        mockMvc.perform(post("/alunos").with(user("prof.cpf").roles("PROFESSOR")).with(csrf())
+            .param("nome", "Aluno CPF longo")
+            .param("email", "cpf.longo@exemplo.com")
+            .param("cpf", "123456789012")
+            .param("rg", "MG-8765")
+            .param("endereco", "Rua Principal, 1")
+            .param("curso", "Engenharia")
+            .param("login", "aluno.cpf.longo")
+            .param("senha", "segredo123")
+            .param("instituicaoId", Long.toString(id)))
+            .andExpect(status().isOk())
+            .andExpect(view().name("alunos/formulario"))
+            .andExpect(content().string(containsString("Informe um CPF com 11 dígitos.")));
+    }
+
+    @Test
     void visitanteNaoPodeCadastrarAlunoPorRequisicaoDireta() throws Exception {
         long id = instituicoes.findAll().get(0).getId();
         mockMvc.perform(post("/alunos").with(csrf())

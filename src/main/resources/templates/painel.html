@@ -20,6 +20,15 @@
   </section>
 
   <section th:if="${tipo == 'PROFESSOR'}" class="detail-card" style="margin-bottom:1.5rem">
+    <h2>Cadastros do programa</h2>
+    <p>Consulte os alunos e as empresas parceiras que já estão cadastrados.</p>
+    <div class="hero-actions" style="margin-top:1rem">
+      <a class="button secondary" th:href="@{/alunos}">Ver alunos cadastrados</a>
+      <a class="button secondary" th:href="@{/empresas}">Ver empresas cadastradas</a>
+    </div>
+  </section>
+
+  <section th:if="${tipo == 'PROFESSOR'}" class="detail-card" style="margin-bottom:1.5rem">
     <h2>Distribuir moedas</h2>
     <p>Selecione um aluno e descreva o motivo do reconhecimento.</p>
     <form th:action="@{/painel/enviar}" method="post" style="display:grid;gap:1rem;max-width:520px;margin-top:1rem">

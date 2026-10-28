@@ -7,8 +7,8 @@
     <div class="page-heading heading-actions">
         <div>
             <span class="eyebrow">Cadastros</span>
-            <h1>Empresas parceiras</h1>
-            <p>Consulte e mantenha os parceiros do programa.</p>
+            <h1>Empresas cadastradas</h1>
+            <p>Relação de empresas parceiras, incluindo cadastros inativos.</p>
         </div>
         <a class="button primary" th:href="@{/empresas/nova}">Nova empresa</a>
     </div>
@@ -22,13 +22,11 @@
     </div>
     <div class="table-wrap" th:unless="${#lists.isEmpty(empresas)}">
         <table>
-            <thead><tr><th>Empresa</th><th>Login</th><th>Situação</th><th></th></tr></thead>
+            <thead><tr><th>Empresa</th><th>Situação</th></tr></thead>
             <tbody>
             <tr th:each="empresa : ${empresas}" th:classappend="${!empresa.ativo} ? 'muted-row'">
                 <td><strong th:text="${empresa.nome}">Empresa</strong><small th:text="${empresa.email}">email</small></td>
-                <td th:text="${empresa.login}">login</td>
                 <td><span class="status" th:classappend="${empresa.ativo} ? 'active' : 'inactive'" th:text="${empresa.ativo} ? 'Ativa' : 'Inativa'">Ativa</span></td>
-                <td class="table-action"><a th:href="@{/empresas/{id}(id=${empresa.id})}" aria-label="Ver detalhes">Ver →</a></td>
             </tr>
             </tbody>
         </table>

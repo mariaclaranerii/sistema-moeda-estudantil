@@ -4,6 +4,8 @@
 
 - Autenticação por login/senha e controle de acesso para aluno, professor e empresa parceira.
 - CRUD de aluno e empresa parceira, com exclusão lógica e acesso restrito ao titular.
+- Listas de alunos e empresas acessíveis apenas ao professor, com nome, dados básicos e situação de cada cadastro.
+- Campo de CPF limitado a 11 algarismos na interface, com validação também no servidor; RG e endereço continuam obrigatórios conforme o enunciado.
 - Persistência relacional H2 em arquivo, ORM JPA/Hibernate e repositórios Spring Data.
 - Cadastro prévio de instituições; professores cadastrados no perfil de demonstração.
 - Crédito de 1.000 moedas por semestre, acumulativo, com registro único por professor/semestre.

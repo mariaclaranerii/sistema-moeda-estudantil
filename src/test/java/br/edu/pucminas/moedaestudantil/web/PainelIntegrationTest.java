@@ -62,6 +62,8 @@ class PainelIntegrationTest {
             .andExpect(content().string(containsString("Meu perfil")))
             .andExpect(content().string(containsString("Cadastrar aluno")))
             .andExpect(content().string(containsString("Cadastrar empresa")))
+            .andExpect(content().string(containsString("Ver alunos cadastrados")))
+            .andExpect(content().string(containsString("Ver empresas cadastradas")))
             .andExpect(content().string(not(containsString(">Entrar</a>"))));
     }
 
@@ -173,6 +175,60 @@ class PainelIntegrationTest {
             .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
             .content(aluno))
             .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void professorConsultaListasDeAlunosEEmpresasComSituacao() throws Exception {
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        professores.save(new Professor("Professor Listas", "prof.listas", encoder.encode("senha12345"),
+            "77788899900", "Computação", instituicao));
+        Aluno aluno = alunos.save(new Aluno("Aluna da Lista", "aluna.lista", encoder.encode("senha12345"),
+            "aluna.lista@exemplo.com", "12345670123", "MG-92745",
+            "Rua Lista, 10", "Engenharia de Software", instituicao));
+        aluno.desativar();
+        alunos.save(aluno);
+        EmpresaParceira empresa = empresas.save(new EmpresaParceira("Empresa da Lista", "empresa.lista",
+            encoder.encode("senha12345"), "empresa.lista@exemplo.com"));
+        empresa.desativar();
+        empresas.save(empresa);
+
+        mockMvc.perform(get("/alunos").with(user("prof.listas").roles("PROFESSOR")))
+            .andExpect(status().isOk())
+            .andExpect(view().name("alunos/lista"))
+            .andExpect(content().string(containsString("Alunos cadastrados")))
+            .andExpect(content().string(containsString("Aluna da Lista")))
+            .andExpect(content().string(containsString("Inativo")))
+            .andExpect(content().string(not(containsString("MG-92745"))));
+
+        mockMvc.perform(get("/empresas").with(user("prof.listas").roles("PROFESSOR")))
+            .andExpect(status().isOk())
+            .andExpect(view().name("empresas/lista"))
+            .andExpect(content().string(containsString("Empresas cadastradas")))
+            .andExpect(content().string(containsString("Empresa da Lista")))
+            .andExpect(content().string(containsString("Inativa")));
+    }
+
+    @Test
+    void listasNaoFicamDisponiveisParaOutrosPerfis() throws Exception {
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        alunos.save(new Aluno("Aluno Sem Listas", "aluno.sem.listas", encoder.encode("senha12345"),
+            "sem.listas@exemplo.com", "23232323232", "MG-99999",
+            "Rua Sem Listas, 1", "Engenharia de Software", instituicao));
+        empresas.save(new EmpresaParceira("Empresa Sem Listas", "empresa.sem.listas",
+            encoder.encode("senha12345"), "sem.listas.empresa@exemplo.com"));
+
+        mockMvc.perform(get("/alunos").with(user("aluno.sem.listas").roles("ALUNO")))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrlPattern("/alunos/*"));
+        mockMvc.perform(get("/empresas").with(user("aluno.sem.listas").roles("ALUNO")))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(get("/alunos").with(user("empresa.sem.listas").roles("EMPRESA")))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(get("/empresas").with(user("empresa.sem.listas").roles("EMPRESA")))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrlPattern("/empresas/*"));
+        mockMvc.perform(get("/alunos")).andExpect(status().is3xxRedirection());
+        mockMvc.perform(get("/empresas")).andExpect(status().is3xxRedirection());
     }
 
     @Test

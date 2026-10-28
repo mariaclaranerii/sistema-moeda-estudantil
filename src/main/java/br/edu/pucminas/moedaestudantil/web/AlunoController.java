@@ -1,6 +1,7 @@
 package br.edu.pucminas.moedaestudantil.web;
 
 import br.edu.pucminas.moedaestudantil.model.Aluno;
+import br.edu.pucminas.moedaestudantil.model.Professor;
 import br.edu.pucminas.moedaestudantil.model.InstituicaoEnsino;
 import br.edu.pucminas.moedaestudantil.repository.InstituicaoEnsinoRepository;
 import br.edu.pucminas.moedaestudantil.service.AlunoService;
@@ -41,6 +42,10 @@ public class AlunoController {
 
     @GetMapping
     public String listar(Model model) {
+        if (sessao.usuario() instanceof Professor) {
+            model.addAttribute("alunos", alunoService.listar());
+            return "alunos/lista";
+        }
         sessao.aluno();
         return "redirect:/alunos/" + sessao.usuario().getId();
     }

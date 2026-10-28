@@ -1,6 +1,7 @@
 package br.edu.pucminas.moedaestudantil.web;
 
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
+import br.edu.pucminas.moedaestudantil.model.Professor;
 import br.edu.pucminas.moedaestudantil.service.ConflitoCadastroException;
 import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
 import br.edu.pucminas.moedaestudantil.service.SessaoService;
@@ -31,6 +32,10 @@ public class EmpresaParceiraController {
 
     @GetMapping
     public String listar(Model model) {
+        if (sessao.usuario() instanceof Professor) {
+            model.addAttribute("empresas", empresaService.listar());
+            return "empresas/lista";
+        }
         sessao.empresa();
         return "redirect:/empresas/" + sessao.usuario().getId();
     }
