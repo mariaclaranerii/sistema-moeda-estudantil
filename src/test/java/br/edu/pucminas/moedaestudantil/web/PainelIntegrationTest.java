@@ -232,6 +232,65 @@ class PainelIntegrationTest {
     }
 
     @Test
+    void professorRedefineSenhaDoAlunoSemEmailEAlunoDeveTrocarNoAcesso() throws Exception {
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        professores.save(new Professor("Professor Senhas", "prof.senhas",
+            encoder.encode("senha12345"), "24681357900", "Engenharia", instituicao));
+        Aluno aluno = alunos.save(new Aluno("Aluno Senha", "aluno.senha", encoder.encode("antiga123"),
+            "aluno.senha@exemplo.com", "12543876593", "MG-102938",
+            "Rua do Aluno, 10", "Engenharia", instituicao));
+
+        var resposta = mockMvc.perform(post("/alunos/{id}/redefinir-senha", aluno.getId())
+            .with(user("prof.senhas").roles("PROFESSOR")).with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/alunos"))
+            .andReturn();
+        String temporaria = (String) resposta.getFlashMap().get("senhaTemporaria");
+        org.assertj.core.api.Assertions.assertThat(temporaria).hasSize(24);
+        org.assertj.core.api.Assertions.assertThat(encoder.matches(temporaria,
+            alunos.findById(aluno.getId()).orElseThrow().getSenhaHash())).isTrue();
+        org.assertj.core.api.Assertions.assertThat(alunos.findById(aluno.getId())
+            .orElseThrow().isTrocaSenhaPendente()).isTrue();
+
+        mockMvc.perform(get("/alunos").with(user("prof.senhas").roles("PROFESSOR"))
+            .flashAttrs(resposta.getFlashMap()))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString(temporaria)))
+            .andExpect(content().string(containsString("Redefinir senha")));
+
+        mockMvc.perform(formLogin().user(aluno.getEmail()).password("antiga123"))
+            .andExpect(redirectedUrl("/login?error"));
+        mockMvc.perform(formLogin().user(aluno.getEmail()).password(temporaria))
+            .andExpect(redirectedUrl("/painel"));
+        mockMvc.perform(get("/painel").with(user(aluno.getLogin()).roles("ALUNO")))
+            .andExpect(redirectedUrl("/perfil/senha"));
+        mockMvc.perform(post("/perfil/senha").with(user(aluno.getLogin()).roles("ALUNO")).with(csrf())
+            .param("senhaAtual", temporaria).param("novaSenha", "SenhaPessoal987!")
+            .param("confirmacao", "SenhaPessoal987!"))
+            .andExpect(redirectedUrl("/perfil"));
+        org.assertj.core.api.Assertions.assertThat(alunos.findById(aluno.getId())
+            .orElseThrow().isTrocaSenhaPendente()).isFalse();
+    }
+
+    @Test
+    void redefinicaoDeSenhaExigeProfessorAutenticado() throws Exception {
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        Aluno aluno = alunos.save(new Aluno("Aluno Restrito", "aluno.restrito",
+            encoder.encode("senha12345"), "aluno.restrito@exemplo.com",
+            "98451236701", "MG-984512", "Rua Restrita", "Software", instituicao));
+        mockMvc.perform(post("/alunos/{id}/redefinir-senha", aluno.getId()).with(csrf()))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/alunos/{id}/redefinir-senha", aluno.getId())
+            .with(user("aluno.restrito").roles("ALUNO")).with(csrf()))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(post("/alunos/{id}/redefinir-senha", aluno.getId())
+            .with(user("empresa.qualquer").roles("EMPRESA")).with(csrf()))
+            .andExpect(status().isForbidden());
+        org.assertj.core.api.Assertions.assertThat(alunos.findById(aluno.getId())
+            .orElseThrow().isTrocaSenhaPendente()).isFalse();
+    }
+
+    @Test
     void encerrarSessaoExigeCsrfERedirecionaParaLogin() throws Exception {
         mockMvc.perform(post("/logout").with(user("aluno.teste").roles("ALUNO")).with(csrf()))
             .andExpect(status().is3xxRedirection())

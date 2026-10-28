@@ -19,20 +19,18 @@ public class MovimentacaoService {
     private final EmpresaParceiraRepository empresas;
     private final VantagemRepository vantagens;
     private final TransacaoRepository transacoes;
-    private final NotificacaoService notificacoes;
     private final CreditoSemestralRepository creditos;
 
     public MovimentacaoService(SessaoService sessao, AlunoRepository alunos,
                               ProfessorRepository professores, EmpresaParceiraRepository empresas,
                               VantagemRepository vantagens, TransacaoRepository transacoes,
-                              NotificacaoService notificacoes, CreditoSemestralRepository creditos) {
+                              CreditoSemestralRepository creditos) {
         this.sessao = sessao;
         this.alunos = alunos;
         this.professores = professores;
         this.empresas = empresas;
         this.vantagens = vantagens;
         this.transacoes = transacoes;
-        this.notificacoes = notificacoes;
         this.creditos = creditos;
     }
 
@@ -53,8 +51,6 @@ public class MovimentacaoService {
             motivo.trim(), quantidade);
         t.vincularTransferencia(professor.getId(), aluno.getId());
         t = transacoes.save(t);
-        notificacoes.registrar(aluno.getEmail(), "Você recebeu moedas estudantis",
-            "Você recebeu " + quantidade + " moedas de " + professor.getNome() + ".\nMotivo: " + motivo.trim());
         return t;
     }
 
@@ -77,10 +73,6 @@ public class MovimentacaoService {
                 "Resgate: " + vantagem.getTitulo(), vantagem.getCustoMoedas());
         t.vincularResgate(aluno.getId(), empresa.getId(), vantagemId, codigo);
         t = transacoes.save(t);
-        String mensagem = "Cupom de resgate: " + codigo + "\nVantagem: " + vantagem.getTitulo()
-                + "\nAluno: " + aluno.getNome() + "\nCusto: " + vantagem.getCustoMoedas() + " moedas.";
-        notificacoes.registrar(aluno.getEmail(), "Cupom de resgate de vantagem", mensagem);
-        notificacoes.registrar(empresa.getEmail(), "Conferência de resgate de vantagem", mensagem);
         return t;
     }
 

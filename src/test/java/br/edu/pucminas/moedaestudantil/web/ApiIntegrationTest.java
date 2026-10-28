@@ -78,7 +78,7 @@ class ApiIntegrationTest {
 
         assertThat(professores.findById(professor.getId()).orElseThrow().getSaldo()).isEqualTo(850);
         assertThat(alunos.findById(aluno.getId()).orElseThrow().getSaldo()).isEqualTo(150);
-        assertThat(emails.count()).isEqualTo(1);
+        assertThat(emails.count()).isZero();
         mockMvc.perform(post("/api/transacoes/enviar").with(csrf())
             .with(user("prof.teste").roles("PROFESSOR"))
             .contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +90,7 @@ class ApiIntegrationTest {
     }
 
     @Test
-    void resgateGeraCodigoERegistraDuasNotificacoes() throws Exception {
+    void resgateGeraCodigoSemExigirEmail() throws Exception {
         InstituicaoEnsino i = instituicoes.findAll().get(0);
         Aluno aluno = new Aluno("Aluno Resgate","aluno.resgate",encoder.encode("segredo123"),
             "resgate@exemplo.com","77788899900","MG-333","Rua Teste","Software",i);
@@ -110,7 +110,7 @@ class ApiIntegrationTest {
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.codigoResgate").isString());
         assertThat(alunos.findById(aluno.getId()).orElseThrow().getSaldo()).isEqualTo(170);
-        assertThat(emails.count()).isEqualTo(2);
+        assertThat(emails.count()).isZero();
         assertThat(transacoes.findAllByAlunoIdOrderByDataHoraDesc(aluno.getId()).get(0)
             .getCodigoResgate()).isNotBlank();
     }

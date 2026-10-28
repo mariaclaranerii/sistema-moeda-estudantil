@@ -83,6 +83,15 @@ public class AlunoController {
         }
     }
 
+    @PostMapping("/{id}/redefinir-senha")
+    public String redefinirSenha(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        String temporaria = alunoService.redefinirSenhaPeloProfessor(id);
+        redirectAttributes.addFlashAttribute("senhaTemporaria", temporaria);
+        redirectAttributes.addFlashAttribute("sucesso",
+            "Senha temporária criada. Entregue-a pessoalmente ao aluno. Ela aparece somente nesta página.");
+        return "redirect:/alunos";
+    }
+
     @GetMapping("/{id}")
     public String detalhar(@PathVariable Long id, Model model) {
         sessao.aluno();

@@ -9,7 +9,8 @@
     <span class="eyebrow">Minha conta</span>
     <h1>Alterar minha senha</h1>
     <p th:if="${trocaSenhaPendente}">Primeiro acesso: escolha uma senha pessoal para continuar usando o sistema.</p>
-    <p th:unless="${trocaSenhaPendente}">Confirme sua senha atual e defina uma nova senha.</p>
+    <p th:unless="${trocaSenhaPendente}">Confirme sua senha atual e defina uma nova senha. Nenhum e-mail é necessário.</p>
+    <p>Esqueceu a senha atual? Solicite pessoalmente ao professor uma redefinição de senha.</p>
   </div>
   <div class="notice" th:if="${erro}" th:text="${erro}"></div>
   <form class="form-card" th:action="@{/perfil/senha}" method="post">

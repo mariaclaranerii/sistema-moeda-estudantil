@@ -13,12 +13,12 @@ Aplicação MVC para reconhecimento do mérito acadêmico. Professores recebem u
 - Crédito semestral acumulativo de 1.000 moedas por professor.
 - Transferência com motivo, conferência de saldo e extratos.
 - Vantagens com custo, descrição e foto.
-- Resgate com código exclusivo e notificações ao aluno e à empresa.
+- Resgate com código exclusivo consultável no extrato do aluno e da empresa. Sem envio de e-mails nesta versão.
 - Persistência H2, ORM JPA e testes de integração.
 
 ## Tecnologias
 
-Java 17, Spring Boot 3.5.7, Spring MVC, Spring Security, Thymeleaf, Spring Data JPA, Hibernate, H2, Spring Mail, Maven e PlantUML.
+Java 17, Spring Boot 3.5.7, Spring MVC, Spring Security, Thymeleaf, Spring Data JPA, Hibernate, H2, Maven e PlantUML.
 
 ## Executar
 
@@ -42,7 +42,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=demo
 
 **Use o perfil `demo` somente localmente.** Os dados ficam em `data/`, fora do versionamento Git. Para testar: `mvn test`.
 
-Notificações ficam registradas na base. O projeto está configurado para o SMTP transacional da Brevo, com envio desativado até a configuração local das variáveis `EMAIL_ENABLED=true`, `EMAIL_FROM`, `SMTP_USER` e `SMTP_PASSWORD`. Use uma **chave SMTP** da Brevo (não uma chave API), sem adicioná-la ao repositório. Veja o [passo a passo da integração](docs/sprint-03/README.md#envio-de-e-mails-transacionais--brevo-smtp).
+**Não é necessário conectar serviço de e-mail.** O aluno troca a senha no próprio perfil, informando a senha atual. Se esquecê-la, o professor pode gerar uma nova senha temporária na lista de alunos, entregá-la pessoalmente ao aluno e exigir a troca no próximo acesso. O e-mail cadastrado continua sendo apenas o identificador de login dos novos alunos. Os envios de moedas e resgates são acompanhados pelo extrato no sistema.
 
 ## Documentação e modelagem
 

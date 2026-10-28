@@ -9,6 +9,8 @@ import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.security.SecureRandom;
+import java.util.HexFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class AlunoService {
+
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     private final AlunoRepository alunoRepository;
     private final UsuarioRepository usuarioRepository;
@@ -108,6 +112,19 @@ public class AlunoService {
         if (emailExiste) throw new ConflitoCadastroException("Este e-mail já está em uso por outro aluno.");
         if (cpfExiste) throw new ConflitoCadastroException("Este CPF já está cadastrado.");
         if (rgExiste) throw new ConflitoCadastroException("Este RG já está cadastrado.");
+    }
+
+    /** Redefinição presencial pelo professor: senha aleatória exibida uma única vez. */
+    @Transactional
+    public String redefinirSenhaPeloProfessor(Long alunoId) {
+        sessao.professor();
+        Aluno aluno = buscar(alunoId);
+        byte[] bytes = new byte[12];
+        RANDOM.nextBytes(bytes);
+        String temporaria = HexFormat.of().formatHex(bytes).toUpperCase(Locale.ROOT);
+        aluno.alterarSenha(passwordEncoder.encode(temporaria));
+        aluno.exigirTrocaSenhaInicial();
+        return temporaria;
     }
 
     @Transactional

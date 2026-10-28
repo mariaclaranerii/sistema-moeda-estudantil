@@ -14,6 +14,11 @@
     </div>
 
     <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+    <div class="detail-card" th:if="${senhaTemporaria != null}" style="margin-bottom:1.5rem">
+        <h2>Senha temporária do aluno</h2>
+        <p>Copie e entregue diretamente ao aluno. Esta senha é mostrada somente agora e deverá ser alterada no primeiro acesso.</p>
+        <strong th:text="${senhaTemporaria}" style="font-size:1.25rem;overflow-wrap:anywhere">Senha temporária</strong>
+    </div>
 
     <div class="empty-state" th:if="${#lists.isEmpty(alunos)}">
         <span>ME</span>
@@ -24,13 +29,19 @@
 
     <div class="table-wrap" th:unless="${#lists.isEmpty(alunos)}">
         <table>
-            <thead><tr><th>Aluno</th><th>Curso</th><th>Instituição</th><th>Situação</th></tr></thead>
+            <thead><tr><th>Aluno</th><th>Curso</th><th>Instituição</th><th>Situação</th><th>Ações</th></tr></thead>
             <tbody>
             <tr th:each="aluno : ${alunos}" th:classappend="${!aluno.ativo} ? 'muted-row'">
                 <td><strong th:text="${aluno.nome}">Nome</strong><small th:text="${aluno.email}">email</small></td>
                 <td th:text="${aluno.curso}">Curso</td>
                 <td th:text="${aluno.instituicao.nome}">Instituição</td>
                 <td><span class="status" th:classappend="${aluno.ativo} ? 'active' : 'inactive'" th:text="${aluno.ativo} ? 'Ativo' : 'Inativo'">Ativo</span></td>
+                <td>
+                    <form th:if="${aluno.ativo}" th:action="@{/alunos/{id}/redefinir-senha(id=${aluno.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="button secondary" type="submit">Redefinir senha</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

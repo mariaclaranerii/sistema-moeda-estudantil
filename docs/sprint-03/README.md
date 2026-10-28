@@ -13,12 +13,12 @@
 - Extrato individual por perfil, com movimentações vinculadas ao identificador do usuário.
 - Cadastro e estoque de vantagens por empresa parceira: listagem de ativas/inativas, edição dos próprios itens e ativação/desativação sem excluir o histórico.
 - Apenas vantagens ativas ficam disponíveis para novos resgates; custo, descrição e foto podem ser editados pela empresa titular.
-- Resgate de vantagens, desconto do saldo, código único de conferência e avisos ao aluno e à empresa.
-- Fila de notificações persistida; envio SMTP executado quando a integração está configurada.
+- Resgate de vantagens, desconto do saldo e código único de conferência visível no extrato do aluno e da empresa.
+- Alteração de senha sem e-mail: aluno autenticado informa a senha atual e a nova; professor pode redefinir uma senha temporária, exibida uma única vez e com troca obrigatória no primeiro acesso. O envio automático de e-mails não integra esta versão.
 
 ## Arquitetura
 
-A aplicação segue MVC, com controllers Spring MVC e REST, serviços responsáveis pelas regras de negócio, entidades JPA e repositórios Spring Data. O banco é H2 em modo arquivo. O envio de e-mails utiliza registros persistidos, com tentativas agendadas; a falta de SMTP não cancela a transferência ou o resgate, e os registros permanecem pendentes.
+A aplicação segue MVC, com controllers Spring MVC e REST, serviços responsáveis pelas regras de negócio, entidades JPA e repositórios Spring Data. O banco é H2 em modo arquivo. O sistema não tenta enviar e-mails nesta versão. Transferências e resgates são confirmados pelo próprio painel e registrados no extrato. Registros históricos de notificações de versões anteriores podem permanecer no banco, mas não são enviados.
 
 Modelos da versão final:
 
@@ -72,41 +72,17 @@ Alunos cadastrados anteriormente continuam acessando com o login antigo ou com o
 
 **Segurança:** a senha inicial compartilhada serve somente para demonstrações locais. Em um sistema público, uma senha igual para todos permitiria assumir contas antes do primeiro acesso; nesse cenário, implemente credenciais temporárias aleatórias individuais e entrega segura.
 
-### Envio de e-mails transacionais — Brevo SMTP
+### Sem envio de e-mails nesta versão
 
-Os eventos já gravam notificações na tabela `notificacoes_email`:
-- Professor envia moedas: um aviso ao aluno, com quantidade e motivo.
-- Aluno resgata uma vantagem: um cupom com código para o aluno e um aviso com o mesmo código para a empresa.
+A aplicação não utiliza Brevo, SMTP nem qualquer serviço externo de e-mail. O endereço cadastrado pelo professor permanece como login dos novos alunos, mas o sistema não precisa acessar a caixa de entrada. O aluno troca a própria senha em **Meu perfil → Alterar senha**, informando a senha atual e uma nova senha com confirmação.
 
-A aplicação processa até 20 notificações pendentes por ciclo, a cada 60 segundos. Registros com falha são tentados até 5 vezes. O envio fica desativado por padrão, mas as notificações continuam registradas no banco. O status `enviada` indica que o servidor SMTP aceitou a mensagem, **não** que ela chegou à caixa de entrada.
+Caso esqueça a senha, o professor acessa **Meu painel → Ver alunos cadastrados → Redefinir senha**, recebe uma senha temporária aleatória exibida uma única vez e a entrega ao aluno por um meio privado, preferencialmente presencialmente. No próximo acesso, o aluno precisa trocá-la antes de usar as demais funcionalidades. A ação exige autenticação de professor e proteção CSRF; a senha temporária é armazenada apenas como hash.
 
-**Preparação da conta Brevo:**
-
-1. Crie/acesse a conta Brevo e configure um remetente verificado. Para uso com domínio próprio, configure a autenticação do domínio exigida pela Brevo.
-2. No painel Brevo, em **SMTP e API → SMTP**, copie o **login SMTP** e crie uma **chave SMTP**, diferente de uma chave API.
-3. Defina as variáveis de ambiente na máquina que vai executar o projeto. Exemplo em **PowerShell** (substitua os valores de exemplo; não comite nem compartilhe a chave):
-
-```powershell
-$env:EMAIL_ENABLED = "true"
-$env:EMAIL_FROM = "remetente-verificado@seu-dominio.com"
-$env:SMTP_USER = "login-smtp-da-conta"
-$env:SMTP_PASSWORD = "sua-chave-smtp"
-mvn spring-boot:run -Dspring-boot.run.profiles=demo
-```
-
-As opções padrão já estão no `application.yml`: `SMTP_HOST=smtp-relay.brevo.com`, `SMTP_PORT=587`, autenticação SMTP e STARTTLS habilitados. Se a porta 587 estiver bloqueada, a Brevo oferece a 2525 como alternativa. O `EMAIL_FROM` é o endereço do remetente autorizado na Brevo, e não necessariamente o login SMTP.
-
-Para usar outra instância ou servidor, configure também `SMTP_HOST` e `SMTP_PORT`. As variáveis `SMTP_AUTH` e `SMTP_STARTTLS` permitem ajustar autenticação e STARTTLS, se necessário. Foram adicionados limites de conexão e leitura/gravação de 10 segundos para evitar travamentos prolongados.
-
-**Teste de ponta a ponta:** com o projeto rodando e um aluno e uma empresa com e-mails válidos, autentique-se como professor e envie moedas. Aguarde o próximo processamento da fila (até aproximadamente 60 segundos) e confira a caixa de entrada e o spam do aluno. Depois faça um resgate com esse aluno e confira os dois e-mails com o mesmo código (aluno e empresa). Também é possível verificar os resultados no painel de eventos transacionais da Brevo.
-
-**Segurança:** nunca envie a chave SMTP no chat nem suba credenciais ao GitHub; use somente variáveis de ambiente locais ou um gerenciador de segredos no ambiente de execução. O arquivo `.env` está excluído do Git, mas a aplicação não o carrega automaticamente.
-
-Fontes: [Guia SMTP da Brevo](https://help.brevo.com/hc/pt/articles/7924908994450-Envie-e-mails-transacionais-usando-o-Brevo-SMTP) e [chaves SMTP](https://help.brevo.com/hc/pt/articles/7959631848850-Criar-e-gerenciar-suas-chaves-SMTP).
+Os cupons dos resgates e os saldos permanecem consultáveis nos extratos de aluno e empresa. **Limitação em relação ao enunciado:** os avisos por e-mail de transferência e os e-mails de cupons para aluno/empresa não estão implementados na versão atual.
 
 ### Restrições da versão
 
 - O cadastro de professores e instituições ocorre fora da interface pública, como indicado no enunciado.
-- O sistema não implementa recuperação de senha nem validação presencial do cupom; essas operações não foram detalhadas.
+- O sistema não implementa recuperação de senha por e-mail: utiliza redefinição manual pelo professor, e não inclui validação presencial do cupom.
 - O arquivo HTML de painel da Sprint 02 permanece preservado como artefato histórico. O fluxo operacional atual usa `/login` e `/painel`.
 - O H2 em arquivo e a geração automática do esquema atendem à execução acadêmica, não ao uso em produção.
