@@ -19,18 +19,22 @@ spring:
     console:
       enabled: false
   mail:
-    host: ${SMTP_HOST:}
+    # Brevo SMTP: configure apenas as credenciais da conta em variáveis de ambiente.
+    host: ${SMTP_HOST:smtp-relay.brevo.com}
     port: ${SMTP_PORT:587}
     username: ${SMTP_USER:}
     password: ${SMTP_PASSWORD:}
     properties:
       mail.smtp.auth: ${SMTP_AUTH:true}
       mail.smtp.starttls.enable: ${SMTP_STARTTLS:true}
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000
 
 app:
   email:
     enabled: ${EMAIL_ENABLED:false}
-    from: ${EMAIL_FROM:nao-responder@moedaestudantil.local}
+    from: ${EMAIL_FROM:}
     intervalo-ms: 60000
 
 server:

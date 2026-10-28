@@ -19,14 +19,20 @@ public class NotificacaoService {
     private final ObjectProvider<JavaMailSender> mailSender;
     private final boolean habilitado;
     private final String remetente;
+    private final String usuarioSmtp;
+    private final String chaveSmtp;
 
     public NotificacaoService(NotificacaoEmailRepository repository, ObjectProvider<JavaMailSender> mailSender,
                               @Value("${app.email.enabled:false}") boolean habilitado,
-                              @Value("${app.email.from:nao-responder@moedaestudantil.local}") String remetente) {
+                              @Value("${app.email.from:}") String remetente,
+                              @Value("${spring.mail.username:}") String usuarioSmtp,
+                              @Value("${spring.mail.password:}") String chaveSmtp) {
         this.repository = repository;
         this.mailSender = mailSender;
         this.habilitado = habilitado;
         this.remetente = remetente;
+        this.usuarioSmtp = usuarioSmtp;
+        this.chaveSmtp = chaveSmtp;
     }
 
     @Transactional
@@ -38,6 +44,12 @@ public class NotificacaoService {
     @Transactional
     public void enviarPendentes() {
         if (!habilitado) return;
+        // Não consumir tentativas de envio enquanto a conta Brevo não estiver configurada.
+        if (remetente == null || remetente.isBlank() || usuarioSmtp == null || usuarioSmtp.isBlank()
+                || chaveSmtp == null || chaveSmtp.isBlank()) {
+            log.warn("Notificações pendentes: configure EMAIL_FROM, SMTP_USER e SMTP_PASSWORD para enviar.");
+            return;
+        }
         JavaMailSender sender = mailSender.getIfAvailable();
         if (sender == null) {
             log.warn("Envio de e-mail habilitado sem servidor SMTP configurado.");

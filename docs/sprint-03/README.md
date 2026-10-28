@@ -64,9 +64,37 @@ Contas de demonstração (somente para ambiente local):
 
 O perfil `demo` cria registros de exemplo apenas quando as tabelas correspondentes estão vazias. Utilize um banco H2 de demonstração e **não ative esse perfil em ambiente público**.
 
-### Integração SMTP
+### Envio de e-mails transacionais — Brevo SMTP
 
-Sem configuração SMTP, os avisos permanecem registrados na tabela `notificacoes_email` para envio posterior. Para habilitar a entrega, configure `EMAIL_ENABLED=true`, `EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` e `SMTP_PASSWORD`. `SMTP_AUTH` e `SMTP_STARTTLS` controlam a autenticação e o STARTTLS. Não armazene credenciais no repositório.
+Os eventos já gravam notificações na tabela `notificacoes_email`:
+- Professor envia moedas: um aviso ao aluno, com quantidade e motivo.
+- Aluno resgata uma vantagem: um cupom com código para o aluno e um aviso com o mesmo código para a empresa.
+
+A aplicação processa até 20 notificações pendentes por ciclo, a cada 60 segundos. Registros com falha são tentados até 5 vezes. O envio fica desativado por padrão, mas as notificações continuam registradas no banco. O status `enviada` indica que o servidor SMTP aceitou a mensagem, **não** que ela chegou à caixa de entrada.
+
+**Preparação da conta Brevo:**
+
+1. Crie/acesse a conta Brevo e configure um remetente verificado. Para uso com domínio próprio, configure a autenticação do domínio exigida pela Brevo.
+2. No painel Brevo, em **SMTP e API → SMTP**, copie o **login SMTP** e crie uma **chave SMTP**, diferente de uma chave API.
+3. Defina as variáveis de ambiente na máquina que vai executar o projeto. Exemplo em **PowerShell** (substitua os valores de exemplo; não comite nem compartilhe a chave):
+
+```powershell
+$env:EMAIL_ENABLED = "true"
+$env:EMAIL_FROM = "remetente-verificado@seu-dominio.com"
+$env:SMTP_USER = "login-smtp-da-conta"
+$env:SMTP_PASSWORD = "sua-chave-smtp"
+mvn spring-boot:run -Dspring-boot.run.profiles=demo
+```
+
+As opções padrão já estão no `application.yml`: `SMTP_HOST=smtp-relay.brevo.com`, `SMTP_PORT=587`, autenticação SMTP e STARTTLS habilitados. Se a porta 587 estiver bloqueada, a Brevo oferece a 2525 como alternativa. O `EMAIL_FROM` é o endereço do remetente autorizado na Brevo, e não necessariamente o login SMTP.
+
+Para usar outra instância ou servidor, configure também `SMTP_HOST` e `SMTP_PORT`. As variáveis `SMTP_AUTH` e `SMTP_STARTTLS` permitem ajustar autenticação e STARTTLS, se necessário. Foram adicionados limites de conexão e leitura/gravação de 10 segundos para evitar travamentos prolongados.
+
+**Teste de ponta a ponta:** com o projeto rodando e um aluno e uma empresa com e-mails válidos, autentique-se como professor e envie moedas. Aguarde o próximo processamento da fila (até aproximadamente 60 segundos) e confira a caixa de entrada e o spam do aluno. Depois faça um resgate com esse aluno e confira os dois e-mails com o mesmo código (aluno e empresa). Também é possível verificar os resultados no painel de eventos transacionais da Brevo.
+
+**Segurança:** nunca envie a chave SMTP no chat nem suba credenciais ao GitHub; use somente variáveis de ambiente locais ou um gerenciador de segredos no ambiente de execução. O arquivo `.env` está excluído do Git, mas a aplicação não o carrega automaticamente.
+
+Fontes: [Guia SMTP da Brevo](https://help.brevo.com/hc/pt/articles/7924908994450-Envie-e-mails-transacionais-usando-o-Brevo-SMTP) e [chaves SMTP](https://help.brevo.com/hc/pt/articles/7959631848850-Criar-e-gerenciar-suas-chaves-SMTP).
 
 ### Restrições da versão
 

@@ -41,7 +41,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=demo
 
 **Use o perfil `demo` somente localmente.** Os dados ficam em `data/`, fora do versionamento Git. Para testar: `mvn test`.
 
-Notificações ficam registradas na base. O envio externo exige SMTP configurado por variáveis de ambiente. Consulte a documentação da Sprint 03 para mais detalhes.
+Notificações ficam registradas na base. O projeto está configurado para o SMTP transacional da Brevo, com envio desativado até a configuração local das variáveis `EMAIL_ENABLED=true`, `EMAIL_FROM`, `SMTP_USER` e `SMTP_PASSWORD`. Use uma **chave SMTP** da Brevo (não uma chave API), sem adicioná-la ao repositório. Veja o [passo a passo da integração](docs/sprint-03/README.md#envio-de-e-mails-transacionais--brevo-smtp).
 
 ## Documentação e modelagem
 
