@@ -9,6 +9,7 @@
     <h1>Entrar</h1>
     <p>Alunos entram com o e-mail cadastrado. Professores e empresas usam o login informado.</p>
     <p>Novos alunos precisam alterar a senha inicial no primeiro acesso.</p>
+    <p class="login-guidance">Esqueceu a senha? Solicite ao professor a redefinição presencial. Nenhum e-mail de recuperação é necessário.</p>
     <div class="notice" th:if="${param.error}">Login ou senha inválidos, ou cadastro inativo.</div>
     <div class="notice success" th:if="${param.logout}">Sessão encerrada.</div>
     <div class="notice success" th:if="${param.emailAtualizado}">E-mail atualizado. Entre novamente usando o novo endereço.</div>
