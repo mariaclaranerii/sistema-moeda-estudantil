@@ -33,6 +33,10 @@ public class Aluno extends Usuario {
     @Column(nullable = false)
     private Integer saldo = 0;
 
+    // Nulo em registros anteriores equivale a senha já definida.
+    @Column(name = "troca_senha_pendente")
+    private Boolean trocaSenhaPendente = false;
+
     protected Aluno() {
     }
 
@@ -59,6 +63,10 @@ public class Aluno extends Usuario {
         this.curso = curso;
         this.instituicao = instituicao;
     }
+
+    public boolean isTrocaSenhaPendente() { return Boolean.TRUE.equals(trocaSenhaPendente); }
+    public void exigirTrocaSenhaInicial() { trocaSenhaPendente = true; }
+    public void confirmarTrocaSenha() { trocaSenhaPendente = false; }
 
     public String getEmail() {
         return email;

@@ -2,6 +2,10 @@ package br.edu.pucminas.moedaestudantil.web;
 
 import br.edu.pucminas.moedaestudantil.model.*;
 import br.edu.pucminas.moedaestudantil.service.SessaoService;
+import br.edu.pucminas.moedaestudantil.service.AlunoService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PerfilController {
 
     private final SessaoService sessao;
+    private final AlunoService alunos;
 
-    public PerfilController(SessaoService sessao) {
+    public PerfilController(SessaoService sessao, AlunoService alunos) {
         this.sessao = sessao;
+        this.alunos = alunos;
     }
 
     @GetMapping("/perfil")
@@ -24,6 +30,7 @@ public class PerfilController {
             model.addAttribute("tipo", "Aluno");
             model.addAttribute("email", aluno.getEmail());
             model.addAttribute("curso", aluno.getCurso());
+            model.addAttribute("trocaSenhaPendente", aluno.isTrocaSenhaPendente());
             model.addAttribute("cadastroUrl", "/alunos/" + aluno.getId());
         } else if (usuario instanceof Professor professor) {
             model.addAttribute("tipo", "Professor");
@@ -34,5 +41,24 @@ public class PerfilController {
             model.addAttribute("cadastroUrl", "/empresas/" + empresa.getId());
         }
         return "perfil";
+    }
+
+    @GetMapping("/perfil/senha")
+    public String editarSenha(Model model) {
+        model.addAttribute("trocaSenhaPendente", sessao.aluno().isTrocaSenhaPendente());
+        return "alterar-senha";
+    }
+
+    @PostMapping("/perfil/senha")
+    public String salvarSenha(@RequestParam String senhaAtual, @RequestParam String novaSenha,
+                             @RequestParam String confirmacao, RedirectAttributes redirect) {
+        try {
+            alunos.alterarMinhaSenha(senhaAtual, novaSenha, confirmacao);
+            redirect.addFlashAttribute("sucesso", "Senha alterada com sucesso.");
+            return "redirect:/perfil";
+        } catch (IllegalArgumentException ex) {
+            redirect.addFlashAttribute("erro", ex.getMessage());
+            return "redirect:/perfil/senha";
+        }
     }
 }

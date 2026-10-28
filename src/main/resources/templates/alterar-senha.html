@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Alterar senha')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="shell page narrow-page">
+  <div class="page-heading">
+    <a class="back-link" th:unless="${trocaSenhaPendente}" th:href="@{/perfil}">← Voltar ao perfil</a>
+    <span class="eyebrow">Minha conta</span>
+    <h1>Alterar minha senha</h1>
+    <p th:if="${trocaSenhaPendente}">Primeiro acesso: escolha uma senha pessoal para continuar usando o sistema.</p>
+    <p th:unless="${trocaSenhaPendente}">Confirme sua senha atual e defina uma nova senha.</p>
+  </div>
+  <div class="notice" th:if="${erro}" th:text="${erro}"></div>
+  <form class="form-card" th:action="@{/perfil/senha}" method="post">
+    <div class="form-grid">
+      <label class="field span-2">Senha atual
+        <input name="senhaAtual" type="password" autocomplete="current-password" required>
+      </label>
+      <label class="field span-2">Nova senha
+        <input name="novaSenha" type="password" autocomplete="new-password" minlength="8" maxlength="72" required>
+        <small>Use entre 8 e 72 caracteres; não repita a senha anterior.</small>
+      </label>
+      <label class="field span-2">Confirme a nova senha
+        <input name="confirmacao" type="password" autocomplete="new-password" minlength="8" maxlength="72" required>
+      </label>
+    </div>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <div class="form-actions" style="margin-top:1.5rem">
+      <a th:unless="${trocaSenhaPendente}" class="button secondary" th:href="@{/perfil}">Cancelar</a>
+      <button class="button primary" type="submit">Salvar nova senha</button>
+    </div>
+  </form>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

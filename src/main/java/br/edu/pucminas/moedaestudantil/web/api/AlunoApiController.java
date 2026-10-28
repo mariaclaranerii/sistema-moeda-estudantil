@@ -58,8 +58,8 @@ public class AlunoApiController {
         AlunoForm f = new AlunoForm();
         f.setNome(req.nome()); f.setEmail(req.email()); f.setCpf(req.cpf());
         f.setRg(req.rg()); f.setEndereco(req.endereco()); f.setCurso(req.curso());
-        f.setInstituicaoId(req.instituicaoId()); f.setLogin(req.login());
-        f.setSenha(req.senha() == null ? "" : req.senha());
+        f.setInstituicaoId(req.instituicaoId());
+        // Campos antigos de login e senha não são aplicados aos alunos.
         return f;
     }
 }

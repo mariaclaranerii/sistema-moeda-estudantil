@@ -64,6 +64,14 @@ Contas de demonstração (somente para ambiente local):
 
 O perfil `demo` cria registros de exemplo apenas quando as tabelas correspondentes estão vazias. Utilize um banco H2 de demonstração e **não ative esse perfil em ambiente público**.
 
+### Cadastro de alunos: login e senha inicial
+
+O professor não precisa informar um login ou senha: o sistema usa automaticamente o e-mail cadastrado como login (normalizado para minúsculas) e atribui a senha temporária padrão `Aluno@2026!`, personalizável pela variável de ambiente `ALUNO_SENHA_INICIAL`. A senha é armazenada com BCrypt, e novos alunos devem trocá-la no primeiro acesso antes de utilizar o painel ou as APIs. O aluno também pode alterá-la em **Meu perfil → Alterar senha** (informando a senha atual, uma nova de 8 a 72 caracteres e a confirmação).
+
+Alunos cadastrados anteriormente continuam acessando com o login antigo ou com o e-mail. Ao editar o e-mail, o login é atualizado para o novo endereço e a sessão é encerrada para novo acesso. A mudança não redefine a senha dos cadastros antigos.
+
+**Segurança:** a senha inicial compartilhada serve somente para demonstrações locais. Em um sistema público, uma senha igual para todos permitiria assumir contas antes do primeiro acesso; nesse cenário, implemente credenciais temporárias aleatórias individuais e entrega segura.
+
 ### Envio de e-mails transacionais — Brevo SMTP
 
 Os eventos já gravam notificações na tabela `notificacoes_email`:

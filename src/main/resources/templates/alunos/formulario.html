@@ -8,7 +8,8 @@
         <a class="back-link" th:href="${modo == 'novo'} ? @{/painel} : @{/alunos}">← Voltar</a>
         <span class="eyebrow" th:text="${modo == 'novo'} ? 'Novo cadastro' : 'Atualização cadastral'">Cadastro</span>
         <h1 th:text="${modo == 'novo'} ? 'Cadastrar aluno' : 'Editar aluno'">Cadastrar aluno</h1>
-        <p>Preencha os dados obrigatórios. A senha é armazenada de forma protegida.</p>
+        <p th:if="${modo == 'novo'}">O e-mail do aluno será usado automaticamente como login. Uma senha inicial temporária será atribuída pelo sistema.</p>
+        <p th:if="${modo == 'editar'}">Atualize seus dados. Sua senha pode ser alterada na seção de segurança.</p>
     </div>
 
     <form class="form-card" th:object="${alunoForm}"
@@ -62,18 +63,10 @@
             </div>
         </fieldset>
 
-        <fieldset>
-            <legend>Credenciais</legend>
-            <div class="form-grid">
-                <label class="field">Login
-                    <input type="text" th:field="*{login}" autocomplete="username" required>
-                    <small class="field-error" th:errors="*{login}"></small>
-                </label>
-                <label class="field">Senha <span th:if="${modo == 'editar'}">(deixe em branco para manter)</span>
-                    <input type="password" th:field="*{senha}" autocomplete="new-password" minlength="8" th:required="${modo == 'novo'}">
-                    <small class="field-error" th:errors="*{senha}"></small>
-                </label>
-            </div>
+        <fieldset th:if="${modo == 'editar'}">
+            <legend>Segurança da conta</legend>
+            <p>A senha não muda ao salvar os dados cadastrais.</p>
+            <a class="button secondary" th:href="@{/perfil/senha}">Alterar minha senha</a>
         </fieldset>
 
         <div class="form-actions">

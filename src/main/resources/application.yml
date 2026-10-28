@@ -32,6 +32,9 @@ spring:
       mail.smtp.writetimeout: 10000
 
 app:
+  aluno:
+    # Uso local: senha temporária compartilhada. Não usar em produção.
+    senha-inicial: ${ALUNO_SENHA_INICIAL:Aluno@2026!}
   email:
     enabled: ${EMAIL_ENABLED:false}
     from: ${EMAIL_FROM:}

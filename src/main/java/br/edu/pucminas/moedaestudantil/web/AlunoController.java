@@ -10,6 +10,8 @@ import br.edu.pucminas.moedaestudantil.service.ConflitoCadastroException;
 import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
 import jakarta.validation.Valid;
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,16 +63,14 @@ public class AlunoController {
     public String criar(@Valid @ModelAttribute AlunoForm alunoForm, BindingResult bindingResult,
                         Model model, RedirectAttributes redirectAttributes,
                         Authentication authentication) {
-        if (alunoForm.getSenha() == null || alunoForm.getSenha().isBlank()) {
-            bindingResult.rejectValue("senha", "senha.obrigatoria", "Informe uma senha.");
-        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("modo", "novo");
             return "alunos/formulario";
         }
         try {
             Aluno aluno = alunoService.criar(alunoForm);
-            redirectAttributes.addFlashAttribute("sucesso", "Aluno cadastrado com sucesso.");
+            redirectAttributes.addFlashAttribute("sucesso", "Aluno cadastrado. O login é "
+                + aluno.getEmail() + ". Informe a senha inicial ao aluno para que a altere no primeiro acesso.");
             if (authentication != null && authentication.getAuthorities().stream()
                     .anyMatch(role -> role.getAuthority().equals("ROLE_PROFESSOR"))) {
                 return "redirect:/painel";
@@ -104,7 +104,8 @@ public class AlunoController {
     @PostMapping("/{id}")
     public String atualizar(@PathVariable Long id, @Valid @ModelAttribute AlunoForm alunoForm,
                             BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes,
+                            HttpServletRequest request) {
         sessao.aluno();
         sessao.exigirProprietario(id);
         if (bindingResult.hasErrors()) {
@@ -112,7 +113,13 @@ public class AlunoController {
             return "alunos/formulario";
         }
         try {
-            alunoService.atualizar(id, alunoForm);
+            String loginAntes = sessao.usuario().getLogin();
+            Aluno atualizado = alunoService.atualizar(id, alunoForm);
+            if (!loginAntes.equalsIgnoreCase(atualizado.getLogin())) {
+                if (request.getSession(false) != null) request.getSession(false).invalidate();
+                SecurityContextHolder.clearContext();
+                return "redirect:/login?emailAtualizado";
+            }
             redirectAttributes.addFlashAttribute("sucesso", "Cadastro do aluno atualizado.");
             return "redirect:/alunos/" + id;
         } catch (ConflitoCadastroException exception) {

@@ -2,6 +2,7 @@ package br.edu.pucminas.moedaestudantil.config;
 
 import br.edu.pucminas.moedaestudantil.model.*;
 import br.edu.pucminas.moedaestudantil.repository.UsuarioRepository;
+import br.edu.pucminas.moedaestudantil.repository.AlunoRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,10 +13,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @Configuration
 public class SegurancaConfig {
     @Bean
-    UserDetailsService userDetailsService(UsuarioRepository repository) {
+    UserDetailsService userDetailsService(UsuarioRepository repository, AlunoRepository alunos) {
         return login -> {
+            // Aceita o e-mail de alunos antigos, sem invalidar seus logins existentes.
             Usuario usuario = repository.findByLoginIgnoreCase(login)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário ou senha inválidos."));
+                .orElseGet(() -> alunos.findByEmailIgnoreCase(login)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário ou senha inválidos.")));
             String perfil = usuario instanceof Aluno ? "ALUNO" :
                             usuario instanceof Professor ? "PROFESSOR" : "EMPRESA";
             return User.withUsername(usuario.getLogin())
@@ -34,7 +37,7 @@ public class SegurancaConfig {
                 .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas")
                     .hasRole("PROFESSOR")
                 .requestMatchers("/h2-console/**").denyAll()
-                .requestMatchers("/painel", "/painel/**", "/perfil", "/api/**", "/alunos/**", "/empresas/**", "/app",
+                .requestMatchers("/painel", "/painel/**", "/perfil", "/perfil/**", "/api/**", "/alunos/**", "/empresas/**", "/app",
                     "/sistema_de_moeda_estudantil_frontend.html").authenticated()
                 .anyRequest().denyAll())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/painel", true).permitAll())

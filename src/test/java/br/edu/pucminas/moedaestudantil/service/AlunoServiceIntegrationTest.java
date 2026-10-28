@@ -35,11 +35,12 @@ class AlunoServiceIntegrationTest {
         Aluno aluno = alunoService.criar(form);
 
         assertThat(aluno.getId()).isNotNull();
-        assertThat(aluno.getLogin()).isEqualTo("aluno.um");
+        assertThat(aluno.getLogin()).isEqualTo("aluno@exemplo.com");
+        assertThat(aluno.isTrocaSenhaPendente()).isTrue();
         assertThat(aluno.getCpf()).isEqualTo("12345678901");
         assertThat(aluno.isAtivo()).isTrue();
-        assertThat(aluno.getSenhaHash()).isNotEqualTo("segredo123");
-        assertThat(passwordEncoder.matches("segredo123", aluno.getSenhaHash())).isTrue();
+        assertThat(aluno.getSenhaHash()).isNotEqualTo("Aluno@2026!");
+        assertThat(passwordEncoder.matches("Aluno@2026!", aluno.getSenhaHash())).isTrue();
     }
 
     @Test

@@ -22,7 +22,7 @@ public abstract class Usuario {
     @Column(nullable = false, length = 120)
     private String nome;
 
-    @Column(nullable = false, unique = true, length = 80)
+    @Column(nullable = false, unique = true, length = 160)
     private String login;
 
     @Column(name = "senha_hash", nullable = false, length = 100)

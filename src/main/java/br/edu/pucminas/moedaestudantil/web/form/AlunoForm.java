@@ -34,12 +34,8 @@ public class AlunoForm {
     @Size(max = 120, message = "O curso deve ter até 120 caracteres.")
     private String curso = "";
 
-    @NotBlank(message = "Informe o login.")
-    @Size(min = 4, max = 80, message = "O login deve ter entre 4 e 80 caracteres.")
-    @Pattern(regexp = "[A-Za-z0-9._-]+", message = "Use apenas letras, números, ponto, hífen ou sublinhado.")
+    // Compatibilidade com a API antiga: estes campos não definem credenciais.
     private String login = "";
-
-    @Pattern(regexp = "^$|.{8,72}", message = "A senha deve ter entre 8 e 72 caracteres.")
     private String senha = "";
 
     @NotNull(message = "Selecione uma instituição.")

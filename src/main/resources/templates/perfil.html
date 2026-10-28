@@ -17,8 +17,11 @@
             <div th:if="${curso != null}"><dt>Curso</dt><dd th:text="${curso}">Curso</dd></div>
             <div th:if="${departamento != null}"><dt>Departamento</dt><dd th:text="${departamento}">Departamento</dd></div>
         </dl>
+        <div class="notice" th:if="${trocaSenhaPendente}">É necessário alterar a senha inicial para continuar.</div>
+        <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
         <div class="detail-actions" th:if="${cadastroUrl != null}">
             <a class="button secondary" th:href="${cadastroUrl}">Ver e editar meus dados</a>
+            <a class="button secondary" th:if="${tipo == 'Aluno'}" th:href="@{/perfil/senha}">Alterar senha</a>
             <a class="button primary" th:href="@{/painel}">Voltar ao painel</a>
         </div>
         <div class="detail-actions" th:unless="${cadastroUrl != null}">

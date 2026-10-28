@@ -47,8 +47,14 @@ class ApiIntegrationTest {
             .contentType(MediaType.APPLICATION_JSON).content(payload))
             .andExpect(status().isCreated()).andExpect(jsonPath("$.saldo").value(0));
         mockMvc.perform(get("/api/alunos")).andExpect(status().is3xxRedirection());
-        mockMvc.perform(get("/api/alunos").with(user("aluno.teste").roles("ALUNO")))
-            .andExpect(status().isOk()).andExpect(jsonPath("$[0].login").value("aluno.teste"));
+        mockMvc.perform(get("/api/alunos").with(user("aluno@exemplo.com").roles("ALUNO")))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(post("/perfil/senha").with(user("aluno@exemplo.com").roles("ALUNO"))
+            .with(csrf()).param("senhaAtual", "Aluno@2026!")
+            .param("novaSenha", "NovaSenha@2026").param("confirmacao", "NovaSenha@2026"))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(get("/api/alunos").with(user("aluno@exemplo.com").roles("ALUNO")))
+            .andExpect(status().isOk()).andExpect(jsonPath("$[0].login").value("aluno@exemplo.com"));
     }
 
     @Test
