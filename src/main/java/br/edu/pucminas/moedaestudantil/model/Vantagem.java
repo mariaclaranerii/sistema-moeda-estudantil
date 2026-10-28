@@ -33,6 +33,9 @@ public class Vantagem {
     @Column(length = 60)
     private String icone;
 
+    @Column(name = "foto_referencia", length = 1000)
+    private String fotoReferencia;
+
     protected Vantagem() {
     }
 

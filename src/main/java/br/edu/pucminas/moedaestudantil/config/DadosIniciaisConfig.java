@@ -4,6 +4,9 @@ import br.edu.pucminas.moedaestudantil.model.Aluno;
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
 import br.edu.pucminas.moedaestudantil.model.InstituicaoEnsino;
 import br.edu.pucminas.moedaestudantil.model.Transacao;
+import br.edu.pucminas.moedaestudantil.model.Professor;
+import br.edu.pucminas.moedaestudantil.repository.ProfessorRepository;
+import br.edu.pucminas.moedaestudantil.service.CreditoSemestralService;
 import br.edu.pucminas.moedaestudantil.model.Vantagem;
 import br.edu.pucminas.moedaestudantil.repository.AlunoRepository;
 import br.edu.pucminas.moedaestudantil.repository.EmpresaParceiraRepository;
@@ -36,14 +39,15 @@ public class DadosIniciaisConfig {
     }
 
     @Bean
-    @Profile("!test")
+    @Profile("demo")
     ApplicationRunner cadastrarDadosDemonstracao(
             AlunoRepository alunoRepository,
             EmpresaParceiraRepository empresaRepository,
             InstituicaoEnsinoRepository instituicaoRepository,
             TransacaoRepository transacaoRepository,
             VantagemRepository vantagemRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder, ProfessorRepository professorRepository,
+            CreditoSemestralService creditoSemestralService) {
         return (ApplicationArguments ignored) -> {
             List<InstituicaoEnsino> instituicoes = instituicaoRepository.findAll();
             if (instituicoes.isEmpty()) {
@@ -99,6 +103,17 @@ public class DadosIniciaisConfig {
 
                 empresaRepository.saveAll(List.of(e1, e2, e3));
             }
+
+            if (professorRepository.count() == 0) {
+                String senhaProfessor = passwordEncoder.encode("12345678");
+                professorRepository.saveAll(List.of(
+                    new Professor("Carlos Eduardo", "prof.carlos", senhaProfessor,
+                        "11122233344", "Engenharia de Software", inst1),
+                    new Professor("Beatriz Lima", "prof.beatriz", senhaProfessor,
+                        "44455566677", "Computação", inst2)
+                ));
+            }
+            creditoSemestralService.creditarSemestreAtual();
 
             if (vantagemRepository.count() == 0) {
                 vantagemRepository.saveAll(List.of(

@@ -34,6 +34,17 @@ public class Transacao {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora = LocalDateTime.now();
 
+    @Column(name = "aluno_id")
+    private Long alunoId;
+    @Column(name = "professor_id")
+    private Long professorId;
+    @Column(name = "empresa_id")
+    private Long empresaId;
+    @Column(name = "vantagem_id")
+    private Long vantagemId;
+    @Column(name = "codigo_resgate", unique = true, length = 40)
+    private String codigoResgate;
+
     protected Transacao() {
     }
 
@@ -55,6 +66,22 @@ public class Transacao {
         this.dataHora = dataHora;
     }
 
+    public void vincularTransferencia(Long professorId, Long alunoId) {
+        this.professorId = professorId;
+        this.alunoId = alunoId;
+    }
+    public void vincularResgate(Long alunoId, Long empresaId, Long vantagemId, String codigo) {
+        this.alunoId = alunoId;
+        this.empresaId = empresaId;
+        this.vantagemId = vantagemId;
+        this.codigoResgate = codigo;
+    }
+    public void vincularCredito(Long professorId) { this.professorId = professorId; }
+    public Long getAlunoId() { return alunoId; }
+    public Long getProfessorId() { return professorId; }
+    public Long getEmpresaId() { return empresaId; }
+    public Long getVantagemId() { return vantagemId; }
+    public String getCodigoResgate() { return codigoResgate; }
     public Long getId() {
         return id;
     }

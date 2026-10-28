@@ -99,7 +99,7 @@ public class Aluno extends Usuario {
     }
 
     public void debitarMoedas(int quantidade) {
-        if (getSaldo() < quantidade) {
+        if (quantidade <= 0 || getSaldo() < quantidade) {
             throw new IllegalArgumentException("Saldo insuficiente.");
         }
         this.saldo = getSaldo() - quantidade;
