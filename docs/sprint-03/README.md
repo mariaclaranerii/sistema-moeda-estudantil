@@ -24,6 +24,7 @@ Modelos da versão final:
 - [Modelo ER — v2](diagramas/v2/modelo-er.puml)
 - [Detalhamento da arquitetura e persistência](arquitetura-e-persistencia.md)
 - [Roteiro de apresentação](apresentacao.md)
+- [Rastreabilidade funcional](rastreabilidade.md)
 
 As versões da Sprint 01 e o Modelo ER da Sprint 02 permanecem em seus respectivos diretórios.
 
