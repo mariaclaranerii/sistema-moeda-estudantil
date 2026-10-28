@@ -23,7 +23,7 @@ public class PrimeiroAcessoInterceptor implements HandlerInterceptor {
                 || auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ALUNO"))) {
             return true;
         }
-        String path = request.getServletPath();
+        String path = request.getRequestURI().substring(request.getContextPath().length());
         if (path.equals("/perfil/senha") || path.equals("/perfil") || path.equals("/logout") ||
                 path.equals("/error") || path.equals("/favicon.ico") || path.startsWith("/css/")) {
             return true;
