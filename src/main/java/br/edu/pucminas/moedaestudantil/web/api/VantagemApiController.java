@@ -2,35 +2,26 @@ package br.edu.pucminas.moedaestudantil.web.api;
 
 import br.edu.pucminas.moedaestudantil.model.Vantagem;
 import br.edu.pucminas.moedaestudantil.repository.VantagemRepository;
+import br.edu.pucminas.moedaestudantil.service.MovimentacaoService;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/vantagens")
-@CrossOrigin(origins = "*")
 public class VantagemApiController {
-
     private final VantagemRepository repository;
-
-    public VantagemApiController(VantagemRepository repository) {
+    private final MovimentacaoService movimentacao;
+    public VantagemApiController(VantagemRepository repository, MovimentacaoService movimentacao) {
         this.repository = repository;
+        this.movimentacao = movimentacao;
     }
-
+    public record CadastroVantagem(String titulo, Integer custoMoedas, String descricao, String fotoReferencia) {}
     @GetMapping
-    public List<Vantagem> listar() {
-        return repository.findAllByOrderByTituloAsc();
-    }
-
+    public List<Vantagem> listar() { return repository.findAllByOrderByTituloAsc(); }
     @PostMapping
-    public ResponseEntity<Vantagem> criar(@RequestBody Vantagem vantagem) {
-        Vantagem salva = repository.save(vantagem);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
+    public ResponseEntity<Vantagem> criar(@RequestBody CadastroVantagem req) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(movimentacao.cadastrarVantagem(
+            req.titulo(), req.custoMoedas(), req.descricao(), req.fotoReferencia()));
     }
 }
