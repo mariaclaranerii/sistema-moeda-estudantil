@@ -5,7 +5,7 @@
 <header th:replace="~{fragments :: header}"></header>
 <main class="shell page narrow-page">
     <div class="page-heading">
-        <a class="back-link" th:href="@{/empresas}">← Voltar para empresas</a>
+        <a class="back-link" th:href="${modo == 'novo'} ? @{/painel} : @{/empresas}">← Voltar</a>
         <span class="eyebrow" th:text="${modo == 'novo'} ? 'Novo cadastro' : 'Atualização cadastral'">Cadastro</span>
         <h1 th:text="${modo == 'novo'} ? 'Cadastrar empresa' : 'Editar empresa'">Cadastrar empresa</h1>
         <p>Registre os dados essenciais da parceira. A senha é armazenada de forma protegida.</p>
@@ -43,7 +43,7 @@
             </div>
         </fieldset>
         <div class="form-actions">
-            <a class="button secondary" th:href="${modo == 'novo'} ? @{/empresas} : @{/empresas/{id}(id=${empresaId})}">Cancelar</a>
+            <a class="button secondary" th:href="${modo == 'novo'} ? @{/painel} : @{/empresas/{id}(id=${empresaId})}">Cancelar</a>
             <button class="button primary" type="submit" th:text="${modo == 'novo'} ? 'Cadastrar empresa' : 'Salvar alterações'">Salvar</button>
         </div>
     </form>

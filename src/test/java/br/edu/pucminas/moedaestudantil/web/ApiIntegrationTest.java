@@ -43,7 +43,8 @@ class ApiIntegrationTest {
             "curso":"Software","instituicaoId":%d,"saldo":1000}
             """.formatted(instituicaoId);
 
-        mockMvc.perform(post("/api/alunos").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(payload))
+        mockMvc.perform(post("/api/alunos").with(csrf()).with(user("prof.cadastro").roles("PROFESSOR"))
+            .contentType(MediaType.APPLICATION_JSON).content(payload))
             .andExpect(status().isCreated()).andExpect(jsonPath("$.saldo").value(0));
         mockMvc.perform(get("/api/alunos")).andExpect(status().is3xxRedirection());
         mockMvc.perform(get("/api/alunos").with(user("aluno.teste").roles("ALUNO")))

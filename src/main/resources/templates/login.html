@@ -10,14 +10,13 @@
     <p>Use o login e a senha cadastrados.</p>
     <div class="notice" th:if="${param.error}">Login ou senha inválidos, ou cadastro inativo.</div>
     <div class="notice success" th:if="${param.logout}">Sessão encerrada.</div>
-    <div class="notice success" th:if="${param.cadastro}">Cadastro realizado. Faça login para continuar.</div>
+    <p class="login-guidance">Os cadastros de alunos e empresas são realizados por professores.</p>
     <form th:action="@{/login}" method="post" style="display:grid;gap:1rem;margin-top:1.5rem;">
       <label>Login <input name="username" required autocomplete="username" style="display:block;width:100%;padding:.7rem;margin-top:.4rem"></label>
       <label>Senha <input name="password" type="password" required autocomplete="current-password" style="display:block;width:100%;padding:.7rem;margin-top:.4rem"></label>
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       <button class="button primary" type="submit">Acessar meu painel</button>
     </form>
-    <p style="margin-top:1.5rem">Não possui cadastro? <a th:href="@{/alunos/novo}">Aluno</a> · <a th:href="@{/empresas/nova}">Empresa parceira</a></p>
   </section>
 </main>
 <footer th:replace="~{fragments :: footer}"></footer>

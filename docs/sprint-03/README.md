@@ -45,7 +45,7 @@ mvn spring-boot:run
 mvn test
 ```
 
-Acesse `http://localhost:8080`. O cadastro de alunos e empresas está disponível na página inicial. Professores são previamente cadastrados; para a demonstração, use:
+Acesse `http://localhost:8080`. Os cadastros de alunos e empresas são feitos exclusivamente por professores autenticados. Visitantes podem apenas acessar a página de entrada. Professores são previamente cadastrados; para a demonstração, use:
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=demo

@@ -25,7 +25,7 @@ flowchart TD
 
 **Crédito semestral:** o serviço de agendamento registra uma carga de 1.000 moedas por professor ativo e semestre. A restrição de unicidade entre professor e semestre evita cargas duplicadas; o saldo anterior é preservado.
 
-**Autorização:** a interface de cadastro inicial permanece pública. Consultas e alterações pessoais são restritas ao titular. O professor pode transferir moedas, o aluno pode resgatar vantagens e a empresa pode cadastrar vantagens.
+**Autorização:** apenas professores autenticados podem acessar e submeter cadastros de alunos e empresas, inclusive pelas APIs. A tela de login é pública. Consultas e alterações pessoais são restritas ao titular. O professor pode transferir moedas, o aluno pode resgatar vantagens e a empresa pode cadastrar vantagens.
 
 ## Persistência
 

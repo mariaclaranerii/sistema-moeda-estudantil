@@ -28,23 +28,32 @@ class FluxoMvcIntegrationTest {
         mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"));
         mockMvc.perform(get("/login")).andExpect(status().isOk()).andExpect(view().name("login"));
         mockMvc.perform(get("/painel")).andExpect(status().is3xxRedirection());
-        mockMvc.perform(get("/alunos/novo")).andExpect(status().isOk());
-        mockMvc.perform(get("/empresas/nova")).andExpect(status().isOk());
+        mockMvc.perform(get("/alunos/novo")).andExpect(status().is3xxRedirection());
+        mockMvc.perform(get("/empresas/nova")).andExpect(status().is3xxRedirection());
     }
 
     @Test
-    void cabecalhoDeVisitanteMostraCadastroEEntrada() throws Exception {
+    void visitanteVisualizaSomenteEntradaSemOpcoesDeCadastro() throws Exception {
         mockMvc.perform(get("/"))
             .andExpect(status().isOk())
-            .andExpect(content().string(containsString("Cadastrar aluno")))
-            .andExpect(content().string(containsString("Cadastrar empresa")))
+            .andExpect(content().string(not(containsString("Cadastrar aluno"))))
+            .andExpect(content().string(not(containsString("Cadastrar empresa"))))
             .andExpect(content().string(containsString("Entrar")))
             .andExpect(content().string(not(containsString("Sair da conta"))))
             .andExpect(content().string(not(containsString("Meu perfil"))));
     }
 
     @Test
-    void cadastroDeAlunoDirecionaAoLogin() throws Exception {
+    void loginPublicoNaoOfereceLinksDeCadastro() throws Exception {
+        mockMvc.perform(get("/login"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(not(containsString("Não possui cadastro?"))))
+            .andExpect(content().string(not(containsString("href=\"/alunos/novo\""))))
+            .andExpect(content().string(not(containsString("href=\"/empresas/nova\""))));
+    }
+
+    @Test
+    void visitanteNaoPodeCadastrarAlunoPorRequisicaoDireta() throws Exception {
         long id = instituicoes.findAll().get(0).getId();
         mockMvc.perform(post("/alunos").with(csrf())
             .param("nome","Aluno do MVC").param("email","mvc@exemplo.com")
@@ -53,6 +62,6 @@ class FluxoMvcIntegrationTest {
             .param("login","aluno.mvc").param("senha","segredo123")
             .param("instituicaoId",Long.toString(id)))
             .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/login?cadastro"));
+            .andExpect(redirectedUrlPattern("**/login"));
     }
 }

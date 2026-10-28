@@ -6,7 +6,7 @@ Aplicação MVC para reconhecimento do mérito acadêmico. Professores recebem u
 
 ## Funcionalidades
 
-- Cadastros de aluno e empresa parceira, com edição e desativação lógica.
+- Cadastro de alunos e empresas parceiras exclusivamente por professores autenticados; edição e desativação lógica do próprio cadastro.
 - Autenticação por login/senha e acesso individual aos dados.
 - Cadastro prévio de instituições e professores.
 - Crédito semestral acumulativo de 1.000 moedas por professor.

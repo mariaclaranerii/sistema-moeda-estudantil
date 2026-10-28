@@ -107,6 +107,26 @@ class PainelIntegrationTest {
 
 
     @Test
+    void visitanteNaoPodeCadastrarAlunoOuEmpresaPorMvcOuApi() throws Exception {
+        mockMvc.perform(get("/alunos/novo"))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(get("/empresas/nova"))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/alunos").with(csrf()))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/empresas").with(csrf()))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/api/alunos").with(csrf())
+            .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+            .content("{}"))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/api/empresas").with(csrf())
+            .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+            .content("{}"))
+            .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
     void professorPodeAbrirERealizarCadastros() throws Exception {
         mockMvc.perform(get("/alunos/novo").with(user("prof.cadastro").roles("PROFESSOR")))
             .andExpect(status().isOk()).andExpect(view().name("alunos/formulario"));
