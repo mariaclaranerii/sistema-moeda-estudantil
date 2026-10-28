@@ -75,4 +75,7 @@ public class Vantagem {
     public String getIcone() {
         return icone;
     }
+
+    public String getFotoReferencia() { return fotoReferencia; }
+    public void setFotoReferencia(String fotoReferencia) { this.fotoReferencia = fotoReferencia; }
 }
