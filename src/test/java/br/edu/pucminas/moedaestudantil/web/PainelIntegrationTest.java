@@ -334,6 +334,9 @@ class PainelIntegrationTest {
 
     @Test
     void professorRedefineSenhaDeEmpresaEExigeTrocaNoProximoAcesso() throws Exception {
+        InstituicaoEnsino instituicao = instituicoes.findAll().get(0);
+        professores.save(new Professor("Professor Parceiras", "prof.senhas",
+            encoder.encode("senha12345"), "11882911201", "Computação", instituicao));
         EmpresaParceira empresa = empresas.save(new EmpresaParceira("Parceira Recuperacao", "empresa.recuperacao",
             encoder.encode("senhaAntiga123"), "empresa.recuperacao@exemplo.com"));
 
