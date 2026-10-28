@@ -8,7 +8,8 @@
         <a class="back-link" th:href="${modo == 'novo'} ? @{/painel} : @{/empresas}">← Voltar</a>
         <span class="eyebrow" th:text="${modo == 'novo'} ? 'Novo cadastro' : 'Atualização cadastral'">Cadastro</span>
         <h1 th:text="${modo == 'novo'} ? 'Cadastrar empresa' : 'Editar empresa'">Cadastrar empresa</h1>
-        <p>Registre os dados essenciais da parceira. A senha é armazenada de forma protegida.</p>
+        <p th:if="${modo == 'novo'}">Registre os dados essenciais da parceira. A senha inicial deverá ser alterada pela empresa no primeiro acesso.</p>
+        <p th:if="${modo == 'editar'}">Atualize os dados de cadastro. A senha é alterada separadamente, em Meu perfil.</p>
     </div>
 
     <form class="form-card" th:object="${empresaParceiraForm}"
@@ -36,11 +37,16 @@
                     <input type="text" th:field="*{login}" autocomplete="username" required>
                     <small class="field-error" th:errors="*{login}"></small>
                 </label>
-                <label class="field">Senha <span th:if="${modo == 'editar'}">(deixe em branco para manter)</span>
-                    <input type="password" th:field="*{senha}" autocomplete="new-password" minlength="8" th:required="${modo == 'novo'}">
+                <label class="field" th:if="${modo == 'novo'}">Senha inicial
+                    <input type="password" th:field="*{senha}" autocomplete="new-password" minlength="8" required>
                     <small class="field-error" th:errors="*{senha}"></small>
                 </label>
             </div>
+        </fieldset>
+        <fieldset th:if="${modo == 'editar'}">
+            <legend>Segurança da conta</legend>
+            <p>A senha não muda ao editar dados cadastrais.</p>
+            <a class="button secondary" th:href="@{/perfil/senha}">Alterar minha senha</a>
         </fieldset>
         <div class="form-actions">
             <a class="button secondary" th:href="${modo == 'novo'} ? @{/painel} : @{/empresas/{id}(id=${empresaId})}">Cancelar</a>

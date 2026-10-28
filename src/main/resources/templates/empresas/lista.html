@@ -14,6 +14,11 @@
     </div>
 
     <div class="notice success" th:if="${sucesso}" th:text="${sucesso}"></div>
+    <div class="detail-card" th:if="${senhaTemporaria != null}" style="margin-bottom:1.5rem">
+        <h2>Senha temporária da empresa</h2>
+        <p>Entregue diretamente à empresa. A senha aparece somente agora e deverá ser alterada no próximo acesso.</p>
+        <strong th:text="${senhaTemporaria}" style="font-size:1.25rem;overflow-wrap:anywhere">Senha temporária</strong>
+    </div>
     <div class="empty-state" th:if="${#lists.isEmpty(empresas)}">
         <span>ME</span>
         <h2>Nenhuma empresa cadastrada</h2>
@@ -22,11 +27,17 @@
     </div>
     <div class="table-wrap" th:unless="${#lists.isEmpty(empresas)}">
         <table>
-            <thead><tr><th>Empresa</th><th>Situação</th></tr></thead>
+            <thead><tr><th>Empresa</th><th>Situação</th><th>Ações</th></tr></thead>
             <tbody>
             <tr th:each="empresa : ${empresas}" th:classappend="${!empresa.ativo} ? 'muted-row'">
                 <td><strong th:text="${empresa.nome}">Empresa</strong><small th:text="${empresa.email}">email</small></td>
                 <td><span class="status" th:classappend="${empresa.ativo} ? 'active' : 'inactive'" th:text="${empresa.ativo} ? 'Ativa' : 'Inativa'">Ativa</span></td>
+                <td>
+                    <form th:if="${empresa.ativo}" th:action="@{/empresas/{id}/redefinir-senha(id=${empresa.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="button secondary" type="submit">Redefinir senha</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

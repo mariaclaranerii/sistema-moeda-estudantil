@@ -3,6 +3,7 @@ package br.edu.pucminas.moedaestudantil.web;
 import br.edu.pucminas.moedaestudantil.model.*;
 import br.edu.pucminas.moedaestudantil.service.SessaoService;
 import br.edu.pucminas.moedaestudantil.service.AlunoService;
+import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,10 +16,12 @@ public class PerfilController {
 
     private final SessaoService sessao;
     private final AlunoService alunos;
+    private final EmpresaParceiraService empresas;
 
-    public PerfilController(SessaoService sessao, AlunoService alunos) {
+    public PerfilController(SessaoService sessao, AlunoService alunos, EmpresaParceiraService empresas) {
         this.sessao = sessao;
         this.alunos = alunos;
+        this.empresas = empresas;
     }
 
     @GetMapping("/perfil")
@@ -38,6 +41,7 @@ public class PerfilController {
         } else if (usuario instanceof EmpresaParceira empresa) {
             model.addAttribute("tipo", "Empresa parceira");
             model.addAttribute("email", empresa.getEmail());
+            model.addAttribute("trocaSenhaPendente", empresa.isTrocaSenhaPendente());
             model.addAttribute("cadastroUrl", "/empresas/" + empresa.getId());
         }
         return "perfil";
@@ -45,7 +49,15 @@ public class PerfilController {
 
     @GetMapping("/perfil/senha")
     public String editarSenha(Model model) {
-        model.addAttribute("trocaSenhaPendente", sessao.aluno().isTrocaSenhaPendente());
+        Usuario usuario = sessao.usuario();
+        if (usuario instanceof Aluno aluno) {
+            model.addAttribute("trocaSenhaPendente", aluno.isTrocaSenhaPendente());
+        } else if (usuario instanceof EmpresaParceira empresa) {
+            model.addAttribute("trocaSenhaPendente", empresa.isTrocaSenhaPendente());
+        } else {
+            throw new org.springframework.security.access.AccessDeniedException(
+                "Alteração de senha disponível para alunos e empresas.");
+        }
         return "alterar-senha";
     }
 
@@ -53,7 +65,15 @@ public class PerfilController {
     public String salvarSenha(@RequestParam String senhaAtual, @RequestParam String novaSenha,
                              @RequestParam String confirmacao, RedirectAttributes redirect) {
         try {
-            alunos.alterarMinhaSenha(senhaAtual, novaSenha, confirmacao);
+            Usuario usuario = sessao.usuario();
+            if (usuario instanceof Aluno) {
+                alunos.alterarMinhaSenha(senhaAtual, novaSenha, confirmacao);
+            } else if (usuario instanceof EmpresaParceira) {
+                empresas.alterarMinhaSenha(senhaAtual, novaSenha, confirmacao);
+            } else {
+                throw new org.springframework.security.access.AccessDeniedException(
+                    "Alteração de senha disponível para alunos e empresas.");
+            }
             redirect.addFlashAttribute("sucesso", "Senha alterada com sucesso.");
             return "redirect:/perfil";
         } catch (IllegalArgumentException ex) {

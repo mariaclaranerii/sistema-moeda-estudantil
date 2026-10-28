@@ -23,6 +23,10 @@ public class EmpresaParceira extends Usuario {
     @Column(length = 1000)
     private String vantagens;
 
+    // Os registros anteriores (NULL) já possuem uma senha configurada.
+    @Column(name = "troca_senha_pendente")
+    private Boolean trocaSenhaPendente = false;
+
     protected EmpresaParceira() {
     }
 
@@ -55,6 +59,10 @@ public class EmpresaParceira extends Usuario {
         this.endereco = endereco;
         this.vantagens = vantagens;
     }
+
+    public boolean isTrocaSenhaPendente() { return Boolean.TRUE.equals(trocaSenhaPendente); }
+    public void exigirTrocaSenhaInicial() { trocaSenhaPendente = true; }
+    public void confirmarTrocaSenha() { trocaSenhaPendente = false; }
 
     public String getEmail() {
         return email;

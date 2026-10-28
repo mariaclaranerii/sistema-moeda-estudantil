@@ -156,6 +156,9 @@ class PainelIntegrationTest {
             .param("senha", "senha12345"))
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("/painel"));
+        org.assertj.core.api.Assertions.assertThat(empresas.findAll().stream()
+            .filter(e -> e.getLogin().equals("empresa.criada.professor"))
+            .findFirst().orElseThrow().isTrocaSenhaPendente()).isTrue();
     }
 
     @Test
@@ -288,6 +291,105 @@ class PainelIntegrationTest {
             .andExpect(status().isForbidden());
         org.assertj.core.api.Assertions.assertThat(alunos.findById(aluno.getId())
             .orElseThrow().isTrocaSenhaPendente()).isFalse();
+    }
+
+    @Test
+    void empresaAlteraSenhaNoPerfilSemEmail() throws Exception {
+        EmpresaParceira empresa = empresas.save(new EmpresaParceira("Parceira Senha", "parceira.senha",
+            encoder.encode("senhaAntiga123"), "parceira.senha@exemplo.com"));
+
+        mockMvc.perform(get("/perfil").with(user(empresa.getLogin()).roles("EMPRESA")))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Alterar senha")));
+        mockMvc.perform(get("/empresas/{id}/editar", empresa.getId())
+            .with(user(empresa.getLogin()).roles("EMPRESA")))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Alterar minha senha")))
+            .andExpect(content().string(not(containsString("name=\"senha\""))));
+
+        mockMvc.perform(post("/perfil/senha").with(user(empresa.getLogin()).roles("EMPRESA")).with(csrf())
+            .param("senhaAtual", "incorreta").param("novaSenha", "SenhaNova123!")
+            .param("confirmacao", "SenhaNova123!"))
+            .andExpect(redirectedUrl("/perfil/senha"));
+        org.assertj.core.api.Assertions.assertThat(encoder.matches("senhaAntiga123",
+            empresas.findById(empresa.getId()).orElseThrow().getSenhaHash())).isTrue();
+
+        mockMvc.perform(post("/perfil/senha").with(user(empresa.getLogin()).roles("EMPRESA")).with(csrf())
+            .param("senhaAtual", "senhaAntiga123").param("novaSenha", "SenhaNova123!")
+            .param("confirmacao", "diferente123"))
+            .andExpect(redirectedUrl("/perfil/senha"));
+
+        mockMvc.perform(post("/perfil/senha").with(user(empresa.getLogin()).roles("EMPRESA")).with(csrf())
+            .param("senhaAtual", "senhaAntiga123").param("novaSenha", "SenhaNova123!")
+            .param("confirmacao", "SenhaNova123!"))
+            .andExpect(redirectedUrl("/perfil"));
+
+        org.assertj.core.api.Assertions.assertThat(encoder.matches("SenhaNova123!",
+            empresas.findById(empresa.getId()).orElseThrow().getSenhaHash())).isTrue();
+        mockMvc.perform(formLogin().user(empresa.getLogin()).password("senhaAntiga123"))
+            .andExpect(redirectedUrl("/login?error"));
+        mockMvc.perform(formLogin().user(empresa.getLogin()).password("SenhaNova123!"))
+            .andExpect(redirectedUrl("/painel"));
+    }
+
+    @Test
+    void professorRedefineSenhaDeEmpresaEExigeTrocaNoProximoAcesso() throws Exception {
+        EmpresaParceira empresa = empresas.save(new EmpresaParceira("Parceira Recuperacao", "empresa.recuperacao",
+            encoder.encode("senhaAntiga123"), "empresa.recuperacao@exemplo.com"));
+
+        var result = mockMvc.perform(post("/empresas/{id}/redefinir-senha", empresa.getId())
+            .with(user("prof.senhas").roles("PROFESSOR")).with(csrf()))
+            .andExpect(redirectedUrl("/empresas")).andReturn();
+        String senhaTemporaria = (String) result.getFlashMap().get("senhaTemporaria");
+        org.assertj.core.api.Assertions.assertThat(senhaTemporaria).hasSize(24);
+        org.assertj.core.api.Assertions.assertThat(encoder.matches(senhaTemporaria,
+            empresas.findById(empresa.getId()).orElseThrow().getSenhaHash())).isTrue();
+        org.assertj.core.api.Assertions.assertThat(empresas.findById(empresa.getId())
+            .orElseThrow().isTrocaSenhaPendente()).isTrue();
+
+        mockMvc.perform(get("/empresas").with(user("prof.senhas").roles("PROFESSOR"))
+            .flashAttrs(result.getFlashMap()))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString(senhaTemporaria)))
+            .andExpect(content().string(containsString("Redefinir senha")));
+
+        mockMvc.perform(formLogin().user(empresa.getLogin()).password("senhaAntiga123"))
+            .andExpect(redirectedUrl("/login?error"));
+        mockMvc.perform(formLogin().user(empresa.getLogin()).password(senhaTemporaria))
+            .andExpect(redirectedUrl("/painel"));
+        mockMvc.perform(get("/painel").with(user(empresa.getLogin()).roles("EMPRESA")))
+            .andExpect(redirectedUrl("/perfil/senha"));
+        mockMvc.perform(get("/api/vantagens").with(user(empresa.getLogin()).roles("EMPRESA")))
+            .andExpect(status().isForbidden());
+
+        mockMvc.perform(post("/perfil/senha").with(user(empresa.getLogin()).roles("EMPRESA")).with(csrf())
+            .param("senhaAtual", senhaTemporaria).param("novaSenha", "MinhaNovaSenha123!")
+            .param("confirmacao", "MinhaNovaSenha123!"))
+            .andExpect(redirectedUrl("/perfil"));
+        org.assertj.core.api.Assertions.assertThat(empresas.findById(empresa.getId())
+            .orElseThrow().isTrocaSenhaPendente()).isFalse();
+        mockMvc.perform(get("/painel").with(user(empresa.getLogin()).roles("EMPRESA")))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void empresaNaoConsegueRedefinirSenhaDeOutraEmpresaNemAlunoPode() throws Exception {
+        EmpresaParceira e = empresas.save(new EmpresaParceira("Empresa Alvo", "empresa.alvo",
+            encoder.encode("senhaAntiga123"), "empresa.alvo@exemplo.com"));
+        mockMvc.perform(post("/empresas/{id}/redefinir-senha", e.getId()).with(csrf()))
+            .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/empresas/{id}/redefinir-senha", e.getId())
+            .with(user("empresa.estranha").roles("EMPRESA")).with(csrf()))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(post("/empresas/{id}/redefinir-senha", e.getId())
+            .with(user("aluno.estranho").roles("ALUNO")).with(csrf()))
+            .andExpect(status().isForbidden());
+        mockMvc.perform(post("/perfil/senha").with(user("prof.senhas").roles("PROFESSOR")).with(csrf())
+            .param("senhaAtual", "senha12345").param("novaSenha", "SenhaNova123!")
+            .param("confirmacao", "SenhaNova123!"))
+            .andExpect(status().isForbidden());
+        org.assertj.core.api.Assertions.assertThat(encoder.matches("senhaAntiga123",
+            empresas.findById(e.getId()).orElseThrow().getSenhaHash())).isTrue();
     }
 
     @Test

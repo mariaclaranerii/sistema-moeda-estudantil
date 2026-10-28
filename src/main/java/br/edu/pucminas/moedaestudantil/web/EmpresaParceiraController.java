@@ -73,6 +73,15 @@ public class EmpresaParceiraController {
         }
     }
 
+    @PostMapping("/{id}/redefinir-senha")
+    public String redefinirSenha(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        String temporaria = empresaService.redefinirSenhaPeloProfessor(id);
+        redirectAttributes.addFlashAttribute("senhaTemporaria", temporaria);
+        redirectAttributes.addFlashAttribute("sucesso",
+            "Senha temporária criada. Entregue-a diretamente à empresa. Ela aparece apenas nesta página.");
+        return "redirect:/empresas";
+    }
+
     @GetMapping("/{id}")
     public String detalhar(@PathVariable Long id, Model model) {
         sessao.empresa();

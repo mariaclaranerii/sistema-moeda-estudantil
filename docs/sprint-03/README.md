@@ -14,7 +14,7 @@
 - Cadastro e estoque de vantagens por empresa parceira: listagem de ativas/inativas, edição dos próprios itens e ativação/desativação sem excluir o histórico.
 - Apenas vantagens ativas ficam disponíveis para novos resgates; custo, descrição e foto podem ser editados pela empresa titular.
 - Resgate de vantagens, desconto do saldo e código único de conferência visível no extrato do aluno e da empresa.
-- Alteração de senha sem e-mail: aluno autenticado informa a senha atual e a nova; professor pode redefinir uma senha temporária, exibida uma única vez e com troca obrigatória no primeiro acesso. O envio automático de e-mails não integra esta versão.
+- Alteração de senha sem e-mail: alunos e empresas autenticados informam a senha atual e a nova; o professor pode redefinir senhas temporárias de ambos, exibidas uma única vez e com troca obrigatória no próximo acesso. O envio automático de e-mails não integra esta versão.
 
 ## Arquitetura
 
@@ -76,7 +76,9 @@ Alunos cadastrados anteriormente continuam acessando com o login antigo ou com o
 
 A aplicação não utiliza Brevo, SMTP nem qualquer serviço externo de e-mail. O endereço cadastrado pelo professor permanece como login dos novos alunos, mas o sistema não precisa acessar a caixa de entrada. O aluno troca a própria senha em **Meu perfil → Alterar senha**, informando a senha atual e uma nova senha com confirmação.
 
-Caso esqueça a senha, o professor acessa **Meu painel → Ver alunos cadastrados → Redefinir senha**, recebe uma senha temporária aleatória exibida uma única vez e a entrega ao aluno por um meio privado, preferencialmente presencialmente. No próximo acesso, o aluno precisa trocá-la antes de usar as demais funcionalidades. A ação exige autenticação de professor e proteção CSRF; a senha temporária é armazenada apenas como hash.
+Caso um aluno **ou empresa** esqueça a senha, o professor acessa **Meu painel → Ver alunos cadastrados** ou **Ver empresas cadastradas → Redefinir senha**, recebe uma senha temporária aleatória exibida uma única vez e a entrega ao titular por um meio privado, preferencialmente presencialmente. No próximo acesso, o titular precisa trocá-la antes de usar as demais funcionalidades. A ação exige autenticação de professor e proteção CSRF; a senha temporária é armazenada apenas como hash.
+
+Para empresas novas, a senha inicial ainda é definida pelo professor no cadastro (o login da empresa continua independente do e-mail). A empresa deve alterá-la em seu primeiro acesso, assim como o aluno. Empresas anteriores continuam com as credenciais existentes e não têm a senha redefinida automaticamente. A empresa pode trocar sua senha pelo menu **Meu perfil → Alterar senha** ou na edição dos dados cadastrais; a alteração exige informar a senha atual, uma nova com 8 a 72 caracteres e a confirmação.
 
 Os cupons dos resgates e os saldos permanecem consultáveis nos extratos de aluno e empresa. **Limitação em relação ao enunciado:** os avisos por e-mail de transferência e os e-mails de cupons para aluno/empresa não estão implementados na versão atual.
 

@@ -9,6 +9,7 @@ Aplicação MVC para reconhecimento do mérito acadêmico. Professores recebem u
 - Cadastro de alunos e empresas parceiras exclusivamente por professores autenticados; edição e desativação lógica do próprio cadastro.
 - Autenticação por login/senha e acesso individual aos dados.
 - Novos alunos entram com o e-mail e recebem senha inicial temporária (troca obrigatória no primeiro acesso); alunos existentes podem continuar usando o login anterior.
+- Alunos e empresas alteram a própria senha no perfil, sem e-mail. O professor pode redefinir a senha de ambos presencialmente; empresas novas trocam a senha inicial no primeiro acesso.
 - Cadastro prévio de instituições e professores.
 - Crédito semestral acumulativo de 1.000 moedas por professor.
 - Transferência com motivo, conferência de saldo e extratos.
@@ -42,7 +43,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=demo
 
 **Use o perfil `demo` somente localmente.** Os dados ficam em `data/`, fora do versionamento Git. Para testar: `mvn test`.
 
-**Não é necessário conectar serviço de e-mail.** O aluno troca a senha no próprio perfil, informando a senha atual. Se esquecê-la, o professor pode gerar uma nova senha temporária na lista de alunos, entregá-la pessoalmente ao aluno e exigir a troca no próximo acesso. O e-mail cadastrado continua sendo apenas o identificador de login dos novos alunos. Os envios de moedas e resgates são acompanhados pelo extrato no sistema.
+**Não é necessário conectar serviço de e-mail.** O aluno troca a senha no próprio perfil, informando a senha atual. Se esquecê-la, o professor pode gerar uma nova senha temporária nas listas de alunos ou empresas, entregá-la diretamente ao titular e exigir a troca no próximo acesso. O e-mail cadastrado continua sendo apenas o identificador de login dos novos alunos. Os envios de moedas e resgates são acompanhados pelo extrato no sistema.
 
 ## Documentação e modelagem
 
