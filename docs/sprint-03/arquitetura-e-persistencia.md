@@ -13,15 +13,14 @@ flowchart TD
   A --> R[Spring Data JPA]
   R --> H[(H2 em arquivo)]
   E[Agendador semestral] --> A
-  A --> M[Fila de e-mails persistida]
-  M --> SMTP[Servidor SMTP configurado]
+  A --> T[Transações e códigos consultáveis no extrato]
 ```
 
 ## Regras implementadas
 
-**Transferência:** o professor autenticado seleciona o aluno e uma quantidade positiva; o motivo é obrigatório. O serviço verifica o saldo, debita o professor, credita o aluno e registra a transação na mesma operação transacional. O aviso é persistido na fila de e-mails.
+**Transferência:** o professor autenticado seleciona o aluno e uma quantidade positiva; o motivo é obrigatório. O serviço verifica o saldo, debita o professor, credita o aluno e registra a transação na mesma operação transacional. O envio fica disponível no extrato do professor e o recebimento no extrato do aluno, sem integração com e-mail.
 
-**Resgate:** o aluno autenticado escolhe uma vantagem de empresa ativa. O custo é debitado do saldo, um código aleatório é associado ao resgate e duas mensagens contendo o mesmo código são registradas, uma para o aluno e outra para a empresa.
+**Resgate:** o aluno autenticado escolhe uma vantagem de empresa ativa. O custo é debitado do saldo e um código aleatório é associado ao resgate, consultável nos extratos do aluno e da empresa. Não há envio de e-mails nesta versão.
 
 **Crédito semestral:** o serviço de agendamento registra uma carga de 1.000 moedas por professor ativo e semestre. A restrição de unicidade entre professor e semestre evita cargas duplicadas; o saldo anterior é preservado.
 
@@ -33,7 +32,7 @@ flowchart TD
 - **ORM:** Hibernate por meio de Spring Data JPA.
 - **Herança:** estratégia `JOINED` entre `Usuario`, `Aluno`, `Professor` e `EmpresaParceira`.
 - **Concorrência:** campo `@Version` em `Usuario`, compartilhado pelas especializações.
-- **Operações financeiras:** métodos `@Transactional` agrupam alterações de saldo, transações e mensagens pendentes.
+- **Operações financeiras:** métodos `@Transactional` agrupam alterações de saldo e registros de transação.
 - **Integridade:** restrições únicas em credenciais, documentos, códigos de resgate e crédito por semestre.
 - **Exclusão de usuário:** lógica, por situação ativa/inativa; o histórico monetário não é apagado.
 
@@ -62,7 +61,6 @@ Os identificadores de usuário/empresa registrados em `Transacao` e `Vantagem` s
 | Spring Security / BCrypt | Autenticação, autorização e senhas |
 | Spring Data JPA / Hibernate | Persistência e ORM |
 | H2 | Banco relacional |
-| Spring Mail | Transporte SMTP dos avisos |
 | JUnit 5 / MockMvc | Testes de serviços e fluxos HTTP |
 | Maven | Gerenciamento das dependências e build |
 | PlantUML / Mermaid | Modelagem e visualização da arquitetura |
