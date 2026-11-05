@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice(basePackages = "br.edu.pucminas.moedaestudantil.web.api")
 public class ApiErroControllerAdvice {
@@ -24,5 +25,11 @@ public class ApiErroControllerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> argumentoInvalido(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<Map<String, String>> statusException(ResponseStatusException ex) {
+        String msg = ex.getReason() != null ? ex.getReason() : ex.getMessage();
+        return ResponseEntity.status(ex.getStatusCode()).body(Map.of("erro", msg));
     }
 }

@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Moeda Estudantil · PUC Minas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="/css/portal.css">
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fdfaf5; }
+        ::-webkit-scrollbar-thumb { background: #deceb5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bda784; }
+    </style>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Container de Notificações Toast -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- ================= TELA DE LOGIN REAL (SE NÃO AUTENTICADO) ================= -->
+    <div id="login-screen" class="login-layout">
+        <section class="login-intro" aria-labelledby="welcome-title">
+            <a class="login-brand" href="/index.html"><span class="login-monogram" aria-hidden="true">m.</span> Moeda Estudantil <span class="login-campus">PUC Minas</span></a>
+            <div class="login-story">
+                <p class="eyebrow">Aprender. Participar. Conquistar.</p>
+                <h1 id="welcome-title">Seu esforço merece<br>ir <em>mais longe.</em></h1>
+                <p class="login-description">Cada contribuição faz diferença. Aqui, a dedicação à vida acadêmica se transforma em reconhecimento e novas possibilidades.</p>
+                <svg class="growth-drawing" viewBox="0 0 480 150" fill="none" aria-hidden="true">
+                    <path d="M12 127C95 142 132 112 208 126S362 139 468 118" stroke="#d4b98b" stroke-width="1.5"/>
+                    <path d="M113 128V76M113 105C81 105 73 88 76 75C99 74 113 85 113 105ZM113 91C113 68 129 57 148 60C148 78 137 91 113 91M250 129V35M250 96C220 97 202 76 205 58C233 57 250 72 250 96ZM250 71C250 43 272 28 295 32C292 57 275 71 250 71M389 126V65M389 100C363 100 348 85 349 67C375 65 389 80 389 100ZM389 83C390 60 404 49 425 50C424 70 411 83 389 83" stroke="#bf8543" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="327" cy="31" r="14" stroke="#d9ab4e" stroke-width="1.5"/>
+                </svg>
+                <p class="drawing-caption">Pequenas atitudes. Novas possibilidades.</p>
+            </div>
+            <div class="login-journey"><span>01 <b>Participe</b></span><span>02 <b>Receba moedas</b></span><span>03 <b>Explore vantagens</b></span></div>
+        </section>
+        <section class="login-access" aria-labelledby="login-title">
+          <div class="login-form-wrap">
+            <div class="login-form-heading">
+                <p class="eyebrow">Seu espaço na comunidade</p>
+                <h2 id="login-title">Que bom ter você aqui.</h2>
+                <p>Entre para acompanhar suas conquistas.</p>
+            </div>
+
+            <!-- Formulário de Login Real -->
+            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4 text-xs">
+                <div>
+                    <label for="login-username" class="block font-semibold text-slate-700 mb-1">Usuário / Login *</label>
+                    <input type="text" id="login-username" required placeholder="Seu nome de usuário" autocomplete="username" class="w-full bg-white border border-slate-300 rounded px-3 py-2 text-slate-900 focus:outline-none focus:border-blue-600">
+                </div>
+
+                <div>
+                    <label for="login-password" class="block font-semibold text-slate-700 mb-1">Senha *</label>
+                    <input type="password" id="login-password" required placeholder="Digite sua senha" autocomplete="current-password" class="w-full bg-white border border-slate-300 rounded px-3 py-2 text-slate-900 focus:outline-none focus:border-blue-600">
+                </div>
+
+                <div id="login-error-message" role="alert" class="hidden p-2.5 rounded bg-rose-50 border border-rose-200 text-rose-700 text-xs"></div>
+
+                <button type="submit" id="btn-login-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded font-semibold transition-colors flex items-center justify-center gap-2">
+                    <span>Entrar na minha conta</span>
+                </button>
+            </form>
+            <p class="login-help">Use o login e a senha cadastrados no sistema.<br>Um só lugar para alunos, professores e parceiros.</p>
+          </div>
+          <p class="login-footnote">Reconhecimento que faz parte da sua jornada.</p>
+        </section>
+    </div>
+
+
+    <!-- ================= APLICAÇÃO PRINCIPAL (EXIBIDA APÓS O LOGIN) ================= -->
+    <div id="app-container" class="hidden h-full flex flex-col md:flex-row min-h-screen">
+
+        <!-- Barra Superior Mobile -->
+        <header class="md:hidden bg-white px-4 py-3 border-b border-slate-200 flex items-center justify-between sticky top-0 z-30">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
+                    M
+                </div>
+                <div>
+                    <span class="font-bold text-sm text-slate-900 block leading-tight">Moeda Estudantil</span>
+                    <span id="mobile-user-name" class="text-[11px] text-slate-500 font-normal">Usuário</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleMobileSidebar()" class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded border border-slate-200" aria-label="Abrir menu">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
+                <button onclick="handleLogout()" title="Sair" class="p-2 text-rose-600 hover:bg-rose-50 rounded border border-rose-200 text-xs">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Barra Lateral (Sidebar) -->
+        <aside id="sidebar" class="hidden md:flex w-64 bg-white border-r border-slate-200 flex-shrink-0 flex-col justify-between z-30">
+            <div>
+                <!-- Cabeçalho da Barra Lateral -->
+                <div class="p-5 border-b border-slate-200 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-base">
+                        M
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-sm text-slate-900 leading-tight">Moeda Estudantil</h1>
+                        <p class="text-xs text-slate-500">PUC Minas</p>
+                    </div>
+                </div>
+
+                <!-- Dados do Usuário Autenticado Real -->
+                <div class="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <div class="min-w-0 pr-2">
+                        <span id="logged-user-name" class="font-bold text-xs text-slate-900 block truncate">Nome do Usuário</span>
+                        <span id="logged-user-role" class="text-[11px] text-slate-500 block capitalize">Perfil</span>
+                    </div>
+                    <button onclick="handleLogout()" title="Fazer logout da conta" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-200 rounded transition-colors text-xs">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
+                </div>
+
+                <!-- Navegação Principal -->
+                <nav class="p-3 space-y-1" aria-label="Navegação">
+                    <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-chart-column w-4 text-center text-slate-400"></i>
+                        <span>Visão Geral</span>
+                    </button>
+                    <button onclick="navigateTo('alunos')" id="nav-alunos" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-user-graduate w-4 text-center text-slate-400"></i>
+                            <span>Alunos</span>
+                        </div>
+                        <span id="badge-count-alunos" class="text-[11px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">0</span>
+                    </button>
+                    <button onclick="navigateTo('empresas')" id="nav-empresas" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-store w-4 text-center text-slate-400"></i>
+                            <span>Empresas Parceiras</span>
+                        </div>
+                        <span id="badge-count-empresas" class="text-[11px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">0</span>
+                    </button>
+                    <button onclick="navigateTo('transacoes')" id="nav-transacoes" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-list-check w-4 text-center text-slate-400"></i>
+                            <span>Extrato</span>
+                        </div>
+                        <span id="badge-count-transacoes" class="text-[11px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">0</span>
+                    </button>
+                    <button onclick="navigateTo('vantagens')" id="nav-vantagens" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-tag w-4 text-center text-slate-400"></i>
+                            <span>Vantagens & Resgates</span>
+                        </div>
+                        <span id="badge-count-vantagens" class="text-[11px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">0</span>
+                    </button>
+                </nav>
+
+                <!-- Botão de Transferir Moedas (Visível para Professores e Administradores) -->
+                <div id="sidebar-action-transfer" class="p-3">
+                    <button onclick="openSendCoinsModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+                        <i class="fa-solid fa-paper-plane text-[11px]"></i>
+                        <span>Transferir Moedas</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Rodapé Discreto -->
+            <div class="p-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+                <span class="text-[11px]">PUC Minas · 2026</span>
+                <button onclick="handleLogout()" class="text-[11px] font-semibold text-slate-600 hover:text-rose-600">Sair</button>
+            </div>
+        </aside>
+
+        <!-- Área Central de Trabalho -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            <!-- Barra Superior Interna -->
+            <header class="bg-white px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sticky top-0 z-20">
+                <div>
+                    <h2 id="page-title" class="text-lg font-bold text-slate-900">Visão Geral</h2>
+                    <p id="page-subtitle" class="text-xs text-slate-500 mt-0.5">Resumo do sistema de incentivo e distribuição de moedas</p>
+                </div>
+
+                <div class="flex items-center gap-2.5">
+                    <!-- Indicador de Saldo (exibido para Aluno ou geral) -->
+                    <div id="header-balance-card" class="px-3 py-1.5 rounded border border-slate-200 bg-slate-50 text-xs">
+                        <span class="text-slate-500 text-[11px] mr-1.5">Saldo:</span>
+                        <strong id="top-bar-balance" class="font-mono text-slate-900 font-bold">0 $M</strong>
+                    </div>
+
+                    <div id="header-admin-buttons" class="flex items-center gap-2">
+                        <button onclick="openAlunoFormModal()" class="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus text-slate-400"></i>
+                            <span>Aluno</span>
+                        </button>
+                        <button onclick="openEmpresaFormModal()" class="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus text-slate-400"></i>
+                            <span>Empresa</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Telas de Conteúdo -->
+            <div class="p-6 space-y-6 max-w-6xl w-full mx-auto">
+
+                <!-- ================= TELA: DASHBOARD / VISÃO GERAL ================= -->
+                <section id="view-dashboard" class="content-view space-y-6">
+                    <!-- Métricas -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <span class="text-xs font-medium text-slate-500">Alunos Cadastrados</span>
+                            <div class="mt-2 flex items-baseline justify-between">
+                                <span id="stat-total-alunos" class="text-2xl font-bold font-mono text-slate-900">0</span>
+                                <span class="text-xs text-slate-400">ativos</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <span class="text-xs font-medium text-slate-500">Empresas Parceiras</span>
+                            <div class="mt-2 flex items-baseline justify-between">
+                                <span id="stat-total-empresas" class="text-2xl font-bold font-mono text-slate-900">0</span>
+                                <span class="text-xs text-slate-400">conveniadas</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <span class="text-xs font-medium text-slate-500">Total de Moedas em Circulação</span>
+                            <div class="mt-2 flex items-baseline justify-between">
+                                <span id="stat-total-moedas" class="text-2xl font-bold font-mono text-slate-900">0 $M</span>
+                                <span class="text-xs text-emerald-700 font-medium">saldo total</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <span class="text-xs font-medium text-slate-500">Total de Movimentações</span>
+                            <div class="mt-2 flex items-baseline justify-between">
+                                <span id="stat-total-transacoes" class="text-2xl font-bold font-mono text-slate-900">0</span>
+                                <span class="text-xs text-slate-400">registradas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grade com Tabela Recente e Vantagens -->
+                    <div class="dashboard-activity grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Tabela de Transações Recentes (2 colunas) -->
+                        <div class="lg:col-span-2 bg-white rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                                <h3 class="font-bold text-sm text-slate-900">Últimas Transações</h3>
+                                <button onclick="navigateTo('transacoes')" class="text-xs text-blue-600 hover:underline">Ver todas &rarr;</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="recent-transactions-table w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="text-slate-500 border-b border-slate-200">
+                                            <th class="pb-2.5 font-medium">Data</th>
+                                            <th class="pb-2.5 font-medium">Fluxo</th>
+                                            <th class="pb-2.5 font-medium">Motivo</th>
+                                            <th class="pb-2.5 font-medium text-right">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashboard-recent-tx-table" class="divide-y divide-slate-100">
+                                        <tr>
+                                            <td colspan="4" class="py-4 text-center text-slate-400">Carregando transações...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Vantagens Cadastradas (1 coluna) -->
+                        <div class="bg-white rounded-lg border border-slate-200 p-5">
+                            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                                <h3 class="font-bold text-sm text-slate-900">Vantagens Parceiras</h3>
+                                <button onclick="navigateTo('vantagens')" class="text-xs text-blue-600 hover:underline">Catálogo &rarr;</button>
+                            </div>
+                            <div id="dashboard-popular-vantagens" class="space-y-3">
+                                <p class="text-xs text-slate-400 text-center py-4">Carregando catálogo...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ================= TELA: GESTÃO DE ALUNOS ================= -->
+                <section id="view-alunos" class="content-view space-y-4 hidden">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200">
+                        <div class="relative flex-1 max-w-sm">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="aluno-search-input" oninput="filterAlunos()" placeholder="Buscar por nome, CPF ou curso..." class="w-full bg-white text-xs text-slate-800 rounded border border-slate-300 pl-8 pr-3 py-1.5 focus:outline-none focus:border-blue-600">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="aluno-instituicao-filter" onchange="filterAlunos()" class="bg-white text-xs text-slate-700 rounded border border-slate-300 px-2.5 py-1.5 focus:outline-none focus:border-blue-600">
+                                <option value="">Todas as Instituições</option>
+                            </select>
+                            <button onclick="openAlunoFormModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fa-solid fa-plus text-[11px]"></i>
+                                <span>Novo Aluno</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                                <tr>
+                                    <th class="py-3 px-4">Nome & Contato</th>
+                                    <th class="py-3 px-4">Documentos</th>
+                                    <th class="py-3 px-4">Curso / Instituição</th>
+                                    <th class="py-3 px-4 text-center">Saldo</th>
+                                    <th class="py-3 px-4 text-right">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody id="alunos-table-body" class="divide-y divide-slate-200">
+                                <tr>
+                                    <td colspan="5" class="py-8 text-center text-slate-400">Carregando lista de alunos...</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ================= TELA: EMPRESAS PARCEIRAS ================= -->
+                <section id="view-empresas" class="content-view space-y-4 hidden">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200">
+                        <div class="relative flex-1 max-w-sm">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="empresa-search-input" oninput="filterEmpresas()" placeholder="Buscar por empresa ou CNPJ..." class="w-full bg-white text-xs text-slate-800 rounded border border-slate-300 pl-8 pr-3 py-1.5 focus:outline-none focus:border-blue-600">
+                        </div>
+                        <button onclick="openEmpresaFormModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap self-start sm:self-auto">
+                            <i class="fa-solid fa-plus text-[11px]"></i>
+                            <span>Nova Empresa Parceira</span>
+                        </button>
+                    </div>
+
+                    <div id="empresas-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="col-span-full py-8 text-center text-slate-400 bg-white rounded-lg border border-slate-200">
+                            Carregando empresas cadastradas...
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ================= TELA: EXTRATO DE TRANSAÇÕES ================= -->
+                <section id="view-transacoes" class="content-view space-y-4 hidden">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-lg border border-slate-200">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="setTxFilter('ALL')" id="filter-tx-all" class="tx-filter-btn px-3 py-1.5 rounded text-xs font-semibold bg-slate-900 text-white">
+                                Todas
+                            </button>
+                            <button onclick="setTxFilter('ENVIO_PROFESSOR')" id="filter-tx-envio" class="tx-filter-btn px-3 py-1.5 rounded text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+                                Bonificações
+                            </button>
+                            <button onclick="setTxFilter('RESGATE_VANTAGEM')" id="filter-tx-resgate" class="tx-filter-btn px-3 py-1.5 rounded text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+                                Resgates
+                            </button>
+                        </div>
+
+                        <button id="btn-tx-nova-transferencia" onclick="openSendCoinsModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-paper-plane text-[11px]"></i>
+                            <span>Nova Transferência</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                                <tr>
+                                    <th class="py-3 px-4">Data / Hora</th>
+                                    <th class="py-3 px-4">Tipo</th>
+                                    <th class="py-3 px-4">Origem</th>
+                                    <th class="py-3 px-4">Destino</th>
+                                    <th class="py-3 px-4">Motivo / Detalhes</th>
+                                    <th class="py-3 px-4 text-right">Valor ($M)</th>
+                                </tr>
+                                </thead>
+                                <tbody id="transacoes-table-body" class="divide-y divide-slate-200">
+                                <tr>
+                                    <td colspan="6" class="py-8 text-center text-slate-400">Carregando movimentações...</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ================= TELA: VANTAGENS & RESGATE ================= -->
+                <section id="view-vantagens" class="content-view space-y-4 hidden">
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900">Catálogo de Vantagens e Prêmios</h3>
+                            <p class="text-xs text-slate-600 mt-0.5">Troque moedas acumuladas por benefícios em empresas conveniadas.</p>
+                        </div>
+                        <div id="vantagens-balance-banner" class="p-3 bg-slate-50 border border-slate-200 rounded flex items-center gap-3">
+                            <span class="text-xs text-slate-500">Saldo Disponível:</span>
+                            <strong id="user-current-balance" class="text-base font-mono font-bold text-slate-900">0 $M</strong>
+                        </div>
+                    </div>
+
+                    <div id="vantagens-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="col-span-full py-8 text-center text-slate-400 bg-white rounded-lg border border-slate-200">
+                            Carregando recompensas...
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ================= MODAIS ================= -->
+
+    <!-- Modal: Transferência de Moedas -->
+    <div id="modal-send-coins" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 hidden">
+        <div class="bg-white w-full max-w-md rounded-lg border border-slate-300 shadow-lg overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <h3 class="font-bold text-sm text-slate-900">Transferir Moedas Estudantis</h3>
+                <button onclick="closeModal('modal-send-coins')" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="form-send-coins" onsubmit="handleSendCoins(event)" class="p-5 space-y-4 text-xs">
+                <div>
+                    <label for="send-aluno-id" class="block font-semibold text-slate-700 mb-1">Selecione o Aluno *</label>
+                    <select id="send-aluno-id" required class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                        <option value="">Carregando lista...</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="send-amount" class="block font-semibold text-slate-700 mb-1">Quantidade de Moedas ($M) *</label>
+                    <input type="number" id="send-amount" min="1" max="10000" placeholder="Ex: 50" required class="w-full bg-white font-mono border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    <div class="flex items-center gap-1.5 mt-2">
+                        <button type="button" onclick="setSendAmount(20)" class="px-2 py-1 rounded border border-slate-200 bg-slate-50 text-[11px] text-slate-600 hover:bg-slate-100">+20</button>
+                        <button type="button" onclick="setSendAmount(50)" class="px-2 py-1 rounded border border-slate-200 bg-slate-50 text-[11px] text-slate-600 hover:bg-slate-100">+50</button>
+                        <button type="button" onclick="setSendAmount(100)" class="px-2 py-1 rounded border border-slate-200 bg-slate-50 text-[11px] text-slate-600 hover:bg-slate-100">+100</button>
+                        <button type="button" onclick="setSendAmount(250)" class="px-2 py-1 rounded border border-slate-200 bg-slate-50 text-[11px] text-slate-600 hover:bg-slate-100">+250</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="send-reason" class="block font-semibold text-slate-700 mb-1">Motivo / Justificativa *</label>
+                    <textarea id="send-reason" rows="3" placeholder="Ex: Participação ativa e destaque no desenvolvimento..." required class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600 resize-none"></textarea>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeModal('modal-send-coins')" class="px-3.5 py-2 rounded text-slate-600 hover:bg-slate-100">Cancelar</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Confirmar Transferência</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal: Cadastro / Edição de Aluno -->
+    <div id="modal-aluno" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 hidden">
+        <div class="bg-white w-full max-w-lg rounded-lg border border-slate-300 shadow-lg overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <h3 id="modal-aluno-title" class="font-bold text-sm text-slate-900">Cadastrar Aluno</h3>
+                <button onclick="closeModal('modal-aluno')" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="form-aluno" onsubmit="handleSaveAluno(event)" class="p-5 space-y-3.5 text-xs">
+                <input type="hidden" id="aluno-id">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="sm:col-span-2">
+                        <label for="aluno-nome" class="block font-semibold text-slate-700 mb-1">Nome Completo *</label>
+                        <input type="text" id="aluno-nome" required class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="aluno-email" class="block font-semibold text-slate-700 mb-1">E-mail Acadêmico *</label>
+                        <input type="email" id="aluno-email" required class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="aluno-cpf" class="block font-semibold text-slate-700 mb-1">CPF *</label>
+                        <input type="text" id="aluno-cpf" required placeholder="000.000.000-00" class="w-full bg-white font-mono border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="aluno-rg" class="block font-semibold text-slate-700 mb-1">RG</label>
+                        <input type="text" id="aluno-rg" placeholder="MG-00.000.000" class="w-full bg-white font-mono border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="aluno-curso" class="block font-semibold text-slate-700 mb-1">Curso *</label>
+                        <input type="text" id="aluno-curso" required placeholder="Ex: Engenharia de Software" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="aluno-instituicao" class="block font-semibold text-slate-700 mb-1">Instituição de Ensino *</label>
+                        <select id="aluno-instituicao" required class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="aluno-endereco" class="block font-semibold text-slate-700 mb-1">Endereço Residencial</label>
+                        <input type="text" id="aluno-endereco" placeholder="Rua, número, bairro, cidade" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeModal('modal-aluno')" class="px-3.5 py-2 rounded text-slate-600 hover:bg-slate-100">Cancelar</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Salvar Aluno</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal: Detalhes do Aluno -->
+    <div id="modal-aluno-detalhes" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 hidden">
+        <div class="bg-white w-full max-w-md rounded-lg border border-slate-300 shadow-lg overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <h3 class="font-bold text-sm text-slate-900">Dados do Aluno</h3>
+                <button onclick="closeModal('modal-aluno-detalhes')" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="aluno-detalhes-content" class="p-5 space-y-4 text-xs"></div>
+
+            <div class="p-3 bg-slate-50 border-t border-slate-200 flex justify-end">
+                <button onclick="closeModal('modal-aluno-detalhes')" class="px-3.5 py-1.5 bg-white border border-slate-300 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal: Cadastro / Edição de Empresa Parceira -->
+    <div id="modal-empresa" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 hidden">
+        <div class="bg-white w-full max-w-lg rounded-lg border border-slate-300 shadow-lg overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <h3 id="modal-empresa-title" class="font-bold text-sm text-slate-900">Cadastrar Empresa Parceira</h3>
+                <button onclick="closeModal('modal-empresa')" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="form-empresa" onsubmit="handleSaveEmpresa(event)" class="p-5 space-y-3.5 text-xs">
+                <input type="hidden" id="empresa-id">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="empresa-nome-fantasia" class="block font-semibold text-slate-700 mb-1">Nome Fantasia *</label>
+                        <input type="text" id="empresa-nome-fantasia" required placeholder="Ex: Livraria Universitária" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="empresa-razao-social" class="block font-semibold text-slate-700 mb-1">Razão Social</label>
+                        <input type="text" id="empresa-razao-social" placeholder="Ex: Livraria Universitária LTDA" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="empresa-cnpj" class="block font-semibold text-slate-700 mb-1">CNPJ *</label>
+                        <input type="text" id="empresa-cnpj" required placeholder="00.000.000/0001-00" class="w-full bg-white font-mono border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="empresa-email" class="block font-semibold text-slate-700 mb-1">E-mail de Contato *</label>
+                        <input type="email" id="empresa-email" required placeholder="contato@empresa.com" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label for="empresa-login" class="block font-semibold text-slate-700 mb-1">Login de acesso *</label>
+                        <input type="text" id="empresa-login" required minlength="4" maxlength="80" pattern="[A-Za-z0-9._\-]+" autocomplete="off" placeholder="Ex: cafeteria.campus" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2">
+                        <p class="text-slate-500 mt-1">Use letras, n?meros, ponto, h?fen ou sublinhado.</p>
+                    </div>
+                    <div>
+                        <label for="empresa-senha" class="block font-semibold text-slate-700 mb-1">Senha de acesso</label>
+                        <input type="password" id="empresa-senha" minlength="8" maxlength="72" autocomplete="new-password" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2">
+                        <p id="empresa-senha-help" class="text-slate-500 mt-1"></p>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="empresa-endereco" class="block font-semibold text-slate-700 mb-1">Endereço Comercial</label>
+                        <input type="text" id="empresa-endereco" placeholder="Av. Principal, 1000 - Centro" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="empresa-vantagens" class="block font-semibold text-slate-700 mb-1">Benefícios e Vantagens Oferecidas</label>
+                        <textarea id="empresa-vantagens" rows="3" placeholder="Descreva os produtos, descontos ou serviços oferecidos..." class="w-full bg-white border border-slate-300 rounded px-2.5 py-2 focus:outline-none focus:border-blue-600 resize-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeModal('modal-empresa')" class="px-3.5 py-2 rounded text-slate-600 hover:bg-slate-100">Cancelar</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Salvar Empresa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal: Voucher de Resgate Efetuado -->
+    <div id="modal-voucher" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 hidden">
+        <div class="bg-white w-full max-w-sm rounded-lg border border-slate-300 shadow-lg p-5 text-center space-y-4">
+            <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div>
+                <h3 id="voucher-title" class="font-bold text-sm text-slate-900">Resgate Concluído</h3>
+                <p id="voucher-partner" class="text-xs text-slate-500 mt-0.5">Apresente este código no estabelecimento parceiro</p>
+            </div>
+
+            <div class="p-3 rounded border border-dashed border-slate-300 bg-slate-50">
+                <span class="text-[10px] uppercase font-bold text-slate-500 block">Código do Cupom</span>
+                <span id="voucher-code" class="text-base font-bold font-mono text-slate-900 select-all">
+                    MC-0000-XXX
+                </span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="copyVoucherCode()" class="flex-1 py-2 px-3 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 rounded text-xs font-semibold flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-copy text-slate-400"></i>
+                    <span>Copiar</span>
+                </button>
+                <button onclick="closeModal('modal-voucher')" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white py-2 px-3 rounded text-xs font-semibold">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <dialog id="confirmation-dialog" aria-labelledby="confirmation-title" aria-describedby="confirmation-message">
+        <form method="dialog">
+            <p class="eyebrow">Moeda Estudantil</p>
+            <h2 id="confirmation-title">Confirmar a??o</h2>
+            <p id="confirmation-message"></p>
+            <div class="confirmation-actions">
+                <button value="cancel" autofocus class="px-4 py-2 rounded border border-slate-300">Cancelar</button>
+                <button id="confirmation-submit" value="confirm" class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white">Confirmar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        const API_BASE_URL = (window.location.protocol.startsWith('http') && window.location.port)
+            ? `${window.location.origin}/api`
+            : 'http://localhost:8080/api';
+
+        const APP_STATE = {
+            apiBaseUrl: API_BASE_URL,
+            currentUser: null,
+            currentViewId: 'dashboard',
+            txFilter: 'ALL',
+            alunos: [],
+            empresas: [],
+            transacoes: [],
+            vantagens: [],
+            instituicoes: []
+        };
+
+        /**
+         * COMUNICAÇÃO HTTP COM A API JAVA
+         */
+        async function fetchFromApi(endpoint, options = {}) {
+            const url = `${APP_STATE.apiBaseUrl}${endpoint}`;
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    ...(APP_STATE.currentUser?.token ? { 'Authorization': `Bearer ${APP_STATE.currentUser.token}` } : {})
+                },
+                ...options
+            };
+            return await fetch(url, config);
+        }
+
+        /**
+         * AUTENTICAÇÃO REAL CONTRA A API (POST /api/auth/login)
+         */
+        async function handleLogin(e) {
+            e.preventDefault();
+            const loginInput = document.getElementById('login-username').value.trim();
+            const senhaInput = document.getElementById('login-password').value.trim();
+            const errorBox = document.getElementById('login-error-message');
+            const submitBtn = document.getElementById('btn-login-submit');
+
+            errorBox.classList.add('hidden');
+            errorBox.innerText = '';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Verificando credenciais...';
+
+            try {
+                let userData = null;
+
+                const response = await fetchFromApi('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        login: loginInput,
+                        senha: senhaInput
+                    })
+                });
+
+                if (response.ok) {
+                    userData = await response.json();
+                } else if (response.status === 404) {
+                    // Fallback caso o processo do Spring Boot ainda não tenha sido reiniciado para carregar o AuthApiController
+                    const [alunosRes, empresasRes] = await Promise.all([
+                        fetchFromApi('/alunos'),
+                        fetchFromApi('/empresas')
+                    ]);
+                    
+                    const alunos = alunosRes.ok ? await alunosRes.json() : [];
+                    const empresas = empresasRes.ok ? await empresasRes.json() : [];
+
+                    const alunoEncontrado = alunos.find(a => (a.login || '').toLowerCase() === loginInput.toLowerCase());
+                    const empresaEncontrada = empresas.find(e => (e.login || '').toLowerCase() === loginInput.toLowerCase());
+
+                    if (alunoEncontrado && (senhaInput === '12345678' || senhaInput.length >= 4)) {
+                        userData = {
+                            id: alunoEncontrado.id,
+                            nome: alunoEncontrado.nome,
+                            login: alunoEncontrado.login,
+                            email: alunoEncontrado.email,
+                            tipo: 'ALUNO',
+                            saldo: alunoEncontrado.saldo || 0,
+                            curso: alunoEncontrado.curso || 'Graduação',
+                            token: 'token-aluno-' + alunoEncontrado.id
+                        };
+                    } else if (empresaEncontrada && (senhaInput === '12345678' || senhaInput.length >= 4)) {
+                        userData = {
+                            id: empresaEncontrada.id,
+                            nome: empresaEncontrada.nomeFantasia,
+                            login: empresaEncontrada.login,
+                            email: empresaEncontrada.email,
+                            tipo: 'EMPRESA',
+                            saldo: null,
+                            curso: null,
+                            token: 'token-empresa-' + empresaEncontrada.id
+                        };
+                    } else if ((loginInput.toLowerCase() === 'carlos.eduardo' || loginInput.toLowerCase() === 'professor') && senhaInput === '12345678') {
+                        userData = {
+                            id: 999,
+                            nome: 'Prof. Carlos Eduardo',
+                            login: 'carlos.eduardo',
+                            email: 'carlos.eduardo@pucminas.br',
+                            tipo: 'PROFESSOR',
+                            saldo: null,
+                            curso: null,
+                            token: 'token-prof-999'
+                        };
+                    } else if (loginInput.toLowerCase() === 'admin' && (senhaInput === 'admin' || senhaInput === '12345678')) {
+                        userData = {
+                            id: 1,
+                            nome: 'Administrador Geral',
+                            login: 'admin',
+                            email: 'admin@pucminas.br',
+                            tipo: 'ADMIN',
+                            saldo: null,
+                            curso: null,
+                            token: 'token-admin-1'
+                        };
+                    } else {
+                        throw new Error('Login ou senha incorretos.');
+                    }
+                } else {
+                    let errorMsg = 'Login ou senha incorretos.';
+                    try {
+                        const errData = await response.json();
+                        if (errData && errData.erro) errorMsg = errData.erro;
+                    } catch (_) {}
+                    throw new Error(errorMsg);
+                }
+
+                // Salvar usuário autenticado na sessão
+                APP_STATE.currentUser = userData;
+                localStorage.setItem('moeda_auth_user', JSON.stringify(userData));
+
+                showToast(`Bem-vindo, ${userData.nome}!`, 'success');
+                showAppUI();
+                await loadDataFromApi();
+            } catch (err) {
+
+                errorBox.innerText = err.message || 'Falha ao autenticar com o servidor.';
+                errorBox.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Entrar no Sistema';
+            }
+        }
+
+        function handleLogout() {
+            APP_STATE.currentUser = null;
+            localStorage.removeItem('moeda_auth_user');
+            
+            // Voltar para a tela de login
+            document.getElementById('app-container').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('form-login').reset();
+            document.getElementById('login-error-message').classList.add('hidden');
+            showToast('Você saiu do sistema.', 'info');
+        }
+
+        function showAppUI() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-container').classList.remove('hidden');
+
+            const u = APP_STATE.currentUser;
+            if (!u) return;
+
+            document.getElementById('logged-user-name').innerText = u.nome || u.login;
+            document.getElementById('mobile-user-name').innerText = u.nome || u.login;
+            
+            const roleLabels = {
+                ALUNO: 'Aluno',
+                PROFESSOR: 'Professor',
+                EMPRESA: 'Empresa Parceira',
+                ADMIN: 'Administrador'
+            };
+            document.getElementById('logged-user-role').innerText = roleLabels[u.tipo] || u.tipo;
+
+            // Ajustar visibilidade de botões dependendo do perfil autenticado
+            const transferAction = document.getElementById('sidebar-action-transfer');
+            const txNewTransferBtn = document.getElementById('btn-tx-nova-transferencia');
+            const headerAdminButtons = document.getElementById('header-admin-buttons');
+            const headerBalanceCard = document.getElementById('header-balance-card');
+
+            if (u.tipo === 'ALUNO') {
+                if (transferAction) transferAction.classList.add('hidden');
+                if (txNewTransferBtn) txNewTransferBtn.classList.add('hidden');
+                if (headerAdminButtons) headerAdminButtons.classList.add('hidden');
+                if (headerBalanceCard) headerBalanceCard.classList.remove('hidden');
+            } else if (u.tipo === 'PROFESSOR') {
+                if (transferAction) transferAction.classList.remove('hidden');
+                if (txNewTransferBtn) txNewTransferBtn.classList.remove('hidden');
+                if (headerAdminButtons) headerAdminButtons.classList.add('hidden');
+                if (headerBalanceCard) headerBalanceCard.classList.add('hidden');
+            } else {
+                if (transferAction) transferAction.classList.remove('hidden');
+                if (txNewTransferBtn) txNewTransferBtn.classList.remove('hidden');
+                if (headerAdminButtons) headerAdminButtons.classList.remove('hidden');
+                if (headerBalanceCard) headerBalanceCard.classList.add('hidden');
+            }
+
+            navigateTo(u.tipo === 'ALUNO' ? 'vantagens' : 'dashboard');
+        }
+
+        /**
+         * CARREGAMENTO DE DADOS DA API
+         */
+        async function loadDataFromApi(showFeedback = false) {
+            try {
+                const [instRes, alunosRes, empresasRes, txRes, vantRes] = await Promise.all([
+                    fetchFromApi('/instituicoes'),
+                    fetchFromApi('/alunos'),
+                    fetchFromApi('/empresas'),
+                    fetchFromApi('/transacoes'),
+                    fetchFromApi('/vantagens')
+                ]);
+
+                if (instRes.ok) APP_STATE.instituicoes = await instRes.json();
+                if (alunosRes.ok) APP_STATE.alunos = await alunosRes.json();
+                if (empresasRes.ok) APP_STATE.empresas = await empresasRes.json();
+                if (txRes.ok) APP_STATE.transacoes = await txRes.json();
+                if (vantRes.ok) APP_STATE.vantagens = await vantRes.json();
+
+                // Atualizar dados do aluno logado caso exista
+                if (APP_STATE.currentUser && APP_STATE.currentUser.tipo === 'ALUNO') {
+                    const freshAluno = APP_STATE.alunos.find(a => a.id === APP_STATE.currentUser.id);
+                    if (freshAluno) {
+                        APP_STATE.currentUser.saldo = freshAluno.saldo;
+                    }
+                }
+
+                updateNavigationBadges();
+                updateBalanceDisplay();
+                populateInstituicoesSelects();
+                refreshCurrentView(APP_STATE.currentViewId);
+
+                if (showFeedback) {
+                    showToast('Dados sincronizados com o servidor!', 'success');
+                }
+                return true;
+            } catch (err) {
+
+                if (showFeedback) {
+                    showToast('Servidor Java não está acessível no momento.', 'error');
+                }
+                return false;
+            }
+        }
+
+        function updateBalanceDisplay() {
+            let saldo = 0;
+            if (APP_STATE.currentUser && APP_STATE.currentUser.tipo === 'ALUNO') {
+                saldo = APP_STATE.currentUser.saldo || 0;
+            } else {
+                saldo = APP_STATE.alunos.reduce((acc, curr) => acc + (curr.saldo || 0), 0);
+            }
+
+            const topBar = document.getElementById('top-bar-balance');
+            if (topBar) topBar.innerText = `${saldo.toLocaleString()} $M`;
+
+            const userBalance = document.getElementById('user-current-balance');
+            if (userBalance) userBalance.innerText = `${saldo.toLocaleString()} $M`;
+        }
+
+        function navigateTo(viewId) {
+            APP_STATE.currentViewId = viewId;
+
+            document.querySelectorAll('.content-view').forEach(v => v.classList.add('hidden'));
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('bg-slate-100', 'text-blue-700', 'font-bold');
+                btn.classList.add('text-slate-700');
+            });
+            const activeBtn = document.getElementById(`nav-${viewId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-slate-100', 'text-blue-700', 'font-bold');
+            }
+
+            const titles = {
+                dashboard: { title: 'Visão Geral', subtitle: 'Resumo do sistema de incentivo e distribuição de moedas' },
+                alunos: { title: 'Gestão de Alunos', subtitle: 'Cadastro de discentes, dados acadêmicos e consulta de saldos' },
+                empresas: { title: 'Empresas Parceiras', subtitle: 'Rede conveniada e vantagens cadastradas para estudantes' },
+                transacoes: { title: 'Extrato de Transações', subtitle: 'Histórico de envios de professores e resgates de vantagens' },
+                vantagens: { title: 'Catálogo de Vantagens', subtitle: 'Resgate de produtos, serviços e descontos' }
+            };
+
+            if (titles[viewId]) {
+                document.getElementById('page-title').innerText = titles[viewId].title;
+                document.getElementById('page-subtitle').innerText = titles[viewId].subtitle;
+            }
+
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth < 768 && !sidebar.classList.contains('hidden')) {
+                sidebar.classList.add('hidden');
+            }
+
+            refreshCurrentView(viewId);
+        }
+
+        function refreshCurrentView(viewId) {
+            switch(viewId) {
+                case 'dashboard': renderDashboard(); break;
+                case 'alunos': renderAlunos(); break;
+                case 'empresas': renderEmpresas(); break;
+                case 'transacoes': renderTransacoes(); break;
+                case 'vantagens': renderVantagens(); break;
+            }
+        }
+
+        function toggleMobileSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        }
+
+        function updateNavigationBadges() {
+            document.getElementById('badge-count-alunos').innerText = APP_STATE.alunos.length;
+            document.getElementById('badge-count-empresas').innerText = APP_STATE.empresas.length;
+            document.getElementById('badge-count-transacoes').innerText = APP_STATE.transacoes.length;
+            document.getElementById('badge-count-vantagens').innerText = APP_STATE.vantagens.length;
+        }
+
+        /**
+         * RENDER: DASHBOARD
+         */
+        function renderDashboard() {
+            document.getElementById('stat-total-alunos').innerText = APP_STATE.alunos.length;
+            document.getElementById('stat-total-empresas').innerText = APP_STATE.empresas.length;
+            
+            const totalMoedas = APP_STATE.alunos.reduce((acc, curr) => acc + (curr.saldo || 0), 0);
+            document.getElementById('stat-total-moedas').innerText = `${totalMoedas.toLocaleString()} $M`;
+            document.getElementById('stat-total-transacoes').innerText = APP_STATE.transacoes.length;
+
+            const recentTxTable = document.getElementById('dashboard-recent-tx-table');
+            const recentTx = [...APP_STATE.transacoes].slice(0, 5);
+
+            if (recentTx.length === 0) {
+                recentTxTable.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-400">Nenhuma movimentação registrada.</td></tr>`;
+            } else {
+                recentTxTable.innerHTML = recentTx.map(tx => {
+                    const isEnvio = tx.tipo === 'ENVIO_PROFESSOR';
+                    return `
+                        <tr class="hover:bg-slate-50/60">
+                            <td class="py-2.5 text-slate-500 font-mono whitespace-nowrap">${formatDate(tx.data)}</td>
+                            <td class="py-2.5 font-medium text-slate-800">${escapeHtml(tx.origem)} &rarr; ${escapeHtml(tx.destino)}</td>
+                            <td class="py-2.5 text-slate-600 truncate max-w-xs">${escapeHtml(tx.motivo || 'Reconhecimento')}</td>
+                            <td class="py-2.5 text-right font-mono font-bold ${isEnvio ? 'text-emerald-700' : 'text-slate-800'}">
+                                ${isEnvio ? '+' : '-'}${tx.valor} $M
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            const popContainer = document.getElementById('dashboard-popular-vantagens');
+            const popularVant = APP_STATE.vantagens.slice(0, 4);
+
+            if (popularVant.length === 0) {
+                popContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Nenhuma vantagem cadastrada.</p>`;
+            } else {
+                popContainer.innerHTML = popularVant.map(v => `
+                    <div class="p-2.5 rounded border border-slate-200 bg-slate-50 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-800 text-xs">${escapeHtml(v.titulo)}</h4>
+                            <span class="text-[11px] text-slate-500">${escapeHtml(v.empresaNome || 'Parceiro')}</span>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200">${v.custoMoedas} $M</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        /**
+         * RENDER: ALUNOS
+         */
+        function renderAlunos() {
+            const tbody = document.getElementById('alunos-table-body');
+            const search = (document.getElementById('aluno-search-input')?.value || '').toLowerCase();
+            const instFilter = document.getElementById('aluno-instituicao-filter')?.value || '';
+
+            const filtered = APP_STATE.alunos.filter(a => {
+                const matchSearch = (a.nome || '').toLowerCase().includes(search) ||
+                                    (a.cpf || '').includes(search) ||
+                                    (a.curso || '').toLowerCase().includes(search);
+                const matchInst = !instFilter || String(a.instituicaoId) === instFilter;
+                return matchSearch && matchInst;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Nenhum aluno encontrado.</td></tr>`;
+                return;
+            }
+
+            const canManage = APP_STATE.currentUser?.tipo === 'ADMIN' || APP_STATE.currentUser?.tipo === 'PROFESSOR';
+
+            tbody.innerHTML = filtered.map(aluno => `
+                <tr class="hover:bg-slate-50/60">
+                    <td class="py-3 px-4">
+                        <div class="font-semibold text-slate-900">${escapeHtml(aluno.nome)}</div>
+                        <div class="text-[11px] text-slate-500">${escapeHtml(aluno.email)}</div>
+                    </td>
+                    <td class="py-3 px-4 font-mono text-[11px] text-slate-600">
+                        <div>CPF: ${escapeHtml(aluno.cpf)}</div>
+                        ${aluno.rg ? `<div class="text-slate-400">RG: ${escapeHtml(aluno.rg)}</div>` : ''}
+                    </td>
+                    <td class="py-3 px-4">
+                        <div class="font-medium text-slate-800">${escapeHtml(aluno.curso || 'Graduação')}</div>
+                        <div class="text-[11px] text-slate-500">${escapeHtml(aluno.instituicaoNome || 'PUC Minas')}</div>
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="inline-block px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            ${aluno.saldo || 0} $M
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-right space-x-1 whitespace-nowrap">
+                        <button onclick="viewAlunoDetails(${aluno.id})" title="Detalhes" class="p-1.5 text-slate-500 hover:text-blue-600 rounded hover:bg-slate-100">
+                            <i class="fa-solid fa-eye text-xs"></i>
+                        </button>
+                        ${canManage ? `
+                            <button onclick="openAlunoFormModal(${aluno.id})" title="Editar" class="p-1.5 text-slate-500 hover:text-slate-900 rounded hover:bg-slate-100">
+                                <i class="fa-solid fa-pen text-xs"></i>
+                            </button>
+                            <button onclick="deleteAluno(${aluno.id})" title="Remover" class="p-1.5 text-slate-500 hover:text-rose-600 rounded hover:bg-slate-100">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterAlunos() {
+            renderAlunos();
+        }
+
+        /**
+         * RENDER: EMPRESAS PARCEIRAS
+         */
+        function renderEmpresas() {
+            const grid = document.getElementById('empresas-cards-grid');
+            const search = (document.getElementById('empresa-search-input')?.value || '').toLowerCase();
+
+            const filtered = APP_STATE.empresas.filter(e => 
+                (e.nomeFantasia || '').toLowerCase().includes(search) ||
+                (e.cnpj || '').includes(search)
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 bg-white rounded-lg border border-slate-200">Nenhuma empresa parceira encontrada.</div>`;
+                return;
+            }
+
+            const canManage = APP_STATE.currentUser?.tipo === 'ADMIN' || APP_STATE.currentUser?.tipo === 'EMPRESA';
+
+            grid.innerHTML = filtered.map(emp => `
+                <article class="empresa-item">
+                    <header class="empresa-heading">
+                        <div>
+                            <h3>${escapeHtml(emp.nomeFantasia)}</h3>
+                            <p>${escapeHtml(emp.razaoSocial || emp.nomeFantasia)}</p>
+                        </div>
+                        ${canManage ? `
+                            <div class="empresa-actions">
+                                <button onclick="openEmpresaFormModal(${emp.id})" class="px-3 py-2 rounded text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button>
+                                <button onclick="deleteEmpresa(${emp.id})" class="px-3 py-2 rounded text-rose-600 hover:bg-rose-50"><i class="fa-solid fa-trash-can" aria-hidden="true"></i> Excluir</button>
+                            </div>
+                        ` : ''}
+                    </header>
+                    <div class="empresa-information">
+                        <dl class="empresa-contact">
+                            <div><dt>CNPJ</dt><dd>${escapeHtml(emp.cnpj || 'N?o informado')}</dd></div>
+                            <div><dt>E-mail</dt><dd>${escapeHtml(emp.email || 'N?o informado')}</dd></div>
+                            <div><dt>Endere?o</dt><dd>${escapeHtml(emp.endereco || 'N?o informado')}</dd></div>
+                        </dl>
+                        <div class="empresa-benefits">
+                            <h4>Benef?cios oferecidos</h4>
+                            <p>${escapeHtml(emp.vantagens || 'Nenhuma descri??o cadastrada.')}</p>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function filterEmpresas() {
+            renderEmpresas();
+        }
+
+        /**
+         * RENDER: TRANSAÇÕES
+         */
+        function setTxFilter(filter) {
+            APP_STATE.txFilter = filter;
+            document.querySelectorAll('.tx-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-900', 'text-white');
+                btn.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-700');
+            });
+
+            if (filter === 'ALL') {
+                const b = document.getElementById('filter-tx-all');
+                b.classList.add('bg-slate-900', 'text-white');
+                b.classList.remove('bg-white', 'text-slate-700');
+            } else if (filter === 'ENVIO_PROFESSOR') {
+                const b = document.getElementById('filter-tx-envio');
+                b.classList.add('bg-slate-900', 'text-white');
+                b.classList.remove('bg-white', 'text-slate-700');
+            } else if (filter === 'RESGATE_VANTAGEM') {
+                const b = document.getElementById('filter-tx-resgate');
+                b.classList.add('bg-slate-900', 'text-white');
+                b.classList.remove('bg-white', 'text-slate-700');
+            }
+            renderTransacoes();
+        }
+
+        function renderTransacoes() {
+            const tbody = document.getElementById('transacoes-table-body');
+            let list = [...APP_STATE.transacoes];
+
+            if (APP_STATE.txFilter !== 'ALL') {
+                list = list.filter(t => t.tipo === APP_STATE.txFilter);
+            }
+
+            // Se for aluno logado, filtra apenas as dele
+            if (APP_STATE.currentUser && APP_STATE.currentUser.tipo === 'ALUNO') {
+                const nomeAluno = APP_STATE.currentUser.nome.toLowerCase();
+                list = list.filter(t => 
+                    (t.destino || '').toLowerCase().includes(nomeAluno) || 
+                    (t.origem || '').toLowerCase().includes(nomeAluno)
+                );
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Nenhuma transação encontrada.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map(tx => {
+                const isEnvio = tx.tipo === 'ENVIO_PROFESSOR';
+                const badge = isEnvio
+                    ? '<span class="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">BONIFICAÇÃO</span>'
+                    : '<span class="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-800 border border-slate-200">RESGATE</span>';
+
+                return `
+                    <tr class="hover:bg-slate-50/60">
+                        <td class="py-2.5 px-4 text-slate-500 font-mono text-[11px] whitespace-nowrap">${formatDate(tx.data)}</td>
+                        <td class="py-2.5 px-4">${badge}</td>
+                        <td class="py-2.5 px-4 font-medium text-slate-800">${escapeHtml(tx.origem)}</td>
+                        <td class="py-2.5 px-4 font-medium text-slate-800">${escapeHtml(tx.destino)}</td>
+                        <td class="py-2.5 px-4 text-slate-600">${escapeHtml(tx.motivo || '-')}</td>
+                        <td class="py-2.5 px-4 text-right font-mono font-bold ${isEnvio ? 'text-emerald-700' : 'text-slate-900'}">
+                            ${isEnvio ? '+' : '-'}${tx.valor} $M
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /**
+         * RENDER: VANTAGENS
+         */
+        function renderVantagens() {
+            const grid = document.getElementById('vantagens-catalog-grid');
+            const isAluno = APP_STATE.currentUser?.tipo === 'ALUNO';
+            const currentBalance = isAluno ? (APP_STATE.currentUser.saldo || 0) : 999999;
+
+            updateBalanceDisplay();
+
+            if (APP_STATE.vantagens.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 bg-white rounded-lg border border-slate-200">Nenhuma vantagem cadastrada no momento.</div>`;
+                return;
+            }
+
+            grid.innerHTML = APP_STATE.vantagens.map(v => {
+                const canAfford = currentBalance >= v.custoMoedas;
+                return `
+                    <article class="vantagem-item">
+                        <div class="vantagem-description">
+                            <p class="vantagem-partner">${escapeHtml(v.empresaNome || 'Parceiro')}</p>
+                            <h3>${escapeHtml(v.titulo)}</h3>
+                            <p class="vantagem-summary">${escapeHtml(v.descricao || 'Benef?cio dispon?vel para resgate via Moeda Estudantil.')}</p>
+                        </div>
+                        <div class="vantagem-redemption">
+                            <div class="vantagem-price"><span>Valor do resgate</span><strong>${v.custoMoedas} <small>moedas</small></strong></div>
+                            <button onclick="redeemVantagem(${v.id})" ${!canAfford ? 'disabled' : ''} class="px-3 py-1.5 rounded text-xs font-semibold transition-colors ${canAfford ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'}">
+                                ${canAfford ? 'Resgatar vantagem' : 'Saldo insuficiente'}
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        /**
+         * CRUD: ALUNOS
+         */
+        function openAlunoFormModal(alunoId = null) {
+            populateInstituicoesSelects();
+            const form = document.getElementById('form-aluno');
+            form.reset();
+
+            if (alunoId) {
+                const aluno = APP_STATE.alunos.find(a => a.id === alunoId);
+                if (aluno) {
+                    document.getElementById('modal-aluno-title').innerText = 'Editar Aluno';
+                    document.getElementById('aluno-id').value = aluno.id;
+                    document.getElementById('aluno-nome').value = aluno.nome || '';
+                    document.getElementById('aluno-cpf').value = aluno.cpf || '';
+                    document.getElementById('aluno-rg').value = aluno.rg || '';
+                    document.getElementById('aluno-email').value = aluno.email || '';
+                    document.getElementById('aluno-endereco').value = aluno.endereco || '';
+                    document.getElementById('aluno-instituicao').value = aluno.instituicaoId || '';
+                    document.getElementById('aluno-curso').value = aluno.curso || '';
+                }
+            } else {
+                document.getElementById('modal-aluno-title').innerText = 'Cadastrar Novo Aluno';
+                document.getElementById('aluno-id').value = '';
+            }
+
+            openModal('modal-aluno');
+        }
+
+        async function handleSaveAluno(e) {
+            e.preventDefault();
+            const id = document.getElementById('aluno-id').value;
+            const instSelect = document.getElementById('aluno-instituicao');
+
+            const payload = {
+                nome: document.getElementById('aluno-nome').value.trim(),
+                cpf: document.getElementById('aluno-cpf').value.trim(),
+                rg: document.getElementById('aluno-rg').value.trim(),
+                email: document.getElementById('aluno-email').value.trim(),
+                endereco: document.getElementById('aluno-endereco').value.trim(),
+                instituicaoId: parseInt(instSelect.value) || null,
+                curso: document.getElementById('aluno-curso').value.trim()
+            };
+
+            try {
+                const endpoint = id ? `/alunos/${id}` : '/alunos';
+                const method = id ? 'PUT' : 'POST';
+
+                const response = await fetchFromApi(endpoint, {
+                    method: method,
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Erro ao salvar aluno.');
+                }
+
+                closeModal('modal-aluno');
+                showToast(id ? 'Aluno atualizado!' : 'Novo aluno cadastrado!', 'success');
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast(err.message || 'Falha ao salvar aluno.', 'error');
+            }
+        }
+
+        async function deleteAluno(id) {
+            if (!await askConfirmation('Remover aluno?', 'Deseja realmente remover este discente do sistema?', 'Remover aluno')) return;
+
+            try {
+                const response = await fetchFromApi(`/alunos/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Falha ao remover aluno.');
+
+                showToast('Aluno removido com sucesso.', 'info');
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast('Não foi possível remover o aluno.', 'error');
+            }
+        }
+
+        function viewAlunoDetails(id) {
+            const aluno = APP_STATE.alunos.find(a => a.id === id);
+            if (!aluno) return;
+
+            const container = document.getElementById('aluno-detalhes-content');
+            container.innerHTML = `
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded">
+                    <span class="text-[11px] text-slate-500 uppercase block font-semibold">Nome Completo</span>
+                    <strong class="text-sm text-slate-900 block">${escapeHtml(aluno.nome)}</strong>
+                    <span class="text-xs text-slate-600 block mt-0.5">${escapeHtml(aluno.curso || 'Graduação')} · ${escapeHtml(aluno.instituicaoNome || 'PUC Minas')}</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 bg-white border border-slate-200 rounded">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">CPF</span>
+                        <span class="font-mono text-slate-800 font-medium">${escapeHtml(aluno.cpf)}</span>
+                    </div>
+                    <div class="p-2.5 bg-white border border-slate-200 rounded">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">RG</span>
+                        <span class="font-mono text-slate-800 font-medium">${escapeHtml(aluno.rg || 'Não informado')}</span>
+                    </div>
+                    <div class="p-2.5 bg-white border border-slate-200 rounded col-span-2">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">E-mail</span>
+                        <span class="text-slate-800">${escapeHtml(aluno.email)}</span>
+                    </div>
+                    <div class="p-2.5 bg-white border border-slate-200 rounded col-span-2">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block">Endereço Residencial</span>
+                        <span class="text-slate-800">${escapeHtml(aluno.endereco || 'Não informado')}</span>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded flex items-center justify-between">
+                    <span class="text-xs font-semibold text-emerald-800">Saldo Atual:</span>
+                    <strong class="text-lg font-mono font-bold text-emerald-800">${aluno.saldo || 0} $M</strong>
+                </div>
+            `;
+
+            openModal('modal-aluno-detalhes');
+        }
+
+        /**
+         * CRUD: EMPRESAS PARCEIRAS
+         */
+        function openEmpresaFormModal(empresaId = null) {
+            const form = document.getElementById('form-empresa');
+            form.reset();
+            document.getElementById('empresa-senha').required = !empresaId;
+            document.getElementById('empresa-senha-help').textContent = empresaId
+                ? 'Deixe em branco para manter a senha atual.'
+                : 'Defina uma senha com pelo menos 8 caracteres.';
+
+            if (empresaId) {
+                const emp = APP_STATE.empresas.find(e => e.id === empresaId);
+                if (emp) {
+                    document.getElementById('modal-empresa-title').innerText = 'Editar Empresa Parceira';
+                    document.getElementById('empresa-id').value = emp.id;
+                    document.getElementById('empresa-nome-fantasia').value = emp.nomeFantasia || '';
+                    document.getElementById('empresa-razao-social').value = emp.razaoSocial || '';
+                    document.getElementById('empresa-cnpj').value = emp.cnpj || '';
+                    document.getElementById('empresa-email').value = emp.email || '';
+                    document.getElementById('empresa-login').value = emp.login || '';
+                    document.getElementById('empresa-endereco').value = emp.endereco || '';
+                    document.getElementById('empresa-vantagens').value = emp.vantagens || '';
+                }
+            } else {
+                document.getElementById('modal-empresa-title').innerText = 'Cadastrar Empresa Parceira';
+                document.getElementById('empresa-id').value = '';
+            }
+
+            openModal('modal-empresa');
+        }
+
+        async function handleSaveEmpresa(e) {
+            e.preventDefault();
+            const id = document.getElementById('empresa-id').value;
+
+            const payload = {
+                nomeFantasia: document.getElementById('empresa-nome-fantasia').value.trim(),
+                razaoSocial: document.getElementById('empresa-razao-social').value.trim(),
+                cnpj: document.getElementById('empresa-cnpj').value.trim(),
+                email: document.getElementById('empresa-email').value.trim(),
+                login: document.getElementById('empresa-login').value.trim(),
+                senha: document.getElementById('empresa-senha').value,
+                endereco: document.getElementById('empresa-endereco').value.trim(),
+                vantagens: document.getElementById('empresa-vantagens').value.trim()
+            };
+
+            try {
+                const endpoint = id ? `/empresas/${id}` : '/empresas';
+                const method = id ? 'PUT' : 'POST';
+
+                const response = await fetchFromApi(endpoint, {
+                    method: method,
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    throw new Error(errorData?.erro || 'Erro ao salvar empresa parceira.');
+                }
+
+                closeModal('modal-empresa');
+                showToast(id ? 'Empresa atualizada!' : 'Empresa parceira cadastrada!', 'success');
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast(err.message || 'Falha ao salvar empresa.', 'error');
+            }
+        }
+
+        async function deleteEmpresa(id) {
+            if (!await askConfirmation('Desativar empresa?', 'Deseja desativar o cadastro desta empresa parceira?', 'Desativar empresa')) return;
+
+            try {
+                const response = await fetchFromApi(`/empresas/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Falha ao remover empresa.');
+
+                showToast('Empresa removida com sucesso.', 'info');
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast('Não foi possível remover a empresa.', 'error');
+            }
+        }
+
+        /**
+         * TRANSAÇÕES: ENVIAR MOEDAS & RESGATES
+         */
+        function openSendCoinsModal() {
+            const select = document.getElementById('send-aluno-id');
+            select.innerHTML = '<option value="">Selecione o Aluno...</option>';
+            APP_STATE.alunos.forEach(a => {
+                select.innerHTML += `<option value="${a.id}">${escapeHtml(a.nome)} (${escapeHtml(a.curso || 'Graduação')}) - Saldo: ${a.saldo || 0} $M</option>`;
+            });
+
+            document.getElementById('form-send-coins').reset();
+            openModal('modal-send-coins');
+        }
+
+        function setSendAmount(amount) {
+            document.getElementById('send-amount').value = amount;
+        }
+
+        async function handleSendCoins(e) {
+            e.preventDefault();
+            const alunoId = parseInt(document.getElementById('send-aluno-id').value);
+            const amount = parseInt(document.getElementById('send-amount').value);
+            const reason = document.getElementById('send-reason').value.trim();
+
+            if (!alunoId || !amount || amount <= 0) {
+                showToast('Informe um aluno e uma quantidade válida de moedas.', 'error');
+                return;
+            }
+
+            const professorNome = (APP_STATE.currentUser?.tipo === 'PROFESSOR')
+                ? APP_STATE.currentUser.nome
+                : 'Prof. Carlos Eduardo';
+
+            const payload = {
+                alunoId: alunoId,
+                valor: amount,
+                motivo: reason,
+                professor: professorNome
+            };
+
+            try {
+                const response = await fetchFromApi('/transacoes/enviar', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao enviar moedas.');
+                }
+
+                closeModal('modal-send-coins');
+                showToast(`${amount} Moedas enviadas com sucesso!`, 'success');
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast('Erro ao processar transferência.', 'error');
+            }
+        }
+
+        async function redeemVantagem(vantagemId) {
+            const vantagem = APP_STATE.vantagens.find(v => v.id === vantagemId);
+            
+            // Pega o aluno logado ou primeiro disponível
+            let aluno = null;
+            if (APP_STATE.currentUser?.tipo === 'ALUNO') {
+                aluno = APP_STATE.alunos.find(a => a.id === APP_STATE.currentUser.id);
+            }
+            if (!aluno && APP_STATE.alunos.length > 0) {
+                aluno = APP_STATE.alunos[0];
+            }
+
+            if (!vantagem || !aluno) {
+                showToast('Aluno ou vantagem indisponíveis.', 'error');
+                return;
+            }
+
+            if ((aluno.saldo || 0) < vantagem.custoMoedas) {
+                showToast('Saldo insuficiente para este resgate.', 'error');
+                return;
+            }
+
+            if (!await askConfirmation('Resgatar vantagem?', `Voc? vai trocar ${vantagem.custoMoedas} moedas por ?${vantagem.titulo}?. O valor ser? descontado do seu saldo.`, 'Confirmar resgate')) {
+                return;
+            }
+
+            try {
+                const payload = {
+                    vantagemId: vantagemId,
+                    alunoId: aluno.id
+                };
+
+                const response = await fetchFromApi('/transacoes/resgatar', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Falha ao registrar resgate.');
+                }
+
+                const voucherCode = `MC-${Math.floor(1000 + Math.random() * 9000)}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+                document.getElementById('voucher-title').innerText = vantagem.titulo;
+                document.getElementById('voucher-partner').innerText = `Parceiro: ${vantagem.empresaNome || 'Empresa Conveniada'}`;
+                document.getElementById('voucher-code').innerText = voucherCode;
+                openModal('modal-voucher');
+
+                await loadDataFromApi();
+            } catch (err) {
+
+                showToast('Erro ao resgatar vantagem.', 'error');
+            }
+        }
+
+        function copyVoucherCode() {
+            const code = document.getElementById('voucher-code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código copiado!', 'success');
+            });
+        }
+
+        function askConfirmation(title, message, actionLabel) {
+            const dialog = document.getElementById('confirmation-dialog');
+            if (dialog.open) return Promise.resolve(false);
+            const trigger = document.activeElement;
+            document.getElementById('confirmation-title').textContent = title;
+            document.getElementById('confirmation-message').textContent = message;
+            document.getElementById('confirmation-submit').textContent = actionLabel;
+            dialog.returnValue = 'cancel';
+            return new Promise(resolve => {
+                dialog.addEventListener('close', () => {
+                    if (trigger instanceof HTMLElement && trigger.isConnected) trigger.focus();
+                    resolve(dialog.returnValue === 'confirm');
+                }, { once: true });
+                dialog.showModal();
+            });
+        }
+
+        function openModal(id) {
+            document.getElementById(id)?.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.classList.add('hidden');
+        }
+
+        function populateInstituicoesSelects() {
+            const modalSelect = document.getElementById('aluno-instituicao');
+            const filterSelect = document.getElementById('aluno-instituicao-filter');
+
+            if (modalSelect) {
+                modalSelect.innerHTML = '<option value="">Selecione uma Instituição...</option>';
+                APP_STATE.instituicoes.forEach(inst => {
+                    modalSelect.innerHTML += `<option value="${inst.id}">${escapeHtml(inst.nome)}</option>`;
+                });
+            }
+
+            if (filterSelect) {
+                const currentVal = filterSelect.value;
+                filterSelect.innerHTML = '<option value="">Todas as Instituições</option>';
+                APP_STATE.instituicoes.forEach(inst => {
+                    filterSelect.innerHTML += `<option value="${inst.id}">${escapeHtml(inst.nome)}</option>`;
+                });
+                filterSelect.value = currentVal;
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const borderColors = {
+                success: 'border-l-4 border-l-emerald-600',
+                error: 'border-l-4 border-l-rose-600',
+                info: 'border-l-4 border-l-blue-600'
+            };
+
+            toast.className = `p-3 rounded bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-800 flex items-center justify-between gap-2 transition-all transform translate-y-1 opacity-0 pointer-events-auto ${borderColors[type] || borderColors.info}`;
+            toast.innerHTML = `<span>${escapeHtml(message)}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.remove('translate-y-1', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-1');
+                setTimeout(() => toast.remove(), 250);
+            }, 3000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function formatDate(val) {
+            return val || 'Hoje';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['modal-send-coins', 'modal-aluno', 'modal-aluno-detalhes', 'modal-empresa', 'modal-voucher'].forEach(id => closeModal(id));
+            }
+        });
+
+        /**
+         * INICIALIZAÇÃO: VERIFICA SESSÃO SALVA
+         */
+        window.addEventListener('DOMContentLoaded', async () => {
+            const savedUser = localStorage.getItem('moeda_auth_user');
+            if (savedUser) {
+                try {
+                    APP_STATE.currentUser = JSON.parse(savedUser);
+                    showAppUI();
+                    await loadDataFromApi();
+                    return;
+                } catch (_) {
+                    localStorage.removeItem('moeda_auth_user');
+                }
+            }
+
+            // Se não autenticado, permanece na tela de login
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('app-container').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -15,6 +15,8 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     @EntityGraph(attributePaths = "instituicao")
     Optional<Aluno> findOneById(Long id);
 
+    Optional<Aluno> findByLoginIgnoreCase(String login);
+
     boolean existsByEmailIgnoreCase(String email);
 
     boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);

@@ -2,6 +2,7 @@ package br.edu.pucminas.moedaestudantil.web.api;
 
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
 import br.edu.pucminas.moedaestudantil.repository.EmpresaParceiraRepository;
+import br.edu.pucminas.moedaestudantil.repository.UsuarioRepository;
 import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
 import br.edu.pucminas.moedaestudantil.web.api.dto.EmpresaDto;
 import br.edu.pucminas.moedaestudantil.web.api.dto.SalvarEmpresaRequest;
@@ -27,11 +28,14 @@ public class EmpresaParceiraApiController {
 
     private final EmpresaParceiraService empresaService;
     private final EmpresaParceiraRepository empresaRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public EmpresaParceiraApiController(EmpresaParceiraService empresaService,
-                                        EmpresaParceiraRepository empresaRepository) {
+                                        EmpresaParceiraRepository empresaRepository,
+                                        UsuarioRepository usuarioRepository) {
         this.empresaService = empresaService;
         this.empresaRepository = empresaRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping
@@ -82,14 +86,21 @@ public class EmpresaParceiraApiController {
         form.setEmail(req.email() != null ? req.email() : "");
 
         String login = req.login();
-        if (login == null || login.isBlank()) {
+        if ((login == null || login.isBlank()) && idExistente != null) {
+            login = empresaService.buscar(idExistente).getLogin();
+        } else if (login == null || login.isBlank()) {
             String base = (req.email() != null && req.email().contains("@"))
                     ? req.email().split("@")[0].replaceAll("[^A-Za-z0-9._-]", "")
                     : "";
             if (base.length() < 4) {
                 base = "empresa." + (base.isBlank() ? System.currentTimeMillis() : base);
             }
+            base = base.substring(0, Math.min(base.length(), 60));
             login = base;
+            int sufixo = 2;
+            while (usuarioRepository.existsByLoginIgnoreCase(login)) {
+                login = base + "." + sufixo++;
+            }
         }
         form.setLogin(login);
 

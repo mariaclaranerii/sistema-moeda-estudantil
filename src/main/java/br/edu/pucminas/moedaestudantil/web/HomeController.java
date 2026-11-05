@@ -8,11 +8,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String inicio() {
-        return "index";
+        return "redirect:/index.html";
     }
 
     @GetMapping("/app")
     public String app() {
-        return "redirect:/css/sistema_de_moeda_estudantil_frontend.html";
+        return "redirect:/index.html";
     }
 }

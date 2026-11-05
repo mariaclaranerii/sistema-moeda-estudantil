@@ -3,26 +3,28 @@
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titulo} + ' · Moeda Estudantil'">Moeda Estudantil</title>
+    <title th:text="${titulo} + ' · MeritCoin'">MeritCoin · Moeda Estudantil</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <header class="site-header" th:fragment="header">
     <div class="shell header-content">
-        <a class="brand" th:href="@{/}" aria-label="Página inicial">
-            <span class="brand-mark" aria-hidden="true">M</span>
-            <span><strong>Moeda</strong><small>Estudantil</small></span>
+        <a class="brand" th:href="@{/index.html}" aria-label="Página inicial">
+            <span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-coins"></i></span>
+            <span><strong>MeritCoin</strong><small>Moeda Estudantil</small></span>
         </a>
         <nav aria-label="Navegação principal">
-            <a th:href="@{/alunos}">Alunos</a>
-            <a th:href="@{/empresas}">Empresas</a>
+            <a th:href="@{/index.html}"><i class="fa-solid fa-gauge-high"></i> Dashboard SPA</a>
+            <a th:href="@{/alunos}"><i class="fa-solid fa-graduation-cap"></i> Alunos</a>
+            <a th:href="@{/empresas}"><i class="fa-solid fa-store"></i> Empresas</a>
         </nav>
     </div>
 </header>
 <footer th:fragment="footer">
     <div class="shell footer-content">
-        <span>PUC Minas · Projeto de Software</span>
-        <span>Sprint 02</span>
+        <span>PUC Minas · Laboratório de Desenvolvimento de Software</span>
+        <span>MeritCoin v2.0</span>
     </div>
 </footer>
 </body>

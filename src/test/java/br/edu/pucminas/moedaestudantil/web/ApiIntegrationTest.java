@@ -110,6 +110,45 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void deveGerarLoginsDistintosParaEmailsComMesmoPrefixo() throws Exception {
+        for (int i = 1; i <= 2; i++) {
+            mockMvc.perform(post("/api/empresas")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {"nomeFantasia":"Empresa %d","email":"contato.regressao@empresa%d.com"}
+                                    """.formatted(i, i)))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.login").value(i == 1 ? "contato.regressao" : "contato.regressao.2"));
+        }
+    }
+
+    @Test
+    void devePreservarLoginAoEditarEmailSemInformarLogin() throws Exception {
+        EmpresaParceira empresa = empresaRepository.save(new EmpresaParceira(
+                "Empresa Original", "login.original", "hash", "original@regressao.com"));
+        mockMvc.perform(put("/api/empresas/" + empresa.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"nomeFantasia":"Empresa Atualizada","email":"novo@regressao.com"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.login").value("login.original"))
+                .andExpect(jsonPath("$.email").value("novo@regressao.com"));
+    }
+
+    @Test
+    void deveRejeitarLoginExplicitoJaUtilizado() throws Exception {
+        empresaRepository.save(new EmpresaParceira(
+                "Empresa Existente", "login.ocupado", "hash", "existente@regressao.com"));
+        mockMvc.perform(post("/api/empresas")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"nomeFantasia":"Nova Empresa","email":"nova@regressao.com","login":"LOGIN.OCUPADO"}
+                                """))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
     void deveExecutarCicloCompletoEmpresaViaRest() throws Exception {
         String jsonCriar = """
                 {
