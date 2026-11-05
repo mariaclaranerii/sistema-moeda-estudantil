@@ -592,7 +592,7 @@
                     <div>
                         <label for="empresa-login" class="block font-semibold text-slate-700 mb-1">Login de acesso *</label>
                         <input type="text" id="empresa-login" required minlength="4" maxlength="80" pattern="[A-Za-z0-9._\-]+" autocomplete="off" placeholder="Ex: cafeteria.campus" class="w-full bg-white border border-slate-300 rounded px-2.5 py-2">
-                        <p class="text-slate-500 mt-1">Use letras, n?meros, ponto, h?fen ou sublinhado.</p>
+                        <p class="text-slate-500 mt-1">Use letras, números, ponto, hífen ou sublinhado.</p>
                     </div>
                     <div>
                         <label for="empresa-senha" class="block font-semibold text-slate-700 mb-1">Senha de acesso</label>
@@ -654,7 +654,7 @@
     <dialog id="confirmation-dialog" aria-labelledby="confirmation-title" aria-describedby="confirmation-message">
         <form method="dialog">
             <p class="eyebrow">Moeda Estudantil</p>
-            <h2 id="confirmation-title">Confirmar a??o</h2>
+            <h2 id="confirmation-title">Confirmar ação</h2>
             <p id="confirmation-message"></p>
             <div class="confirmation-actions">
                 <button value="cancel" autofocus class="px-4 py-2 rounded border border-slate-300">Cancelar</button>
@@ -1133,13 +1133,13 @@
                     </header>
                     <div class="empresa-information">
                         <dl class="empresa-contact">
-                            <div><dt>CNPJ</dt><dd>${escapeHtml(emp.cnpj || 'N?o informado')}</dd></div>
-                            <div><dt>E-mail</dt><dd>${escapeHtml(emp.email || 'N?o informado')}</dd></div>
-                            <div><dt>Endere?o</dt><dd>${escapeHtml(emp.endereco || 'N?o informado')}</dd></div>
+                            <div><dt>CNPJ</dt><dd>${escapeHtml(emp.cnpj || 'Não informado')}</dd></div>
+                            <div><dt>E-mail</dt><dd>${escapeHtml(emp.email || 'Não informado')}</dd></div>
+                            <div><dt>Endereço</dt><dd>${escapeHtml(emp.endereco || 'Não informado')}</dd></div>
                         </dl>
                         <div class="empresa-benefits">
-                            <h4>Benef?cios oferecidos</h4>
-                            <p>${escapeHtml(emp.vantagens || 'Nenhuma descri??o cadastrada.')}</p>
+                            <h4>Benefícios oferecidos</h4>
+                            <p>${escapeHtml(emp.vantagens || 'Nenhuma descrição cadastrada.')}</p>
                         </div>
                     </div>
                 </article>
@@ -1241,7 +1241,7 @@
                         <div class="vantagem-description">
                             <p class="vantagem-partner">${escapeHtml(v.empresaNome || 'Parceiro')}</p>
                             <h3>${escapeHtml(v.titulo)}</h3>
-                            <p class="vantagem-summary">${escapeHtml(v.descricao || 'Benef?cio dispon?vel para resgate via Moeda Estudantil.')}</p>
+                            <p class="vantagem-summary">${escapeHtml(v.descricao || 'Benefício disponível para resgate via Moeda Estudantil.')}</p>
                         </div>
                         <div class="vantagem-redemption">
                             <div class="vantagem-price"><span>Valor do resgate</span><strong>${v.custoMoedas} <small>moedas</small></strong></div>
@@ -1542,7 +1542,7 @@
                 return;
             }
 
-            if (!await askConfirmation('Resgatar vantagem?', `Voc? vai trocar ${vantagem.custoMoedas} moedas por ?${vantagem.titulo}?. O valor ser? descontado do seu saldo.`, 'Confirmar resgate')) {
+            if (!await askConfirmation('Resgatar vantagem?', `Você vai trocar ${vantagem.custoMoedas} moedas por "${vantagem.titulo}". O valor será descontado do seu saldo.`, 'Confirmar resgate')) {
                 return;
             }
 
