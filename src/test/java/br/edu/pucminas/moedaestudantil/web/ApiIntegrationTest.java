@@ -166,6 +166,18 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void recursoDeConfirmacaoPermaneceDisponivelDurantePrimeiroAcesso() throws Exception {
+        EmpresaParceira empresa = new EmpresaParceira("Empresa Nova", "empresa.nova",
+            encoder.encode("Empresa@2026!"), "nova@exemplo.com");
+        empresa.exigirTrocaSenhaInicial();
+        empresas.save(empresa);
+        mockMvc.perform(get("/js/confirmacao.js").with(user("empresa.nova").roles("EMPRESA")))
+            .andExpect(status().isOk());
+        mockMvc.perform(get("/painel").with(user("empresa.nova").roles("EMPRESA")))
+            .andExpect(redirectedUrl("/perfil/senha"));
+    }
+
+    @Test
     void loginMantemFormularioDeSessaoEConfirmacaoCompartilhada() throws Exception {
         mockMvc.perform(get("/login"))
             .andExpect(status().isOk())

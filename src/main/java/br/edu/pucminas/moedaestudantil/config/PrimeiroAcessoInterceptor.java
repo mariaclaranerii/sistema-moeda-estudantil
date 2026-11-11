@@ -25,7 +25,7 @@ public class PrimeiroAcessoInterceptor implements HandlerInterceptor {
         if (!aluno && !empresa) return true;
         String path = request.getRequestURI().substring(request.getContextPath().length());
         if (path.equals("/perfil/senha") || path.equals("/perfil") || path.equals("/logout") ||
-                path.equals("/error") || path.equals("/favicon.ico") || path.startsWith("/css/")) {
+                path.equals("/error") || path.equals("/js/confirmacao.js") || path.equals("/favicon.ico") || path.startsWith("/css/")) {
             return true;
         }
         boolean pendente = aluno ? sessao.aluno().isTrocaSenhaPendente()
