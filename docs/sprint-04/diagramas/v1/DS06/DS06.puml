@@ -1,0 +1,44 @@
+@startuml
+title DS06 - Creditar 1.000 moedas por semestre
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Agendador Spring" as t
+participant "CreditoSemestralService" as s <<control>>
+participant "professor: Professor" as pf <<entity>>
+participant "ProfessorRepository" as p <<repository>>
+participant "CreditoSemestralRepository" as c <<repository>>
+participant "TransacaoRepository" as tr <<repository>>
+t -> s : creditarSemestreAtual()
+s -> s : Determinar ano e semestre em São Paulo
+s -> p : findAll()
+p --> s : Professores cadastrados
+loop [para cada professor]
+alt [professor inativo]
+note over t,tr
+Ignorar este professor.
+end note
+else [professor ativo]
+s -> c : existsByProfessorIdAndSemestre(id, semestre)
+alt [carga já registrada]
+note over t,tr
+Ignorar para não duplicar a carga.
+end note
+else [carga ainda não registrada]
+s -> pf : professor.creditar(1000)
+s -> p : save(professor)
+s -> c : save(new CreditoSemestral(...))
+s -> tr : save(transação CREDITO_SEMESTRAL)
+end
+end
+end
+s --> t : Rotina concluída
+legend bottom
+UC04 | RF04; RN01, RN02
+Disparo diário às 00:05 (America/Sao_Paulo); a verificação professor/semestre limita o crédito a uma carga semestral.
+Método @Transactional; saldo anterior acumulado.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

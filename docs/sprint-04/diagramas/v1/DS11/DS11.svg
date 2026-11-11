@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1860" height="1384" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1860 1384" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1860" height="1384"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1384)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1860" height="1384" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="1356.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2712) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="1326.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2653) scale(1,-1)">DS11  Resgatar vantagem e gerar código</text>
+			<text x="30" y="1304.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2608) scale(1,-1)">UC10  |  RF12, RF13; RN08 a RN10</text>
+			<text x="1705.009765625" y="1356.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2713) scale(1,-1)">IMPLEMENTAÇÃO ATUAL</text>
+			<rect x="24" y="75" width="1812" height="1213" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 1288, 62 1288, 62 1273, 55 1266, 24 1266" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="1273.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2547) scale(1,-1)">sd</text>
+			<text x="72" y="1272.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2545) scale(1,-1)">DS11 - Resgatar vantagem e gerar código</text>
+			<path d="M 115,1222 L 115,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<circle cx="115.0" cy="1260" r="6" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<path d="M 115,1254 L 115,1238 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 105,1248 L 125,1248 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,1238 L 107,1229 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,1238 L 123,1229 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="100.83740234375" y="1215.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2431) scale(1,-1)">Aluno</text>
+			<path d="M 332.857143,1222 L 332.857143,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="250.8571428571429" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="309.0871233258929" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«boundary»</text>
+			<text x="306.4655412946429" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">painel.html</text>
+			<path d="M 550.714286,1222 L 550.714286,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="468.7142857142858" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="532.2023228236608" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«control»</text>
+			<text x="512.0961216517858" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">PainelController</text>
+			<path d="M 768.571429,1222 L 768.571429,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="686.5714285714286" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="750.0594656808036" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«control»</text>
+			<text x="716.0470145089286" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">MovimentacaoService</text>
+			<path d="M 986.428571,1222 L 986.428571,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="904.4285714285714" y="1221" width="164.0000000000001" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="967.9166085379464" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«control»</text>
+			<text x="951.1233956473214" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">SessaoService</text>
+			<path d="M 1204.285714,1222 L 1204.285714,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="1122.2857142857142" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1179.5225306919642" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«repository»</text>
+			<text x="1162.6109095982142" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">Repositórios JPA</text>
+			<path d="M 1422.142857,1222 L 1422.142857,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="1340.142857142857" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1406.381870814732" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«entity»</text>
+			<text x="1391.593540736607" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">aluno: Aluno</text>
+			<path d="M 1640,1222 L 1640,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="1558.0" y="1221" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1624.239013671875" y="1246.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2493) scale(1,-1)">«entity»</text>
+			<text x="1594.1455078125" y="1232.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2465) scale(1,-1)">resgate: Transacao</text>
+			<rect x="33" y="886" width="1794" height="123" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 1009, 80.35303 1009, 80.35303 994, 73.35303 987, 33 987" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="994.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1989) scale(1,-1)">break</text>
+			<text x="90.35302734375" y="993.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1987) scale(1,-1)">[vantagemId ausente]</text>
+			<rect x="33" y="715" width="1794" height="133" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 848, 80.35303 848, 80.35303 833, 73.35303 826, 33 826" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="833.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1667) scale(1,-1)">break</text>
+			<text x="90.35302734375" y="832.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1665) scale(1,-1)">[vantagem inexistente ou inativa]</text>
+			<rect x="33" y="554" width="1794" height="123" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 677, 80.35303 677, 80.35303 662, 73.35303 655, 33 655" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="662.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1325) scale(1,-1)">break</text>
+			<text x="90.35302734375" y="661.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1323) scale(1,-1)">[empresa inexistente/inativa ou custo inválido]</text>
+			<rect x="33" y="393" width="1794" height="123" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 516, 80.35303 516, 80.35303 501, 73.35303 494, 33 494" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="501.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1003) scale(1,-1)">break</text>
+			<text x="90.35302734375" y="500.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1001) scale(1,-1)">[saldo insuficiente]</text>
+			<text x="137.10752650669644" y="1198.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2396) scale(1,-1)">1. Selecionar vantagem e confirmar</text>
+			<text x="205.58360072544644" y="1184.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2368) scale(1,-1)">resgate</text>
+			<path d="M 115,1170 L 332.857143,1170 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="326.4655 1167.146, 332.8571 1170, 326.4655 1172.854" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="360.01618303571433" y="1150.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2300) scale(1,-1)">2. POST /painel/resgatar + CSRF</text>
+			<path d="M 332.857143,1132 L 550.714286,1132 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="544.3227 1129.146, 550.7143 1132, 544.3227 1134.854" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="600.9475446428571" y="1112.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2224) scale(1,-1)">3. resgatar(vantagemId)</text>
+			<path d="M 550.714286,1094 L 768.571429,1094 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="762.1798 1091.146, 768.5714 1094, 762.1798 1096.854" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="854.2646484375" y="1074.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2148) scale(1,-1)">4. aluno()</text>
+			<path d="M 768.571429,1056 L 986.428571,1056 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="980.0369 1053.146, 986.4286 1056, 980.0369 1058.854" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="815.732421875" y="1036.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2072) scale(1,-1)">Aluno autenticado e ativo</text>
+			<path d="M 986.428571,1018 L 768.571429,1018 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 774.963051,1020.854323 L 768.571429,1018 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 768.571429,1018 L 774.963051,1015.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="597.2737165178571" y="966.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1932) scale(1,-1)">IllegalArgumentException</text>
+			<path d="M 768.571429,948 L 550.714286,948 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 557.105908,950.854323 L 550.714286,948 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 550.714286,948 L 557.105908,945.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="379.72004045758933" y="928.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1856) scale(1,-1)">Selecione uma vantagem</text>
+			<path d="M 550.714286,910 L 332.857143,910 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 339.248765,912.854323 L 332.857143,910 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 332.857143,910 L 339.248765,907.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="875.1475655691963" y="875.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1750) scale(1,-1)">5. VantagemRepository.findById(vantagemId)</text>
+			<path d="M 768.571429,857 L 1204.285714,857 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1197.894 854.1457, 1204.286 857, 1197.894 859.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="589.3244977678571" y="805.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1610) scale(1,-1)">Registro ausente / vantagem</text>
+			<text x="630.5959821428571" y="791.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1582) scale(1,-1)">indisponível</text>
+			<path d="M 768.571429,777 L 550.714286,777 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 557.105908,779.854323 L 550.714286,777 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 550.714286,777 L 557.105908,774.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="383.40461077008933" y="757.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1514) scale(1,-1)">Exibir erro; sem resgate</text>
+			<path d="M 550.714286,739 L 332.857143,739 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 339.248765,741.854323 L 332.857143,739 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 332.857143,739 L 339.248765,736.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="860.4871651785713" y="704.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1408) scale(1,-1)">6. EmpresaParceiraRepository.findById(empresaId)</text>
+			<path d="M 768.571429,686 L 1204.285714,686 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1197.894 683.1457, 1204.286 686, 1197.894 688.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="572.8164411272321" y="634.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1268) scale(1,-1)">Erro de validação / registro ausente</text>
+			<path d="M 768.571429,616 L 550.714286,616 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 557.105908,618.854323 L 550.714286,616 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 550.714286,616 L 557.105908,613.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="383.40461077008933" y="596.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1192) scale(1,-1)">Exibir erro; sem resgate</text>
+			<path d="M 550.714286,578 L 332.857143,578 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 339.248765,580.854323 L 332.857143,578 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 332.857143,578 L 339.248765,575.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="1021.0641741071429" y="543.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1086) scale(1,-1)">7. aluno.debitarMoedas(custo)</text>
+			<path d="M 768.571429,525 L 1422.142857,525 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1415.751 522.1457, 1422.143 525, 1415.751 527.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="575.2656598772321" y="473.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,946) scale(1,-1)">IllegalArgumentException; rollback</text>
+			<path d="M 768.571429,455 L 550.714286,455 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 557.105908,457.854323 L 550.714286,455 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 550.714286,455 L 557.105908,452.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="377.58771623883933" y="435.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,870) scale(1,-1)">Informar saldo insuficiente</text>
+			<path d="M 550.714286,417 L 332.857143,417 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 339.248765,419.854323 L 332.857143,417 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 332.857143,417 L 339.248765,414.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="909.6917550223213" y="382.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,764) scale(1,-1)">8. AlunoRepository.save(aluno)</text>
+			<path d="M 768.571429,364 L 1204.285714,364 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1197.894 361.1457, 1204.286 364, 1197.894 366.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 768.571429,310 L 800.571429,310 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 800.571429,310 L 800.571429,298 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 800.571429,298 L 768.571429,298 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="774.9631 300.8543, 768.5714 298, 774.9631 295.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="776.5714285714286" y="344.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,689) scale(1,-1)">Gerar código aleatório com</text>
+			<text x="776.5714285714286" y="332.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,665) scale(1,-1)">SecureRandom</text>
+			<text x="1105.5408412388392" y="278.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,556) scale(1,-1)">9. transação.vincularResgate(..., código)</text>
+			<path d="M 768.571429,260 L 1640,260 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1633.608 257.1457, 1640 260, 1633.608 262.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="847.9644601004463" y="240.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,480) scale(1,-1)">10. TransacaoRepository.save(RESGATE_VANTAGEM)</text>
+			<path d="M 768.571429,222 L 1204.285714,222 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1197.894 219.1457, 1204.286 222, 1197.894 224.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="579.2268415178571" y="202.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,404) scale(1,-1)">Resgate e código de conferência</text>
+			<path d="M 768.571429,184 L 550.714286,184 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 557.105908,186.854323 L 550.714286,184 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 550.714286,184 L 557.105908,181.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="363.21466936383933" y="164.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,328) scale(1,-1)">Redirecionar /painel com código</text>
+			<path d="M 550.714286,146 L 332.857143,146 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 339.248765,148.854323 L 332.857143,146 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 332.857143,146 L 339.248765,143.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="143.83482142857144" y="126.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,252) scale(1,-1)">Mostrar confirmação e código no</text>
+			<text x="207.11436244419644" y="112.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,224) scale(1,-1)">extrato</text>
+			<path d="M 332.857143,98 L 115,98 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 121.391623,100.854323 L 115,98 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,98 L 121.391623,95.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="35" y="53.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,106) scale(1,-1)">Saldo e resgate persistem na mesma transação. Código também aparece no extrato da empresa (DS08). Não há envio de cupom por e-mail nem validação presencial implementados; DS13 é previsto.</text>
+			<text x="35" y="15.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,31) scale(1,-1)">Referência: sprint-04 @ 63ec823 · UML 2.5.1 · Retornos tracejados; chamadas síncronas com ponta preenchida.</text>
+		</g>
+	</g>
+</svg>

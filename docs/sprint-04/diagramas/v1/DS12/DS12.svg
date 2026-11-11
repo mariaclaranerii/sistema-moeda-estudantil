@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1060" height="679" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1060 679" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1060" height="679"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-679)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1060" height="679" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="651.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,1302) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="621.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1243) scale(1,-1)">DS12  Notificar recebimento de moedas</text>
+			<text x="30" y="599.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1198) scale(1,-1)">UC11 - PREVISTO  |  RF06</text>
+			<text x="864.4384765625" y="651.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(59%,37%,7%); stroke:none;" transform="translate(0,1303) scale(1,-1)">PREVISTO - NÃO IMPLEMENTADO</text>
+			<rect x="24" y="75" width="1012" height="508" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 583, 62 583, 62 568, 55 561, 24 561" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="568.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1137) scale(1,-1)">sd</text>
+			<text x="72" y="567.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1135) scale(1,-1)">DS12 - Notificar recebimento de moedas</text>
+			<path d="M 115,517 L 115,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="33.0" y="516" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="96.488037109375" y="541.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1083) scale(1,-1)">«control»</text>
+			<text x="61.650390625" y="527.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1055) scale(1,-1)">Fluxo de transferência</text>
+			<path d="M 356.666667,517 L 356.666667,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="274.66666666666663" y="516" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="338.15470377604163" y="541.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1083) scale(1,-1)">«control»</text>
+			<text x="302.20621744791663" y="527.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1055) scale(1,-1)">Notificação de moedas</text>
+			<path d="M 598.333333,517 L 598.333333,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="516.3333333333333" y="516" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="572.5659993489583" y="541.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1083) scale(1,-1)">«participant»</text>
+			<text x="557.2029622395833" y="527.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1055) scale(1,-1)">Serviço de e-mail</text>
+			<path d="M 840,517 L 840,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<circle cx="840.0" cy="555" r="6" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<path d="M 840,549 L 840,533 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 830,543 L 850,543 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840,533 L 832,524 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840,533 L 848,524 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="796.1083984375" y="510.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1021) scale(1,-1)">Aluno destinatário</text>
+			<rect x="33" y="89" width="994" height="228" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 317, 71 317, 71 302, 64 295, 33 295" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="302.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,605) scale(1,-1)">alt</text>
+			<text x="81" y="301.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,603) scale(1,-1)">[envio aceito]</text>
+			<rect x="62" y="473" width="936" height="28" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="72" y="486.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,973) scale(1,-1)">CONTRATO PROPOSTO - não executado no commit de referência. Participantes de notificação são papéis de projeto, não classes implementadas.</text>
+			<text x="129.43733723958331" y="458.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,916) scale(1,-1)">1. Após transferência confirmada: dados do</text>
+			<text x="205.56722005208331" y="444.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,888) scale(1,-1)">recebimento</text>
+			<path d="M 115,430 L 356.666667,430 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="350.275 427.1457, 356.6667 430, 350.275 432.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 356.666667,376 L 388.666667,376 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 388.666667,376 L 388.666667,364 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 388.666667,364 L 356.666667,364 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="363.0583 366.8543, 356.6667 364, 363.0583 361.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="364.66666666666663" y="410.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,821) scale(1,-1)">Montar mensagem:</text>
+			<text x="364.66666666666663" y="398.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,797) scale(1,-1)">professor, valor e motivo</text>
+			<text x="380.27514648437494" y="344.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,688) scale(1,-1)">2. Enviar ao e-mail cadastrado do aluno</text>
+			<path d="M 356.666667,326 L 598.333333,326 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="591.9417 323.1457, 598.3333 326, 591.9417 328.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="415.43969726562494" y="274.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,548) scale(1,-1)">Confirmação do provedor</text>
+			<path d="M 598.333333,256 L 356.666667,256 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 363.058289,258.854323 L 356.666667,256 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 356.666667,256 L 363.058289,253.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="638.1490885416666" y="236.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,472) scale(1,-1)">3. Entregar aviso de recebimento</text>
+			<path d="M 598.333333,218 L 840,218 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="833.6084 215.1457, 840 218, 833.6084 220.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 33,209 L 1027,209 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 4;"/>
+			<text x="85" y="191.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,383) scale(1,-1)">[falha no envio]</text>
+			<text x="435.91430664062494" y="166.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,332) scale(1,-1)">Falha de entrega</text>
+			<path d="M 598.333333,148 L 356.666667,148 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 363.058289,150.854323 L 356.666667,148 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 356.666667,148 L 363.058289,145.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="62" y="108" width="936" height="28" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="72" y="121.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,243) scale(1,-1)">Decisão de implementação pendente: persistir falha e permitir nova tentativa sem repetir a transferência.</text>
+			<text x="35" y="53.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,106) scale(1,-1)">Requisito do enunciado. Propõe-se notificar após confirmação da transação para não avisar sobre transferência revertida. Estratégia de entrega/repetição ainda deverá ser implementada.</text>
+			<text x="35" y="15.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,31) scale(1,-1)">Referência: sprint-04 @ 63ec823 · UML 2.5.1 · Retornos tracejados; chamadas síncronas com ponta preenchida.</text>
+		</g>
+	</g>
+</svg>

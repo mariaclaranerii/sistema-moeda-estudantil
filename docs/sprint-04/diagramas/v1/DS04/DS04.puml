@@ -1,0 +1,39 @@
+@startuml
+title DS04 - Cadastrar empresa parceira
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Professor" as p
+participant "empresas/formulario.html" as v <<boundary>>
+participant "EmpresaParceiraController" as c <<control>>
+participant "EmpresaParceiraService" as s <<control>>
+participant "Repositórios JPA" as j <<repository>>
+p -> v : Preencher nome, e-mail, login e senha inicial
+v -> c : POST /empresas + CSRF
+alt [campos inválidos ou senha ausente]
+c --> v : Erros no formulário
+else [formulário válido]
+c -> s : criar(empresaParceiraForm)
+s -> s : Normalizar e exigir senha inicial
+s -> j : Verificar unicidade de login e e-mail
+alt [login ou e-mail já utilizado]
+s --> c : ConflitoCadastroException
+c --> v : Exibir conflito de cadastro
+else [dados únicos]
+s -> s : BCrypt(senha); exigirTrocaSenhaInicial()
+s -> j : EmpresaParceiraRepository.save(empresa)
+s --> c : Empresa criada
+c --> v : Redirecionar /painel com confirmação
+end
+end
+note over p,j
+Variação REST: EmpresaParceiraApiController gera login único quando omitido. Em edição REST sem login, preserva o existente; a senha inicial continua obrigatória.
+end note
+legend bottom
+UC03 - criação | RF09, RF19
+Fluxo principal MVC. O cadastro é restrito a professor na versão atual; o enunciado prevê cadastro pela empresa.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

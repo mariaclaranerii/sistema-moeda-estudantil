@@ -22,8 +22,8 @@ Foram adicionadas regressões para colisão de login, preservação de login, lo
 
 ## Próximos entregáveis — Lab04S01 / Release 02
 Esta integração prepara a base da Sprint 04; não representa conclusão do laboratório.
-- [ ] Diagramas de sequência UML dos casos de uso.
-- [ ] Diagrama de visão geral de interação UML.
+- [x] Diagramas de sequência UML dos casos de uso.
+- [x] Diagrama de visão geral de interação UML.
 - [ ] RF06: e-mail de recebimento de moedas.
 - [ ] RF14 e RF15: cupom por e-mail ao aluno e à empresa com o mesmo código.
 - [ ] Confirmar a política de cadastro com o enunciado (atualmente novos cadastros são feitos por professores).
@@ -36,3 +36,10 @@ mvn test
 mvn spring-boot:run -Dspring-boot.run.profiles=demo
 ```
 Abrir http://localhost:8080/login. Credenciais de demonstração e regras de primeiro acesso: [Sprint 03](../sprint-03/README.md).
+
+
+## Modelagem dinâmica - Lab04S01
+
+[Catálogo de diagramas, fontes editáveis e rastreabilidade](diagramas/v1/README.md) · [PDF completo - 23 páginas](diagramas/v1/diagramas-uml-lab04s01.pdf).
+
+Foram acrescentados 16 diagramas de sequência, uma visão geral principal, três refinamentos por perfil e uma visão de complementação prevista. DS12/DS13 e IG02 estão identificados como previstos porque os e-mails de RF06/RF14/RF15 continuam sem implementação. O conjunto registra a divergência entre autocadastro do enunciado e cadastro atual restrito ao professor. Nenhum código de execução foi alterado nesta entrega de documentação.

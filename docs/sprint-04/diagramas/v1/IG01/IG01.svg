@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1240" height="1180" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1240 1180" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1240" height="1180"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1180)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1240" height="1180" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="1152.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2304) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="1120.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2241) scale(1,-1)">IG01  Visão geral de interação - versão atual</text>
+			<text x="30" y="1096.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2192) scale(1,-1)">Interações referenciadas por DS; decisões com guardas e retorno ao menu da sessão.</text>
+			<rect x="24" y="113" width="1192" height="965" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 1078, 62 1078, 62 1063, 55 1056, 24 1056" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="1063.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2127) scale(1,-1)">sd</text>
+			<text x="72" y="1062.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2125) scale(1,-1)">IG01 - Visão geral de interação</text>
+			<circle cx="623.0" cy="1035.0" r="8.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<rect x="467" y="943" width="310" height="60" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="467 1003, 505 1003, 505 988, 498 981, 467 981" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="474" y="988.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1977) scale(1,-1)">ref</text>
+			<text x="554.761962890625" y="965.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1930) scale(1,-1)">DS01 · Autenticar usuário</text>
+			<path d="M 623,1027 L 623,1003 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,1009.391623 L 623,1003 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,1003 L 625.854323,1009.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="623 917, 658 895, 623 873, 588 895" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="605.740478515625" y="892.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1785) scale(1,-1)">Acesso?</text>
+			<path d="M 623,943 L 623,917 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,923.391623 L 623,917 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,917 L 625.854323,923.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 588,895 L 427,895 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 427,895 L 427,972 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 427,972 L 467,972 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 460.608377,969.145677 L 467,972 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 467,972 L 460.608377,974.854323 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="515.5" y="900.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1801) scale(1,-1)">[inválido]</text>
+			<polygon points="623 845, 658 823, 623 801, 588 823" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="608.99462890625" y="820.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1641) scale(1,-1)">Troca?</text>
+			<path d="M 623,873 L 623,845 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,851.391623 L 623,845 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,845 L 625.854323,851.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="631.0" y="864.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1729) scale(1,-1)">[válido]</text>
+			<rect x="842" y="787" width="340" height="65" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="842 852, 880 852, 880 837, 873 830, 842 830" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="849" y="837.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1675) scale(1,-1)">ref</text>
+			<text x="958.200439453125" y="814.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1628) scale(1,-1)">DS14 · Alterar senha</text>
+			<text x="943.838134765625" y="799.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1598) scale(1,-1)">primeiro acesso pendente</text>
+			<path d="M 658,823 L 842,823 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 835.608377,820.145677 L 842,823 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 842,823 L 835.608377,825.854323 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="758.0" y="828.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1657) scale(1,-1)">[sim]</text>
+			<polygon points="623 770, 635 758, 623 746, 611 758" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="623.0" y="755.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1511) scale(1,-1)"></text>
+			<path d="M 623,801 L 623,770 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,776.391623 L 623,770 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,770 L 625.854323,776.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="631.0" y="791.0" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1582) scale(1,-1)">[não]</text>
+			<path d="M 1012,787 L 1012,758 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1012,758 L 635,758 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 641.391623,760.854323 L 635,758 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 635,758 L 641.391623,755.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="623 718, 658 696, 623 674, 588 696" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="612.74755859375" y="693.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1387) scale(1,-1)">Perfil</text>
+			<path d="M 623,746 L 623,718 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,724.391623 L 623,718 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,718 L 625.854323,724.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="62" y="529" width="340" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="62 629, 100 629, 100 614, 93 607, 62 607" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="69" y="614.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1229) scale(1,-1)">ref</text>
+			<text x="154.97314453125" y="591.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1182) scale(1,-1)">IG03 · Operação de professor</text>
+			<text x="165.36083984375" y="576.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1152) scale(1,-1)">Selecionar uma interação</text>
+			<rect x="452" y="529" width="340" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="452 629, 490 629, 490 614, 483 607, 452 607" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="459" y="614.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1229) scale(1,-1)">ref</text>
+			<text x="555.675048828125" y="591.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1182) scale(1,-1)">IG04 · Operação de aluno</text>
+			<text x="555.36083984375" y="576.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1152) scale(1,-1)">Selecionar uma interação</text>
+			<rect x="842" y="529" width="340" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="842 629, 880 629, 880 614, 873 607, 842 607" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="849" y="614.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1229) scale(1,-1)">ref</text>
+			<text x="937.715087890625" y="591.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1182) scale(1,-1)">IG05 · Operação de empresa</text>
+			<text x="945.36083984375" y="576.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1152) scale(1,-1)">Selecionar uma interação</text>
+			<path d="M 588,696 L 232,696 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 232,696 L 232,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 229.145677,635.391623 L 232,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 232,629 L 234.854323,635.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="418.0" y="701.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1403) scale(1,-1)">[Professor]</text>
+			<path d="M 623,674 L 623,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,635.391623 L 623,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,629 L 625.854323,635.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="631.0" y="657.0" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1314) scale(1,-1)">[Aluno]</text>
+			<path d="M 658,696 L 1012,696 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1012,696 L 1012,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1009.145677,635.391623 L 1012,629 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1012,629 L 1014.854323,635.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="843.0" y="701.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1403) scale(1,-1)">[Empresa]</text>
+			<polygon points="623 473, 639 457, 623 441, 607 457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="623.0" y="454.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,909) scale(1,-1)"></text>
+			<path d="M 232,529 L 232,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 232,493 L 623,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,493 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,479.391623 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,473 L 625.854323,479.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 622,529 L 622,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 622,493 L 623,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,493 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,479.391623 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,473 L 625.854323,479.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1012,529 L 1012,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1012,493 L 623,493 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,493 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,479.391623 L 623,473 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,473 L 625.854323,479.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="623 409, 658 387, 623 365, 588 387" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="600.985595703125" y="384.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,769) scale(1,-1)">Continuar?</text>
+			<path d="M 623,441 L 623,409 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,415.391623 L 623,409 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,409 L 625.854323,415.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 588,387 L 422,387 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 422,387 L 422,660 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 422,660 L 575,660 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 575,660 L 575,696 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 575,696 L 588,696 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 581.608377,693.145677 L 588,696 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 588,696 L 581.608377,698.854323 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="513.0" y="392.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,785) scale(1,-1)">[sim]</text>
+			<rect x="467" y="252" width="310" height="60" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="467 312, 505 312, 505 297, 498 290, 467 290" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="474" y="297.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,595) scale(1,-1)">ref</text>
+			<text x="560.546630859375" y="274.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,548) scale(1,-1)">DS16 · Encerrar sessão</text>
+			<path d="M 623,365 L 623,312 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,318.391623 L 623,312 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,312 L 625.854323,318.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="631.0" y="344.0" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,688) scale(1,-1)">[não]</text>
+			<circle cx="623.0" cy="205.0" r="9.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<circle cx="623.0" cy="205.0" r="5.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 623,252 L 623,214 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620.145677,220.391623 L 623,214 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 623,214 L 625.854323,220.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="62" y="178" width="340" height="152" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="74" y="307.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,614) scale(1,-1)">Processo independente da sessão: DS06 descreve o crédito</text>
+			<text x="74" y="292.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,584) scale(1,-1)">semestral disparado pelo agendador Spring. Ele não é iniciado</text>
+			<text x="74" y="277.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,554) scale(1,-1)">pelo usuário e não participa deste fluxo de navegação.</text>
+			<rect x="842" y="168" width="340" height="232" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="854" y="377.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,754) scale(1,-1)">IG03, IG04 e IG05 detalham a seleção de uma interação por</text>
+			<text x="854" y="362.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,724) scale(1,-1)">perfil. A troca de senha pendente deve concluir com sucesso</text>
+			<text x="854" y="347.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,694) scale(1,-1)">antes do menu. DS12 e DS13 são previstos e não são</text>
+			<text x="854" y="332.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,664) scale(1,-1)">chamados nesta versão. A decisão Continuar pressupõe sessão</text>
+			<text x="854" y="317.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,634) scale(1,-1)">e usuário ativos; após desativação, encerrar o acesso.</text>
+			<text x="35" y="77.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,154) scale(1,-1)">Notação: nó inicial, nó final, decisão/merge, fluxo de controle e InteractionUse com aba ref.</text>
+			<text x="35" y="54.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,108) scale(1,-1)">UML 2.5.1 · Referências DS01-DS16 no catálogo · Base: sprint-04 @ 63ec823</text>
+		</g>
+	</g>
+</svg>

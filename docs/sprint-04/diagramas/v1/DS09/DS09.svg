@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1460" height="1110" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1460 1110" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1460" height="1110"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1110)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1460" height="1110" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="1082.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2164) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="1052.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2105) scale(1,-1)">DS09  Cadastrar e gerenciar vantagens</text>
+			<text x="30" y="1030.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2060) scale(1,-1)">UC08 e extensão de gestão  |  RF10</text>
+			<text x="1305.009765625" y="1082.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2165) scale(1,-1)">IMPLEMENTAÇÃO ATUAL</text>
+			<rect x="24" y="75" width="1412" height="939" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 1014, 62 1014, 62 999, 55 992, 24 992" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="999.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1999) scale(1,-1)">sd</text>
+			<text x="72" y="998.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1997) scale(1,-1)">DS09 - Cadastrar e gerenciar vantagens</text>
+			<path d="M 115,948 L 115,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<circle cx="115.0" cy="986" r="6" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<path d="M 115,980 L 115,964 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 105,974 L 125,974 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,964 L 107,955 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,964 L 123,955 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="73.02978515625" y="941.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1883) scale(1,-1)">Empresa parceira</text>
+			<path d="M 340,948 L 340,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="258.0" y="947" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="316.22998046875" y="972.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1945) scale(1,-1)">«boundary»</text>
+			<text x="305.263671875" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">Painel / edição</text>
+			<path d="M 565,948 L 565,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="483.0" y="947" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="546.488037109375" y="972.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1945) scale(1,-1)">«control»</text>
+			<text x="526.3818359375" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">PainelController</text>
+			<path d="M 790,948 L 790,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="708.0" y="947" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="771.488037109375" y="972.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1945) scale(1,-1)">«control»</text>
+			<text x="737.4755859375" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">MovimentacaoService</text>
+			<path d="M 1015,948 L 1015,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="933.0" y="947" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="996.488037109375" y="972.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1945) scale(1,-1)">«control»</text>
+			<text x="979.69482421875" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">SessaoService</text>
+			<path d="M 1240,948 L 1240,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="1158.0" y="947" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1215.23681640625" y="972.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1945) scale(1,-1)">«repository»</text>
+			<text x="1189.98779296875" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">VantagemRepository</text>
+			<rect x="41" y="416" width="1378" height="123" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="41 539, 88.35303 539, 88.35303 524, 81.35303 517, 41 517" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="48" y="524.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1049) scale(1,-1)">break</text>
+			<text x="98.35302734375" y="523.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1047) scale(1,-1)">[vantagem ausente ou de outra empresa]</text>
+			<rect x="41" y="215" width="1378" height="201" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="41 416, 79 416, 79 401, 72 394, 41 394" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="48" y="401.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,803) scale(1,-1)">alt</text>
+			<text x="89" y="400.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,801) scale(1,-1)">[editar]</text>
+			<rect x="33" y="200" width="1394" height="545" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 745, 71 745, 71 730, 64 723, 33 723" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="730.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1461) scale(1,-1)">alt</text>
+			<text x="81" y="729.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1459) scale(1,-1)">[cadastrar]</text>
+			<text x="130.27783203125" y="924.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1848) scale(1,-1)">1. Solicitar cadastro, edição ou situação</text>
+			<path d="M 115,906 L 340,906 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="333.6084 903.1457, 340 906, 333.6084 908.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="359.2470703125" y="886.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1772) scale(1,-1)">2. POST /painel/vantagens ou subrota</text>
+			<path d="M 340,868 L 565,868 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="558.6084 865.1457, 565 868, 558.6084 870.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="622.465087890625" y="848.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1696) scale(1,-1)">3. Operação escolhida</text>
+			<path d="M 565,830 L 790,830 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="783.6084 827.1457, 790 830, 783.6084 832.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="871.323486328125" y="810.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1620) scale(1,-1)">4. empresa()</text>
+			<path d="M 790,792 L 1015,792 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1008.608 789.1457, 1015 792, 1008.608 794.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="832.791259765625" y="772.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1544) scale(1,-1)">Empresa autenticada e ativa</text>
+			<path d="M 1015,754 L 790,754 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 796.391623,756.854323 L 790,754 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 790,754 L 796.391623,751.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 790,668 L 822,668 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,668 L 822,656 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,656 L 790,656 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="796.3916 658.8543, 790 656, 796.3916 653.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="798.0" y="702.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1405) scale(1,-1)">validarVantagem(título,</text>
+			<text x="798.0" y="690.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1381) scale(1,-1)">custo, descrição, foto)</text>
+			<text x="898.8232421875" y="636.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1272) scale(1,-1)">5. save(nova vantagem da empresa da sessão)</text>
+			<path d="M 790,618 L 1240,618 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1233.608 615.1457, 1240 618, 1233.608 620.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 33,609 L 1427,609 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 4;"/>
+			<text x="85" y="591.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1183) scale(1,-1)">[editar ou alternar situação]</text>
+			<text x="956.608154296875" y="566.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1132) scale(1,-1)">6. findById(vantagemId)</text>
+			<path d="M 790,548 L 1240,548 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1233.608 545.1457, 1240 548, 1233.608 550.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="579.05859375" y="496.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,992) scale(1,-1)">RegistroNaoEncontrado / AccessDenied</text>
+			<path d="M 790,478 L 565,478 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 571.391623,480.854323 L 565,478 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 565,478 L 571.391623,475.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="395.628173828125" y="458.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,916) scale(1,-1)">Erro ou acesso negado</text>
+			<path d="M 565,440 L 340,440 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 346.391623,442.854323 L 340,440 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 340,440 L 346.391623,437.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 790,339 L 822,339 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,339 L 822,327 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,327 L 790,327 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="796.3916 329.8543, 790 327, 796.3916 324.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="798.0" y="373.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,747) scale(1,-1)">validarVantagem(...);</text>
+			<text x="798.0" y="361.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,723) scale(1,-1)">vantagem.atualizar(...)</text>
+			<path d="M 41,318 L 1419,318 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 4;"/>
+			<text x="85" y="300.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,601) scale(1,-1)">[alternar situação]</text>
+			<path d="M 790,251 L 822,251 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,251 L 822,239 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 822,239 L 790,239 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="796.3916 241.8543, 790 239, 796.3916 236.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="798.0" y="275.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,551) scale(1,-1)">desativar() ou reativar()</text>
+			<rect x="62" y="169" width="1336" height="28" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="72" y="182.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,365) scale(1,-1)">Custo positivo, título/descrição obrigatórios e foto com URL HTTPS. Falha de validação não conclui a operação. Edição/situação persistem por dirty checking.</text>
+			<text x="601.6708984375" y="154.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,308) scale(1,-1)">Vantagem criada ou atualizada</text>
+			<path d="M 790,136 L 565,136 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 571.391623,138.854323 L 565,136 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 565,136 L 571.391623,133.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="373.92626953125" y="116.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,232) scale(1,-1)">Confirmação e retorno ao painel</text>
+			<path d="M 565,98 L 340,98 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 346.391623,100.854323 L 340,98 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 340,98 L 346.391623,95.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="35" y="53.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,106) scale(1,-1)">“Estoque” significa catálogo com situação ativa/inativa. O código não implementa quantidade física ou baixa de unidades; esses comportamentos não foram acrescentados ao modelo.</text>
+			<text x="35" y="15.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,31) scale(1,-1)">Referência: sprint-04 @ 63ec823 · UML 2.5.1 · Retornos tracejados; chamadas síncronas com ponta preenchida.</text>
+		</g>
+	</g>
+</svg>

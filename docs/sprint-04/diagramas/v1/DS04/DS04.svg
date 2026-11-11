@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1260" height="979" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1260 979" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1260" height="979"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-979)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1260" height="979" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="951.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,1902) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="921.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1843) scale(1,-1)">DS04  Cadastrar empresa parceira</text>
+			<text x="30" y="899.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1798) scale(1,-1)">UC03 - criação  |  RF09, RF19</text>
+			<text x="1105.009765625" y="951.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,1903) scale(1,-1)">IMPLEMENTAÇÃO ATUAL</text>
+			<rect x="24" y="75" width="1212" height="808" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 883, 62 883, 62 868, 55 861, 24 861" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="868.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1737) scale(1,-1)">sd</text>
+			<text x="72" y="867.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1735) scale(1,-1)">DS04 - Cadastrar empresa parceira</text>
+			<path d="M 115,817 L 115,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<circle cx="115.0" cy="855" r="6" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<path d="M 115,849 L 115,833 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 105,843 L 125,843 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,833 L 107,824 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 115,833 L 123,824 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="91.65771484375" y="810.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1621) scale(1,-1)">Professor</text>
+			<path d="M 346.25,817 L 346.25,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="264.25" y="816" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="322.47998046875" y="841.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1683) scale(1,-1)">«boundary»</text>
+			<text x="284.84375" y="827.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1655) scale(1,-1)">empresas/formulario.html</text>
+			<path d="M 577.5,817 L 577.5,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="495.5" y="816" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="558.988037109375" y="841.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1683) scale(1,-1)">«control»</text>
+			<text x="512.7490234375" y="827.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1655) scale(1,-1)">EmpresaParceiraController</text>
+			<path d="M 808.75,817 L 808.75,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="726.75" y="816" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="790.238037109375" y="841.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1683) scale(1,-1)">«control»</text>
+			<text x="750.09521484375" y="827.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1655) scale(1,-1)">EmpresaParceiraService</text>
+			<path d="M 1040,817 L 1040,92 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 4, 4;"/>
+			<rect x="958.0" y="816" width="164.0" height="38" style="stroke: rgb(12%,36%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1015.23681640625" y="841.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1683) scale(1,-1)">«repository»</text>
+			<text x="998.3251953125" y="827.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1655) scale(1,-1)">Repositórios JPA</text>
+			<rect x="41" y="139" width="1178" height="335" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="41 474, 79 474, 79 459, 72 452, 41 452" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="48" y="459.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,919) scale(1,-1)">alt</text>
+			<text x="89" y="458.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,917) scale(1,-1)">[login ou e-mail já utilizado]</text>
+			<rect x="33" y="124" width="1194" height="594" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="33 718, 71 718, 71 703, 64 696, 33 696" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="40" y="703.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1407) scale(1,-1)">alt</text>
+			<text x="81" y="702.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1405) scale(1,-1)">[campos inválidos ou senha ausente]</text>
+			<text x="130.04052734375" y="793.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1586) scale(1,-1)">1. Preencher nome, e-mail, login e senha</text>
+			<text x="216.86962890625" y="779.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1558) scale(1,-1)">inicial</text>
+			<path d="M 115,765 L 346.25,765 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="339.8584 762.1457, 346.25 765, 339.8584 767.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="392.3408203125" y="745.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1490) scale(1,-1)">2. POST /empresas + CSRF</text>
+			<path d="M 346.25,727 L 577.5,727 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="571.1084 724.1457, 577.5 727, 571.1084 729.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="415.10888671875" y="675.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1350) scale(1,-1)">Erros no formulário</text>
+			<path d="M 577.5,657 L 346.25,657 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 352.641623,659.854323 L 346.25,657 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 346.25,657 L 352.641623,654.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 33,648 L 1227,648 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 4;"/>
+			<text x="85" y="630.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1261) scale(1,-1)">[formulário válido]</text>
+			<text x="617.943115234375" y="605.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1210) scale(1,-1)">3. criar(empresaParceiraForm)</text>
+			<path d="M 577.5,587 L 808.75,587 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="802.3584 584.1457, 808.75 587, 802.3584 589.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 808.75,533 L 840.75,533 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840.75,533 L 840.75,521 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840.75,521 L 808.75,521 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="815.1416 523.8543, 808.75 521, 815.1416 518.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="816.75" y="567.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1135) scale(1,-1)">Normalizar e exigir senha</text>
+			<text x="816.75" y="555.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1111) scale(1,-1)">inicial</text>
+			<text x="831.130126953125" y="501.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1002) scale(1,-1)">4. Verificar unicidade de login e e-mail</text>
+			<path d="M 808.75,483 L 1040,483 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1033.608 480.1457, 1040 483, 1033.608 485.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="628.005859375" y="431.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,862) scale(1,-1)">ConflitoCadastroException</text>
+			<path d="M 808.75,413 L 577.5,413 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 583.891623,415.854323 L 577.5,413 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 577.5,413 L 583.891623,410.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="398.89892578125" y="393.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,786) scale(1,-1)">Exibir conflito de cadastro</text>
+			<path d="M 577.5,375 L 346.25,375 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 352.641623,377.854323 L 346.25,375 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 346.25,375 L 352.641623,372.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 41,366 L 1219,366 Z" style="stroke: rgb(66%,71%,76%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 4;"/>
+			<text x="85" y="348.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,697) scale(1,-1)">[dados únicos]</text>
+			<path d="M 808.75,289 L 840.75,289 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840.75,289 L 840.75,277 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 840.75,277 L 808.75,277 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="815.1416 279.8543, 808.75 277, 815.1416 274.1457" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="816.75" y="323.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,647) scale(1,-1)">BCrypt(senha);</text>
+			<text x="816.75" y="311.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,623) scale(1,-1)">exigirTrocaSenhaInicial()</text>
+			<text x="811.27587890625" y="257.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,514) scale(1,-1)">5. EmpresaParceiraRepository.save(empresa)</text>
+			<path d="M 808.75,239 L 1040,239 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="1033.608 236.1457, 1040 239, 1033.608 241.8543" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="654.60888671875" y="219.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,438) scale(1,-1)">Empresa criada</text>
+			<path d="M 808.75,201 L 577.5,201 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 583.891623,203.854323 L 577.5,201 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 577.5,201 L 583.891623,198.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="369.553955078125" y="181.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,362) scale(1,-1)">Redirecionar /painel com confirmação</text>
+			<path d="M 577.5,163 L 346.25,163 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 5, 3;"/>
+			<path d="M 352.641623,165.854323 L 346.25,163 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 346.25,163 L 352.641623,160.145677 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="62" y="93" width="1136" height="28" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="72" y="106.5" style="font-family: ArialU; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,213) scale(1,-1)">Variação REST: EmpresaParceiraApiController gera login único quando omitido. Em edição REST sem login, preserva o existente; a senha inicial continua obrigatória.</text>
+			<text x="35" y="53.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,106) scale(1,-1)">Fluxo principal MVC. O cadastro é restrito a professor na versão atual; o enunciado prevê cadastro pela empresa.</text>
+			<text x="35" y="15.75" style="font-family: ArialU; font-size: 9px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,31) scale(1,-1)">Referência: sprint-04 @ 63ec823 · UML 2.5.1 · Retornos tracejados; chamadas síncronas com ponta preenchida.</text>
+		</g>
+	</g>
+</svg>

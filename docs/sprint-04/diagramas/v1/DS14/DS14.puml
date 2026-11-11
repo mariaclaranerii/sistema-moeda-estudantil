@@ -1,0 +1,39 @@
+@startuml
+title DS14 - Alterar senha e concluir primeiro acesso
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Aluno ou empresa" as u
+participant "alterar-senha.html" as v <<boundary>>
+participant "PerfilController" as c <<control>>
+participant "SessaoService" as ss <<control>>
+participant "Serviço do titular" as s <<control>>
+participant "Repositório do titular" as j <<repository>>
+u -> v : Informar senha atual, nova e confirmação
+v -> c : POST /perfil/senha + CSRF
+c -> ss : usuario()
+ss --> c : Aluno ou EmpresaParceira
+c -> s : alterarMinhaSenha(atual, nova, confirmação)
+s -> ss : aluno() ou empresa()
+s -> j : Buscar titular da sessão
+s -> s : Validar senha atual com BCrypt e nova senha
+alt [senha atual inválida, nova fora de 8-72 ou confirmação divergente]
+s --> c : IllegalArgumentException
+c --> v : Voltar /perfil/senha com erro
+else [senha válida e diferente da atual]
+s -> s : alterarSenha(BCrypt(nova)); confirmarTrocaSenha()
+note over u,j
+JPA persiste a nova senha e remove a pendência na transação.
+end note
+s --> c : Troca concluída
+c --> v : Redirecionar /perfil com sucesso
+end
+legend bottom
+Extensão de UC01 | RF16, RF17
+Serviço do titular = AlunoService ou EmpresaParceiraService; repositório correspondente. Esta interface não oferece
+alteração de senha de professor.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

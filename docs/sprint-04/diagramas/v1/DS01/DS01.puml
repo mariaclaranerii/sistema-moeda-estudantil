@@ -1,0 +1,40 @@
+@startuml
+title DS01 - Autenticar usuário
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Usuário" as u
+participant "login.html" as v <<boundary>>
+participant "Spring Security" as s <<control>>
+participant "UserDetailsService" as d <<control>>
+participant "Repositórios de usuários" as j <<repository>>
+u -> v : Informar login/e-mail e senha
+v -> s : POST /login + token CSRF
+s -> d : loadUserByUsername(login)
+d -> j : UsuarioRepository.findByLoginIgnoreCase(login)
+opt [login não encontrado]
+d -> j : AlunoRepository.findByEmailIgnoreCase(login)
+end
+j --> d : Usuário ou ausência de cadastro
+d --> s : UserDetails: hash, perfil e situação
+s -> s : Validar credenciais com BCrypt
+alt [credenciais inválidas ou usuário inativo]
+s --> v : Redirecionar /login?error
+v --> u : Exibir erro de autenticação
+else [credenciais válidas e usuário ativo]
+s -> s : Estabelecer autenticação na sessão
+s --> v : Redirecionar /painel
+note over u,j
+Aluno/empresa com senha temporária: PrimeiroAcessoInterceptor redireciona para /perfil/senha antes do painel.
+end note
+v --> u : Acesso conforme perfil e primeiro acesso
+end
+legend bottom
+UC01 | RF16, RF17
+Spring Security processa POST /login; LoginController apenas apresenta a tela. A consulta por e-mail é compatibilidade
+para alunos antigos.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

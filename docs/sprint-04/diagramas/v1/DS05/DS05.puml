@@ -1,0 +1,45 @@
+@startuml
+title DS05 - Consultar, editar e desativar empresa
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Empresa titular" as e
+participant "Views de empresa" as v <<boundary>>
+participant "EmpresaParceiraController" as c <<control>>
+participant "SessaoService" as ss <<control>>
+participant "EmpresaParceiraService" as s <<control>>
+participant "EmpresaParceiraRepository" as j <<repository>>
+e -> v : Solicitar operação do próprio cadastro
+v -> c : GET/POST /empresas/{id} e subrotas
+c -> ss : empresa(); exigirProprietario(id)
+break [perfil incorreto ou id alheio]
+ss --> c : AccessDeniedException
+c --> v : Acesso negado
+end
+alt [consultar]
+c -> s : buscar(id)
+s -> j : findById(id)
+s --> c : Empresa
+c --> v : empresas/detalhe
+else [editar com formulário válido]
+c -> s : atualizar(id, form)
+s -> s : Validar unicidade e atualizarCadastro(...)
+note over e,j
+Atualização JPA transacional; conflito de login/e-mail retorna ao formulário. Senha é alterada separadamente em DS14.
+end note
+c --> v : Cadastro atualizado
+else [alternar situação]
+c -> s : alternarSituacao(id)
+s -> j : findById(id)
+s -> s : desativar() ou reativar()
+c --> v : Redirecionar ao detalhe
+end
+legend bottom
+UC03 - manutenção | RF19
+A listagem geral é exclusiva do professor. Exclusão lógica preserva o histórico; novo login de empresa inativa é
+bloqueado.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

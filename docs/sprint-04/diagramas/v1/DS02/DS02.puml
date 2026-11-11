@@ -1,0 +1,44 @@
+@startuml
+title DS02 - Cadastrar aluno
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Professor" as p
+participant "alunos/formulario.html" as v <<boundary>>
+participant "AlunoController" as c <<control>>
+participant "AlunoService" as s <<control>>
+participant "Repositórios JPA" as j <<repository>>
+p -> v : Solicitar novo cadastro
+v -> c : GET /alunos/novo
+c -> j : InstituicaoEnsinoRepository.findAllByOrderByNomeAsc()
+j --> c : Instituições participantes
+c --> v : Formulário e instituições
+p -> v : Preencher dados e selecionar instituição
+v -> c : POST /alunos + CSRF
+alt [formulário inválido]
+c --> v : Erros de validação
+else [formulário válido]
+c -> s : criar(alunoForm)
+s -> s : Normalizar dados; login = e-mail
+s -> j : Verificar unicidade de login, e-mail, CPF e RG
+s -> j : InstituicaoEnsinoRepository.findById(id)
+alt [duplicidade ou instituição inexistente]
+s --> c : ConflitoCadastroException / registro ausente
+c --> v : Apresentar erro; não cadastrar
+else [dados únicos e instituição válida]
+s -> s : BCrypt(senha inicial); exigirTrocaSenhaInicial()
+s -> j : AlunoRepository.save(aluno)
+j --> s : Aluno persistido com saldo inicial zero
+s --> c : Aluno criado
+c --> v : Redirecionar /painel com confirmação
+end
+end
+legend bottom
+UC02 - criação | RF01, RF02, RF18
+Implementação atual: professor realiza o cadastro. O enunciado descreve autocadastro do aluno; a divergência está
+registrada na matriz.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

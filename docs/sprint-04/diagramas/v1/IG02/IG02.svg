@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1240" height="1180" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1240 1180" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1240" height="1180"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1180)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1240" height="1180" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="1152.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,2304) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="1120.75" style="font-family: ArialUB; font-size: 21px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2241) scale(1,-1)">IG02  Visão geral de interação - complemento previsto</text>
+			<text x="30" y="1096.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,2192) scale(1,-1)">Interações referenciadas por DS; decisões com guardas e retorno ao menu da sessão.</text>
+			<rect x="24" y="113" width="1192" height="965" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 1078, 62 1078, 62 1063, 55 1056, 24 1056" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="1063.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2127) scale(1,-1)">sd</text>
+			<text x="72" y="1062.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,2125) scale(1,-1)">IG02 - Visão geral de interação</text>
+			<circle cx="620.0" cy="1026.0" r="9.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<polygon points="620 975, 656 953, 620 931, 584 953" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="605.990234375" y="950.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1901) scale(1,-1)">Evento</text>
+			<path d="M 620,1017 L 620,975 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 617.145677,981.391623 L 620,975 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,975 L 622.854323,981.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="102" y="786" width="340" height="70" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="102 856, 140 856, 140 841, 133 834, 102 834" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="109" y="841.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1683) scale(1,-1)">ref</text>
+			<text x="205.363525390625" y="818.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1636) scale(1,-1)">DS07 · Transferir moedas</text>
+			<text x="214.8408203125" y="803.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1606) scale(1,-1)">transação confirmada</text>
+			<path d="M 584,953 L 272,953 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 272,953 L 272,856 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 269.145677,862.391623 L 272,856 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 272,856 L 274.854323,862.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="436.0" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">[transferência]</text>
+			<rect x="102" y="636" width="340" height="70" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="102 706, 140 706, 140 691, 133 684, 102 684" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="109" y="691.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1383) scale(1,-1)">ref</text>
+			<text x="192.531982421875" y="668.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1336) scale(1,-1)">DS12 · Avisar aluno por e-mail</text>
+			<text x="225.8515625" y="653.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1306) scale(1,-1)">PREVISTO - RF06</text>
+			<path d="M 272,786 L 272,706 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 269.145677,712.391623 L 272,706 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 272,706 L 274.854323,712.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="280.0" y="751.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1503) scale(1,-1)">[confirmada]</text>
+			<rect x="802" y="786" width="340" height="70" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="802 856, 840 856, 840 841, 833 834, 802 834" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="809" y="841.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1683) scale(1,-1)">ref</text>
+			<text x="902.61083984375" y="818.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1636) scale(1,-1)">DS11 · Resgatar vantagem</text>
+			<text x="926.1630859375" y="803.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1606) scale(1,-1)">código persistido</text>
+			<path d="M 656,953 L 972,953 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 972,953 L 972,856 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 969.145677,862.391623 L 972,856 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 972,856 L 974.854323,862.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="822.0" y="958.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1917) scale(1,-1)">[resgate]</text>
+			<rect x="802" y="636" width="340" height="70" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="802 706, 840 706, 840 691, 833 684, 802 684" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="809" y="691.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1383) scale(1,-1)">ref</text>
+			<text x="881.531982421875" y="668.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1336) scale(1,-1)">DS13 · Cupom ao aluno e empresa</text>
+			<text x="909.34619140625" y="653.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1306) scale(1,-1)">PREVISTO - RF14, RF15</text>
+			<path d="M 972,786 L 972,706 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 969.145677,712.391623 L 972,706 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 972,706 L 974.854323,712.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="980.0" y="751.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1503) scale(1,-1)">[confirmado]</text>
+			<polygon points="620 560, 636 544, 620 528, 604 544" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="620.0" y="541.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1083) scale(1,-1)"></text>
+			<path d="M 272,636 L 272,584 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 272,584 L 620,584 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,584 L 620,560 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 617.145677,566.391623 L 620,560 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,560 L 622.854323,566.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 972,636 L 972,584 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 972,584 L 620,584 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,584 L 620,560 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 617.145677,566.391623 L 620,560 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,560 L 622.854323,566.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<circle cx="620.0" cy="469.0" r="9.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<circle cx="620.0" cy="469.0" r="5.0" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<path d="M 620,528 L 620,478 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 617.145677,484.391623 L 620,478 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 620,478 L 622.854323,484.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="100" y="170" width="1040" height="220" style="stroke: rgb(78%,67%,45%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,94%,84%); fill-rule: evenodd;"/>
+			<text x="112" y="367.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,734) scale(1,-1)">VISÃO DE COMPLEMENTAÇÃO, NÃO IMPLEMENTADA. A decisão escolhe uma das duas interações conforme o evento; não impõe execução concorrente. DS12 e DS13 deverão ser integrados após</text>
+			<text x="112" y="352.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,704) scale(1,-1)">confirmação da transação. As mensagens dos dois destinatários usam o mesmo código de DS11. Falha de e-mail não deve gerar novo débito, transferência ou código. A política de repetição e o adaptador de</text>
+			<text x="112" y="337.25" style="font-family: ArialU; font-size: 11px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,674) scale(1,-1)">envio ainda são decisões de implementação. O autocadastro de aluno e empresa descrito no enunciado continua divergente do acesso restrito ao professor; resolver essa regra antes de alterar DS02 e DS04.</text>
+			<text x="35" y="77.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,154) scale(1,-1)">Notação: nó inicial, nó final, decisão/merge, fluxo de controle e InteractionUse com aba ref.</text>
+			<text x="35" y="54.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,108) scale(1,-1)">UML 2.5.1 · Referências DS01-DS16 no catálogo · Base: sprint-04 @ 63ec823</text>
+		</g>
+	</g>
+</svg>

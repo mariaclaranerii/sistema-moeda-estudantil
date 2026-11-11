@@ -1,0 +1,36 @@
+@startuml
+title DS13 - Enviar cupom ao aluno e à empresa
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+participant "Fluxo de resgate" as s <<control>>
+participant "Notificação de cupom" as e <<control>>
+participant "Serviço de e-mail" as smtp <<participant>>
+actor "Aluno" as a
+actor "Empresa parceira" as p
+note over s,p : PREVISTO - NÃO IMPLEMENTADO
+note over s,p
+CONTRATO PROPOSTO - envio por e-mail ausente no código. Reutilizar o código persistido em DS11; nunca gerar um código diferente para cada destinatário.
+end note
+s -> e : Após resgate confirmado: código, aluno, empresa e vantagem
+e -> e : Montar mensagens com o MESMO código
+e -> smtp : Enviar cupom ao e-mail do aluno
+smtp --> e : Resultado do envio ao aluno
+smtp -> a : Entregar cupom, quando envio bem-sucedido
+e -> smtp : Enviar código ao e-mail da empresa
+smtp --> e : Resultado do envio à empresa
+smtp -> p : Entregar código, quando envio bem-sucedido
+opt [um ou ambos os envios falharam]
+note over s,p
+Registrar destinatário pendente e repetir somente sua entrega, preservando débito, resgate e código. Essa política ainda precisa ser implementada.
+end note
+end
+legend bottom
+UC12 - PREVISTO | RF14, RF15
+O enunciado exige o mesmo código para conferência presencial. A ordem dos dois envios é uma opção de projeto, não uma
+exigência da professora.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+title DS15 - Redefinir senha temporária presencialmente
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Professor" as p
+participant "Listagem de cadastros" as v <<boundary>>
+participant "Controller de cadastro" as c <<control>>
+participant "Serviço de cadastro" as s <<control>>
+participant "SessaoService" as ss <<control>>
+participant "Repositório do cadastro" as j <<repository>>
+p -> v : Solicitar redefinição do aluno ou empresa
+v -> c : POST /{cadastro}/{id}/redefinir-senha + CSRF
+c -> s : redefinirSenhaPeloProfessor(id)
+s -> ss : professor()
+break [usuário não é professor ativo]
+ss --> c : AccessDeniedException
+c --> v : Acesso negado
+end
+s -> j : Buscar aluno ou empresa pelo id
+s -> s : Gerar senha temporária com SecureRandom
+s -> s : alterarSenha(BCrypt(temporária)); exigirTrocaSenhaInicial()
+s --> c : Senha temporária em claro apenas para exibição
+c --> v : Redirecionar à lista com atributo flash
+v --> p : Exibir senha temporária uma única vez
+note over p,j
+Professor entrega a credencial ao titular fora do sistema. Próximo acesso exige DS14. Não há e-mail de recuperação.
+end note
+legend bottom
+Extensão de UC02/UC03 | RF16, RF17
+Controller/serviço/repositório correspondem ao tipo de cadastro selecionado; não são novas classes. Entrega presencial é
+procedimento externo.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

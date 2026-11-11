@@ -1,0 +1,36 @@
+@startuml
+title DS10 - Consultar e selecionar vantagens
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Aluno" as a
+participant "painel.html" as v <<boundary>>
+participant "PainelController" as c <<control>>
+participant "SessaoService" as ss <<control>>
+participant "VantagemRepository" as j <<repository>>
+a -> v : Abrir catálogo no painel
+v -> c : GET /painel
+c -> ss : usuario()
+ss --> c : Aluno autenticado e ativo
+c -> j : findAllByOrderByTituloAsc()
+j --> c : Vantagens cadastradas
+c -> c : Filtrar Vantagem.isAtivo()
+c --> v : Catálogo, saldo e dados do aluno
+alt [nenhuma vantagem ativa]
+v --> a : Informar catálogo vazio
+else [existem vantagens ativas]
+v --> a : Exibir título, descrição, foto, parceiro e custo
+a -> v : Selecionar vantagem
+ref over a,j
+DS11 - Resgatar vantagem
+end ref
+end
+legend bottom
+UC09 | RF11
+O catálogo MVC filtra a situação da vantagem. A situação da empresa é verificada no resgate (DS11); não foi inventado
+filtro adicional no catálogo.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

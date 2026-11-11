@@ -1,0 +1,45 @@
+@startuml
+title DS09 - Cadastrar e gerenciar vantagens
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Empresa parceira" as e
+participant "Painel / edição" as v <<boundary>>
+participant "PainelController" as c <<control>>
+participant "MovimentacaoService" as s <<control>>
+participant "SessaoService" as ss <<control>>
+participant "VantagemRepository" as j <<repository>>
+e -> v : Solicitar cadastro, edição ou situação
+v -> c : POST /painel/vantagens ou subrota
+c -> s : Operação escolhida
+s -> ss : empresa()
+ss --> s : Empresa autenticada e ativa
+alt [cadastrar]
+s -> s : validarVantagem(título, custo, descrição, foto)
+s -> j : save(nova vantagem da empresa da sessão)
+else [editar ou alternar situação]
+s -> j : findById(vantagemId)
+break [vantagem ausente ou de outra empresa]
+s --> c : RegistroNaoEncontrado / AccessDenied
+c --> v : Erro ou acesso negado
+end
+alt [editar]
+s -> s : validarVantagem(...); vantagem.atualizar(...)
+else [alternar situação]
+s -> s : desativar() ou reativar()
+end
+end
+note over e,j
+Custo positivo, título/descrição obrigatórios e foto com URL HTTPS. Falha de validação não conclui a operação. Edição/situação persistem por dirty checking.
+end note
+s --> c : Vantagem criada ou atualizada
+c --> v : Confirmação e retorno ao painel
+legend bottom
+UC08 e extensão de gestão | RF10
+“Estoque” significa catálogo com situação ativa/inativa. O código não implementa quantidade física ou baixa de unidades;
+esses comportamentos não foram acrescentados ao modelo.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+title DS12 - Notificar recebimento de moedas
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+participant "Fluxo de transferência" as s <<control>>
+participant "Notificação de moedas" as e <<control>>
+participant "Serviço de e-mail" as smtp <<participant>>
+actor "Aluno destinatário" as a
+note over s,a : PREVISTO - NÃO IMPLEMENTADO
+note over s,a
+CONTRATO PROPOSTO - não executado no commit de referência. Participantes de notificação são papéis de projeto, não classes implementadas.
+end note
+s -> e : Após transferência confirmada: dados do recebimento
+e -> e : Montar mensagem: professor, valor e motivo
+e -> smtp : Enviar ao e-mail cadastrado do aluno
+alt [envio aceito]
+smtp --> e : Confirmação do provedor
+smtp -> a : Entregar aviso de recebimento
+else [falha no envio]
+smtp --> e : Falha de entrega
+note over s,a
+Decisão de implementação pendente: persistir falha e permitir nova tentativa sem repetir a transferência.
+end note
+end
+legend bottom
+UC11 - PREVISTO | RF06
+Requisito do enunciado. Propõe-se notificar após confirmação da transação para não avisar sobre transferência revertida.
+Estratégia de entrega/repetição ainda deverá ser implementada.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1300" height="850" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1300 850" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1300" height="850"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-850)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1300" height="850" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="30" y="822.25" style="font-family: ArialUB; font-size: 11px;fill: rgb(12%,36%,47%); stroke:none;" transform="translate(0,1644) scale(1,-1)">SISTEMA DE MOEDA ESTUDANTIL  /  RELEASE 02 · LAB04S01</text>
+			<text x="30" y="789.5" style="font-family: ArialUB; font-size: 22px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1579) scale(1,-1)">IG04  Operação de aluno</text>
+			<text x="30" y="764.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,1528) scale(1,-1)">Refinamento de IG01 · Uma operação por passagem; retornar ao menu após sua conclusão.</text>
+			<rect x="24" y="85" width="1252" height="660" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="24 745, 62 745, 62 730, 55 723, 24 723" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="31" y="730.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1461) scale(1,-1)">sd</text>
+			<text x="72" y="729.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1459) scale(1,-1)">IG04 - Operação de aluno</text>
+			<circle cx="650" cy="700" r="8" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<polygon points="650 650, 686 628, 650 606, 614 628" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="630.23779296875" y="624.75" style="font-family: ArialU; font-size: 9px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,1249) scale(1,-1)">Operação</text>
+			<path d="M 650,692 L 650,650 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,656.391623 L 650,650 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,650 L 652.854323,656.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="42.0" y="375" width="216.0" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="42 475, 80 475, 80 460, 73 453, 42 453" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="49.0" y="460.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,921) scale(1,-1)">ref</text>
+			<text x="134.9912109375" y="429.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,858) scale(1,-1)">DS03</text>
+			<text x="72.6416015625" y="413.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,826) scale(1,-1)">Gerenciar próprio cadastro</text>
+			<path d="M 650,606 L 650,580 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,580 L 150,580 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 150,580 L 150,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 147.145677,481.391623 L 150,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 150,475 L 152.854323,481.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="125.82763671875" y="490.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,981) scale(1,-1)">[cadastro]</text>
+			<path d="M 150,375 L 150,330 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 150,330 L 650,330 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,330 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,231.391623 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,225 L 652.854323,231.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="375.3333333333333" y="375" width="215.99999999999994" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="375.3333 475, 413.3333 475, 413.3333 460, 406.3333 453, 375.3333 453" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="382.3333333333333" y="460.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,921) scale(1,-1)">ref</text>
+			<text x="468.3245442708333" y="429.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,858) scale(1,-1)">DS08</text>
+			<text x="411.3157552083333" y="413.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,826) scale(1,-1)">Consultar saldo e extrato</text>
+			<path d="M 650,606 L 650,565 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,565 L 483.333333,565 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 483.333333,565 L 483.333333,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 480.47901,481.391623 L 483.333333,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 483.333333,475 L 486.187657,481.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="463.3308919270833" y="490.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,981) scale(1,-1)">[extrato]</text>
+			<path d="M 483.333333,375 L 483.333333,315 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 483.333333,315 L 650,315 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,315 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,231.391623 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,225 L 652.854323,231.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="708.6666666666666" y="375" width="216.0" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="708.6667 475, 746.6667 475, 746.6667 460, 739.6667 453, 708.6667 453" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="715.6666666666666" y="460.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,921) scale(1,-1)">ref</text>
+			<text x="801.6578776041666" y="429.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,858) scale(1,-1)">DS10</text>
+			<text x="729.3092447916666" y="413.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,826) scale(1,-1)">Consultar vantagens; ref DS11</text>
+			<text x="780.9801432291666" y="397.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,794) scale(1,-1)">para resgate</text>
+			<path d="M 650,606 L 650,550 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,550 L 816.666667,550 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 816.666667,550 L 816.666667,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 813.812343,481.391623 L 816.666667,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 816.666667,475 L 819.52099,481.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="792.7775065104166" y="490.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,981) scale(1,-1)">[catálogo]</text>
+			<path d="M 816.666667,375 L 816.666667,300 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 816.666667,300 L 650,300 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,300 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,231.391623 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,225 L 652.854323,231.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<rect x="1042.0" y="375" width="216.0" height="100" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: none; fill-rule: evenodd;"/>
+			<polygon points="1042 475, 1080 475, 1080 460, 1073 453, 1042 453" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,97%); fill-rule: evenodd;"/>
+			<text x="1049.0" y="460.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,921) scale(1,-1)">ref</text>
+			<text x="1134.9912109375" y="429.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,858) scale(1,-1)">DS14</text>
+			<text x="1092.314453125" y="413.0" style="font-family: ArialUB; font-size: 12px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,826) scale(1,-1)">Alterar minha senha</text>
+			<path d="M 650,606 L 650,535 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,535 L 1150,535 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1150,535 L 1150,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1147.145677,481.391623 L 1150,475 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1150,475 L 1152.854323,481.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="1132.21923828125" y="490.5" style="font-family: ArialUB; font-size: 10px;fill: rgb(12%,20%,28%); stroke:none;" transform="translate(0,981) scale(1,-1)">[senha]</text>
+			<path d="M 1150,375 L 1150,285 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 1150,285 L 650,285 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,285 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,231.391623 L 650,225 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,225 L 652.854323,231.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="650 225, 668 207, 650 189, 632 207" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 650,189 L 650,146 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 647.145677,152.391623 L 650,146 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 650,146 L 652.854323,152.391623 Z" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1;"/>
+			<circle cx="650" cy="136" r="10" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: none; fill-rule: evenodd;"/>
+			<circle cx="650" cy="136" r="6" style="stroke: rgb(12%,20%,28%); stroke-linecap: butt; stroke-width: 1.4; fill: rgb(12%,20%,28%); fill-rule: evenodd;"/>
+			<text x="35" y="49.25" style="font-family: ArialU; font-size: 11px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,98) scale(1,-1)">Decisão: alternativas exclusivas. Merge: reúne alternativas; não é sincronização paralela.</text>
+			<text x="35" y="27.5" style="font-family: ArialU; font-size: 10px;fill: rgb(32%,39%,47%); stroke:none;" transform="translate(0,55) scale(1,-1)">Base sprint-04 @ 63ec823 · Toda referência DS corresponde a um diagrama de sequência deste catálogo.</text>
+		</g>
+	</g>
+</svg>

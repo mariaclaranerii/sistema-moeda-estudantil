@@ -1,0 +1,25 @@
+@startuml
+title DS16 - Encerrar sessão
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Usuário autenticado" as u
+participant "Cabeçalho da aplicação" as v <<boundary>>
+participant "Spring Security" as s <<control>>
+u -> v : Selecionar Sair da conta
+v -> s : POST /logout + token CSRF
+alt [CSRF inválido ou ausente]
+s --> v : HTTP 403; não encerrar por essa requisição
+else [CSRF válido]
+s -> s : Invalidar sessão e limpar autenticação
+s --> v : Redirecionar /login?logout
+v --> u : Exibir Sessão encerrada
+end
+legend bottom
+Extensão de UC01 | RF17
+Logout é processado pelo Spring Security, sem controller de aplicação específico.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

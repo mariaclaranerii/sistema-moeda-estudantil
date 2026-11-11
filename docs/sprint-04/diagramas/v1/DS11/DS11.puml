@@ -1,0 +1,53 @@
+@startuml
+title DS11 - Resgatar vantagem e gerar código
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Aluno" as a
+participant "painel.html" as v <<boundary>>
+participant "PainelController" as c <<control>>
+participant "MovimentacaoService" as s <<control>>
+participant "SessaoService" as ss <<control>>
+participant "Repositórios JPA" as j <<repository>>
+participant "aluno: Aluno" as al <<entity>>
+participant "resgate: Transacao" as tr <<entity>>
+a -> v : Selecionar vantagem e confirmar resgate
+v -> c : POST /painel/resgatar + CSRF
+c -> s : resgatar(vantagemId)
+s -> ss : aluno()
+ss --> s : Aluno autenticado e ativo
+break [vantagemId ausente]
+s --> c : IllegalArgumentException
+c --> v : Selecione uma vantagem
+end
+s -> j : VantagemRepository.findById(vantagemId)
+break [vantagem inexistente ou inativa]
+s --> c : Registro ausente / vantagem indisponível
+c --> v : Exibir erro; sem resgate
+end
+s -> j : EmpresaParceiraRepository.findById(empresaId)
+break [empresa inexistente/inativa ou custo inválido]
+s --> c : Erro de validação / registro ausente
+c --> v : Exibir erro; sem resgate
+end
+s -> al : aluno.debitarMoedas(custo)
+break [saldo insuficiente]
+s --> c : IllegalArgumentException; rollback
+c --> v : Informar saldo insuficiente
+end
+s -> j : AlunoRepository.save(aluno)
+s -> s : Gerar código aleatório com SecureRandom
+s -> tr : transação.vincularResgate(..., código)
+s -> j : TransacaoRepository.save(RESGATE_VANTAGEM)
+s --> c : Resgate e código de conferência
+c --> v : Redirecionar /painel com código
+v --> a : Mostrar confirmação e código no extrato
+legend bottom
+UC10 | RF12, RF13; RN08 a RN10
+Saldo e resgate persistem na mesma transação. Código também aparece no extrato da empresa (DS08). Não há envio de cupom
+por e-mail nem validação presencial implementados; DS13 é previsto.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

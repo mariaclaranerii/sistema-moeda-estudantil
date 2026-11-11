@@ -1,0 +1,38 @@
+@startuml
+title DS08 - Consultar saldo e extrato individual
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Usuário autenticado" as u
+participant "painel.html" as v <<boundary>>
+participant "PainelController" as c <<control>>
+participant "MovimentacaoService" as s <<control>>
+participant "SessaoService" as ss <<control>>
+participant "TransacaoRepository" as j <<repository>>
+u -> v : Abrir meu painel
+v -> c : GET /painel
+c -> ss : usuario()
+ss --> c : Usuário autenticado e ativo
+c -> s : extrato()
+s -> ss : usuario()
+alt [perfil Aluno]
+s -> j : findAllByAlunoIdOrderByDataHoraDesc(id)
+else [perfil Professor]
+s -> j : findAllByProfessorIdOrderByDataHoraDesc(id)
+else [perfil EmpresaParceira]
+s -> j : findAllByEmpresaIdOrderByDataHoraDesc(id)
+end
+j --> s : Movimentações do titular
+s --> c : Extrato ordenado
+c -> c : Obter saldo do aluno/professor; montar modelo
+c --> v : Modelo: tipo, saldo e extrato
+v --> u : Exibir histórico e códigos de resgate
+legend bottom
+UC06, UC07 | RF07, RF08
+Empresa consulta resgates recebidos e códigos; não possui saldo monetário no painel. Os identificadores utilizados vêm
+da sessão, não de um usuário escolhido na tela.
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml

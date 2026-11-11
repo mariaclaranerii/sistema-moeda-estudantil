@@ -1,0 +1,47 @@
+@startuml
+title DS07 - Transferir moedas para aluno
+hide footbox
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+actor "Professor" as p
+participant "painel.html" as v <<boundary>>
+participant "PainelController" as c <<control>>
+participant "MovimentacaoService" as s <<control>>
+participant "SessaoService" as ss <<control>>
+participant "Repositórios JPA" as j <<repository>>
+participant "professor: Professor" as pf <<entity>>
+participant "aluno: Aluno" as al <<entity>>
+p -> v : Selecionar aluno, quantidade e motivo; confirmar
+v -> c : POST /painel/enviar + CSRF
+c -> s : enviar(alunoId, quantidade, motivo)
+s -> ss : professor()
+ss --> s : Professor autenticado e ativo
+break [aluno ausente, quantidade não positiva ou motivo vazio]
+s --> c : IllegalArgumentException
+c --> v : Redirecionar /painel com erro
+end
+s -> j : AlunoRepository.findById(alunoId)
+break [aluno inexistente ou inativo]
+s --> c : Registro ausente / aluno inativo
+c --> v : Exibir erro; sem transferência
+end
+s -> pf : professor.debitar(quantidade)
+break [saldo do professor insuficiente]
+s --> c : IllegalArgumentException; rollback
+c --> v : Saldo insuficiente; sem transferência
+end
+s -> al : aluno.creditarMoedas(quantidade)
+s -> j : ProfessorRepository.save; AlunoRepository.save
+s -> j : TransacaoRepository.save(ENVIO_PROFESSOR)
+s --> c : Transação vinculada a professor e aluno
+c --> v : Redirecionar /painel com sucesso
+v --> p : Saldo e extrato atualizados
+legend bottom
+UC05 | RF05; RN03 a RN06
+Débito, crédito e registro são transacionais. A implementação não chama serviço de e-mail. Complemento exigido pelo
+enunciado: DS12 (previsto).
+Base: sprint-04 @ 63ec823
+endlegend
+@enduml
