@@ -3,7 +3,7 @@
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titulo} + ' · Moeda Estudantil'">Moeda Estudantil</title>
+    <title th:text="${titulo} + ' · MeritCoin'">Moeda Estudantil</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="shell header-content">
         <a class="brand" th:href="@{/}" aria-label="Página inicial">
             <span class="brand-mark" aria-hidden="true">M</span>
-            <span><strong>Moeda</strong><small>Estudantil</small></span>
+            <span><strong>MeritCoin</strong><small>Moeda Estudantil</small></span>
         </a>
         <nav class="header-nav" aria-label="Navegação principal">
             <th:block th:if="${cabecalho.autenticado}">
@@ -33,9 +33,20 @@
 </header>
 <footer th:fragment="footer">
     <div class="shell footer-content">
-        <span>PUC Minas · Projeto de Software</span>
-        <span>Sprint 03</span>
+        <span>PUC Minas · Laboratório de Desenvolvimento de Software</span>
+        <span>Sprint 04</span>
     </div>
+    <dialog id="confirmation-dialog" aria-labelledby="confirmation-title" aria-describedby="confirmation-message">
+        <form method="dialog">
+            <h2 id="confirmation-title">Confirmar ação</h2>
+            <p id="confirmation-message"></p>
+            <div class="confirmation-actions">
+                <button class="button secondary" value="cancel" autofocus>Cancelar</button>
+                <button class="button primary" value="confirm">Confirmar</button>
+            </div>
+        </form>
+    </dialog>
+    <script th:src="@{/js/confirmacao.js}" defer></script>
 </footer>
 </body>
 </html>

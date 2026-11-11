@@ -62,3 +62,8 @@ Os diagramas antigos permanecem preservados. As fontes atualizadas do diagrama d
 - Lucas Gabriel de Oliveira Franco
 - Maria Clara Neri Stankunas
 - Yago Garzon Chaves
+
+
+## Sprint 04 — integração
+
+A branch `sprint-04` reúne a base funcional da Sprint 03 com melhorias selecionadas da `main`. Consulte [as decisões de integração e o backlog do Lab04S01](docs/sprint-04/README.md). A integração não conclui os requisitos de diagramas e e-mails da Release 02.

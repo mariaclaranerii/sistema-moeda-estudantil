@@ -3,10 +3,16 @@
 <head th:replace="~{fragments :: head('Entrar')}"></head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
-<main class="shell page narrow-page">
-  <section class="detail-card" style="max-width:480px;margin:3rem auto;">
+<main class="login-page">
+  <section class="login-intro">
+    <span class="eyebrow">MeritCoin · Comunidade acadêmica</span>
+    <h1>Cada conquista<br>tem seu valor.</h1>
+    <p>Reconheça o mérito, acompanhe suas moedas e descubra vantagens com nossos parceiros.</p>
+  </section>
+  <div class="login-access">
+  <section class="detail-card">
     <span class="eyebrow">Acesso ao sistema</span>
-    <h1>Entrar</h1>
+    <h2>Bem-vindo de volta</h2>
     <p>Alunos entram com o e-mail cadastrado. Professores e empresas usam o login informado.</p>
     <p>Novos alunos precisam alterar a senha inicial no primeiro acesso.</p>
     <p class="login-guidance">Esqueceu a senha? Solicite ao professor a redefinição presencial. Nenhum e-mail de recuperação é necessário.</p>
@@ -21,6 +27,7 @@
       <button class="button primary" type="submit">Acessar meu painel</button>
     </form>
   </section>
+  </div>
 </main>
 <footer th:replace="~{fragments :: footer}"></footer>
 </body>

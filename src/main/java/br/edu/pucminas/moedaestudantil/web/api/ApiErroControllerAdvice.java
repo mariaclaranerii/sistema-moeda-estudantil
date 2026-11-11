@@ -2,6 +2,7 @@ package br.edu.pucminas.moedaestudantil.web.api;
 
 import br.edu.pucminas.moedaestudantil.service.*;
 import java.util.Map;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.*;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,11 @@ public class ApiErroControllerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String,String>> invalido(IllegalArgumentException e) {
         return ResponseEntity.badRequest().body(Map.of("erro",e.getMessage()));
+    }
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<Map<String,String>> statusException(ResponseStatusException e) {
+        String mensagem = e.getReason() == null ? "Não foi possível concluir a operação." : e.getReason();
+        return ResponseEntity.status(e.getStatusCode()).body(Map.of("erro", mensagem));
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String,String>> semAcesso(AccessDeniedException e) {

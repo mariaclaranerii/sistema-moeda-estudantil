@@ -121,4 +121,57 @@ class ApiIntegrationTest {
         mockMvc.perform(post("/api/alunos").contentType(MediaType.APPLICATION_JSON)
             .content("{}")).andExpect(status().isForbidden());
     }
+
+    @Test
+    void geraLoginsDistintosParaEmailsComMesmoPrefixo() throws Exception {
+        for (int n = 1; n <= 2; n++) {
+            mockMvc.perform(post("/api/empresas").with(csrf())
+                .with(user("prof.cadastro").roles("PROFESSOR"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"nomeFantasia":"Empresa %d","email":"contato.regressao@empresa%d.com","senha":"Empresa@2026!"}
+                    """.formatted(n, n)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.login").value(n == 1 ? "contato.regressao" : "contato.regressao.2"));
+        }
+    }
+
+    @Test
+    void preservaLoginAoEditarEmailSemInformarLogin() throws Exception {
+        EmpresaParceira empresa = empresas.save(new EmpresaParceira("Empresa Original", "login.original",
+            encoder.encode("Empresa@2026!"), "original@regressao.com"));
+        mockMvc.perform(put("/api/empresas/" + empresa.getId()).with(csrf())
+            .with(user("login.original").roles("EMPRESA"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("""
+                {"nomeFantasia":"Empresa Atualizada","email":"novo@regressao.com"}
+                """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.login").value("login.original"))
+            .andExpect(jsonPath("$.email").value("novo@regressao.com"));
+    }
+
+    @Test
+    void rejeitaLoginExplicitoJaUtilizado() throws Exception {
+        empresas.save(new EmpresaParceira("Empresa Existente", "login.ocupado",
+            encoder.encode("Empresa@2026!"), "existente@regressao.com"));
+        mockMvc.perform(post("/api/empresas").with(csrf())
+            .with(user("prof.cadastro").roles("PROFESSOR"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("""
+                {"nomeFantasia":"Nova Empresa","email":"nova@regressao.com",
+                 "login":"LOGIN.OCUPADO","senha":"Empresa@2026!"}
+                """))
+            .andExpect(status().isConflict());
+    }
+
+    @Test
+    void loginMantemFormularioDeSessaoEConfirmacaoCompartilhada() throws Exception {
+        mockMvc.perform(get("/login"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("MeritCoin")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("name=\"username\"")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("/js/confirmacao.js")));
+        mockMvc.perform(get("/js/confirmacao.js")).andExpect(status().isOk());
+    }
 }

@@ -2,6 +2,7 @@ package br.edu.pucminas.moedaestudantil.web.api;
 
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
 import br.edu.pucminas.moedaestudantil.repository.EmpresaParceiraRepository;
+import br.edu.pucminas.moedaestudantil.repository.UsuarioRepository;
 import br.edu.pucminas.moedaestudantil.service.*;
 import br.edu.pucminas.moedaestudantil.web.api.dto.*;
 import br.edu.pucminas.moedaestudantil.web.form.EmpresaParceiraForm;
@@ -18,11 +19,12 @@ public class EmpresaParceiraApiController {
     private final EmpresaParceiraRepository repository;
     private final SessaoService sessao;
     private final Validator validator;
+    private final UsuarioRepository usuarios;
     public EmpresaParceiraApiController(EmpresaParceiraService empresas,
                                         EmpresaParceiraRepository repository,
-                                        SessaoService sessao, Validator validator) {
+                                        SessaoService sessao, Validator validator, UsuarioRepository usuarios) {
         this.empresas = empresas; this.repository = repository;
-        this.sessao = sessao; this.validator = validator;
+        this.sessao = sessao; this.validator = validator; this.usuarios = usuarios;
     }
     @GetMapping
     public List<EmpresaDto> listar() { return List.of(EmpresaDto.from(sessao.empresa())); }
@@ -34,7 +36,7 @@ public class EmpresaParceiraApiController {
     @PostMapping
     @Transactional
     public ResponseEntity<EmpresaDto> criar(@RequestBody SalvarEmpresaRequest req) {
-        EmpresaParceiraForm form = formulario(req);
+        EmpresaParceiraForm form = formulario(req, null);
         validar(form);
         EmpresaParceira empresa = empresas.criar(form);
         extras(empresa, req);
@@ -45,7 +47,7 @@ public class EmpresaParceiraApiController {
     public EmpresaDto atualizar(@PathVariable Long id, @RequestBody SalvarEmpresaRequest req) {
         sessao.exigirProprietario(id);
         sessao.empresa();
-        EmpresaParceiraForm form = formulario(req);
+        EmpresaParceiraForm form = formulario(req, id);
         validar(form);
         EmpresaParceira empresa = empresas.atualizar(id, form);
         extras(empresa, req);
@@ -62,9 +64,23 @@ public class EmpresaParceiraApiController {
         Set<ConstraintViolation<EmpresaParceiraForm>> erros = validator.validate(form);
         if (!erros.isEmpty()) throw new IllegalArgumentException(erros.iterator().next().getMessage());
     }
-    private EmpresaParceiraForm formulario(SalvarEmpresaRequest r) {
+    private EmpresaParceiraForm formulario(SalvarEmpresaRequest r, Long idExistente) {
         EmpresaParceiraForm f = new EmpresaParceiraForm();
-        f.setNome(r.obterNome()); f.setEmail(r.email()); f.setLogin(r.login());
+        f.setNome(r.obterNome()); f.setEmail(r.email());
+        String login = r.login();
+        if ((login == null || login.isBlank()) && idExistente != null) {
+            login = empresas.buscar(idExistente).getLogin();
+        } else if (login == null || login.isBlank()) {
+            String base = r.email() != null && r.email().contains("@")
+                ? r.email().split("@")[0].replaceAll("[^A-Za-z0-9._-]", "").toLowerCase(Locale.ROOT)
+                : "";
+            if (base.length() < 4) base = "empresa." + base;
+            base = base.substring(0, Math.min(base.length(), 60));
+            login = base;
+            int sufixo = 2;
+            while (usuarios.existsByLoginIgnoreCase(login)) login = base + "." + sufixo++;
+        }
+        f.setLogin(login);
         f.setSenha(r.senha() == null ? "" : r.senha()); return f;
     }
     private void extras(EmpresaParceira e, SalvarEmpresaRequest r) {

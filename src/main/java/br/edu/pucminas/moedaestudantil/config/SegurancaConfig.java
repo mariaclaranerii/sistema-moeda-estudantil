@@ -31,7 +31,7 @@ public class SegurancaConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/css/app.css", "/error", "/favicon.ico").permitAll()
+                .requestMatchers("/", "/login", "/css/app.css", "/js/confirmacao.js", "/error", "/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/instituicoes").permitAll()
                 .requestMatchers(HttpMethod.GET, "/alunos/novo", "/empresas/nova").hasRole("PROFESSOR")
                 .requestMatchers(HttpMethod.POST, "/alunos", "/empresas", "/api/alunos", "/api/empresas")

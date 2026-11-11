@@ -2,9 +2,9 @@ name: Testes Java
 
 on:
   push:
-    branches: [sprint-03-final, main]
+    branches: [sprint-03-final, sprint-04, main]
   pull_request:
-    branches: [main]
+    branches: [main, sprint-04]
 
 jobs:
   test:
