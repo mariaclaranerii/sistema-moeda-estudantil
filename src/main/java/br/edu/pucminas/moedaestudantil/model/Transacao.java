@@ -31,6 +31,18 @@ public class Transacao {
     @Column(nullable = false)
     private Integer valor;
 
+    @Column(name = "aluno_id")
+    private Long alunoId;
+
+    @Column(name = "professor_login")
+    private String professorLogin;
+
+    @Column(name = "empresa_id")
+    private Long empresaId;
+
+    @Column(name = "codigo_resgate", length = 40, unique = true)
+    private String codigoResgate;
+
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora = LocalDateTime.now();
 
@@ -57,6 +69,20 @@ public class Transacao {
 
     public Long getId() {
         return id;
+    }
+
+    public String getCodigoResgate() {
+        return codigoResgate;
+    }
+
+    public void registrarCodigoResgate(String codigoResgate) {
+        this.codigoResgate = codigoResgate;
+    }
+
+    public void vincularParticipantes(Long alunoId, String professorLogin, Long empresaId) {
+        this.alunoId = alunoId;
+        this.professorLogin = professorLogin;
+        this.empresaId = empresaId;
     }
 
     public String getTipo() {

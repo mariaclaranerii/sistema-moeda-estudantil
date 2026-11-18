@@ -53,6 +53,10 @@ public class Vantagem {
         return empresaId;
     }
 
+    public void vincularEmpresa(Long empresaId) {
+        this.empresaId = empresaId;
+    }
+
     public String getEmpresaNome() {
         return empresaNome;
     }

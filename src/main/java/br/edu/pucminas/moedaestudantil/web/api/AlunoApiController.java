@@ -1,5 +1,6 @@
 package br.edu.pucminas.moedaestudantil.web.api;
 
+import br.edu.pucminas.moedaestudantil.config.PermissoesConfig;
 import br.edu.pucminas.moedaestudantil.model.Aluno;
 import br.edu.pucminas.moedaestudantil.model.InstituicaoEnsino;
 import br.edu.pucminas.moedaestudantil.repository.AlunoRepository;
@@ -8,6 +9,7 @@ import br.edu.pucminas.moedaestudantil.service.AlunoService;
 import br.edu.pucminas.moedaestudantil.web.api.dto.AlunoDto;
 import br.edu.pucminas.moedaestudantil.web.api.dto.SalvarAlunoRequest;
 import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +55,14 @@ public class AlunoApiController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<AlunoDto> criar(@RequestBody SalvarAlunoRequest request) {
+    public ResponseEntity<AlunoDto> criar(@RequestBody SalvarAlunoRequest request, HttpServletRequest httpRequest) {
+        boolean cadastroPublico = PermissoesConfig.usuario(httpRequest) == null;
+        if (cadastroPublico && (request.senha() == null || request.senha().isBlank())) {
+            throw new IllegalArgumentException("Informe uma senha para criar a conta.");
+        }
         AlunoForm form = preencherForm(request, null);
         Aluno aluno = alunoService.criar(form);
-        if (request.saldo() != null && request.saldo() > 0) {
+        if (!cadastroPublico && request.saldo() != null && request.saldo() > 0) {
             aluno.setSaldo(request.saldo());
             aluno = alunoRepository.save(aluno);
         }
@@ -103,7 +109,9 @@ public class AlunoApiController {
         form.setInstituicaoId(instId);
 
         String login = req.login();
-        if (login == null || login.isBlank()) {
+        if ((login == null || login.isBlank()) && idExistente != null) {
+            login = alunoService.buscar(idExistente).getLogin();
+        } else if (login == null || login.isBlank()) {
             String base = (req.email() != null && req.email().contains("@"))
                     ? req.email().split("@")[0].replaceAll("[^A-Za-z0-9._-]", "")
                     : "";

@@ -21,5 +21,9 @@ spring:
       path: /h2-console
 
 server:
+  servlet:
+    session:
+      cookie:
+        same-site: strict
   error:
     include-message: never

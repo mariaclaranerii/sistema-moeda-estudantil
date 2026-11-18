@@ -17,6 +17,15 @@ O sistema foi desenvolvido na disciplina Projeto de Software do curso de Engenha
 | Moedas | Envio de moedas por professores e consulta de saldo e extrato pelos alunos. |
 | Vantagens | Consulta e resgate de vantagens oferecidas por empresas parceiras. |
 
+## Perfis e permissões
+
+| Perfil | Permissões |
+| --- | --- |
+| Aluno | Consulta saldo, extrato próprio e catálogo. Resgata vantagens com seu saldo. |
+| Professor | Consulta a listagem de alunos e os próprios envios. Envia moedas a alunos. |
+| Empresa parceira | Cadastra e consulta vantagens próprias e acompanha seus resgates. |
+| Administrador | Gerencia cadastros de alunos e empresas e consulta o extrato geral. |
+
 ## Arquitetura e tecnologias
 
 O front-end e a API Spring Boot estão hospedados no mesmo serviço Docker no **Render**. O banco de dados é **PostgreSQL**, hospedado no **Neon**.

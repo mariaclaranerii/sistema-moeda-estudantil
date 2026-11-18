@@ -100,27 +100,56 @@ public class DadosIniciaisConfig {
                 empresaRepository.saveAll(List.of(e1, e2, e3));
             }
 
-            if (vantagemRepository.count() == 0) {
-                vantagemRepository.saveAll(List.of(
-                        new Vantagem(1L, "Livraria Acadêmica", "Desconto 20% em Livros", 150,
-                                "Válido para qualquer livro técnico ou didático na loja física ou online.", "fa-book-open"),
-                        new Vantagem(2L, "TechBytes Informática", "Cupom de R$ 50 em Periféricos", 300,
-                                "Válido para teclados, mouses, headsets e acessórios diversos.", "fa-laptop-code"),
-                        new Vantagem(3L, "Café & Estudo", "Combo Café + Pão de Queijo", 30,
-                                "Apresente o código gerado no caixa do estabelecimento.", "fa-mug-hot")
-                ));
-            }
+            boolean catalogoVazio = vantagemRepository.count() == 0;
+            vincularVantagemDemo(empresaRepository, vantagemRepository, catalogoVazio, "livraria.academica",
+                    new Vantagem(1L, "Livraria Acadêmica", "Desconto 20% em Livros", 150,
+                            "Válido para qualquer livro técnico ou didático na loja física ou online.", "fa-book-open"));
+            vincularVantagemDemo(empresaRepository, vantagemRepository, catalogoVazio, "techbytes",
+                    new Vantagem(2L, "TechBytes Informática", "Cupom de R$ 50 em Periféricos", 300,
+                            "Válido para teclados, mouses, headsets e acessórios diversos.", "fa-laptop-code"));
+            vincularVantagemDemo(empresaRepository, vantagemRepository, catalogoVazio, "cafe.estudo",
+                    new Vantagem(3L, "Café & Estudo", "Combo Café + Pão de Queijo", 30,
+                            "Apresente o código gerado no caixa do estabelecimento.", "fa-mug-hot"));
 
             if (transacaoRepository.count() == 0) {
-                transacaoRepository.saveAll(List.of(
-                        new Transacao("ENVIO_PROFESSOR", "Prof. Carlos Eduardo", "Ana Silva",
-                                "Excelente nota no trabalho de arquitetura", 100, LocalDateTime.now().minusHours(24)),
-                        new Transacao("RESGATE_VANTAGEM", "Ana Silva", "Café & Estudo",
-                                "Resgate: Vale Café Expresso + Pão de Queijo", 30, LocalDateTime.now().minusHours(12)),
-                        new Transacao("ENVIO_PROFESSOR", "Profa. Beatriz Lima", "Mariana Costa",
-                                "Monitoria destacada na disciplina de Algoritmos", 200, LocalDateTime.now().minusHours(2))
-                ));
+                alunoRepository.findByLoginIgnoreCase("ana.silva").ifPresent(ana -> {
+                    var envio = new Transacao("ENVIO_PROFESSOR", "Prof. Carlos Eduardo", ana.getNome(),
+                            "Excelente nota no trabalho de arquitetura", 100, LocalDateTime.now().minusHours(24));
+                    envio.vincularParticipantes(ana.getId(), "carlos.eduardo", null);
+                    transacaoRepository.save(envio);
+                    empresaRepository.findByLoginIgnoreCase("cafe.estudo").ifPresent(cafe -> {
+                        var resgate = new Transacao("RESGATE_VANTAGEM", ana.getNome(), cafe.getNome(),
+                                "Resgate: Vale Café Expresso + Pão de Queijo", 30, LocalDateTime.now().minusHours(12));
+                        resgate.vincularParticipantes(ana.getId(), null, cafe.getId());
+                        transacaoRepository.save(resgate);
+                    });
+                });
+                alunoRepository.findByLoginIgnoreCase("mariana.costa").ifPresent(mariana -> {
+                    var envio = new Transacao("ENVIO_PROFESSOR", "Profa. Beatriz Lima", mariana.getNome(),
+                            "Monitoria destacada na disciplina de Algoritmos", 200, LocalDateTime.now().minusHours(2));
+                    envio.vincularParticipantes(mariana.getId(), null, null);
+                    transacaoRepository.save(envio);
+                });
             }
         };
+    }
+
+    private void vincularVantagemDemo(EmpresaParceiraRepository empresas, VantagemRepository vantagens,
+                                    boolean catalogoVazio, String login, Vantagem exemplo) {
+        empresas.findByLoginIgnoreCase(login).ifPresent(empresa -> {
+            if (catalogoVazio) {
+                exemplo.vincularEmpresa(empresa.getId());
+                vantagens.save(exemplo);
+                return;
+            }
+            vantagens.findFirstByEmpresaIdAndEmpresaNomeAndTitulo(
+                    exemplo.getEmpresaId(), exemplo.getEmpresaNome(), exemplo.getTitulo())
+                    .filter(vantagem -> !empresa.getId().equals(vantagem.getEmpresaId())
+                            && exemplo.getDescricao().equals(vantagem.getDescricao()))
+                    .ifPresent(vantagem -> {
+                        vantagem.vincularEmpresa(empresa.getId());
+                        vantagens.save(vantagem);
+                    });
+        });
     }
 }

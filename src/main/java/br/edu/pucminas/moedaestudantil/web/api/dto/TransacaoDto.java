@@ -10,7 +10,8 @@ public record TransacaoDto(
         String origem,
         String destino,
         String motivo,
-        Integer valor
+        Integer valor,
+        String codigoResgate
 ) {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -25,7 +26,8 @@ public record TransacaoDto(
                 transacao.getOrigem(),
                 transacao.getDestino(),
                 transacao.getMotivo(),
-                transacao.getValor()
+                transacao.getValor(),
+                transacao.getCodigoResgate()
         );
     }
 }

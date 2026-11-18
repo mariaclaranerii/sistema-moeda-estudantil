@@ -136,3 +136,10 @@ body button:disabled { opacity: .65; cursor: not-allowed; }
   #view-dashboard > .grid:first-child > div { border-left: 0; padding: 16px 0; }
   #page-title { font-size: 26px; }
 }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #fdfaf5; }
+::-webkit-scrollbar-thumb { background: #deceb5; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #bda784; }
+
+[data-admin-only][hidden] { display: none !important; }

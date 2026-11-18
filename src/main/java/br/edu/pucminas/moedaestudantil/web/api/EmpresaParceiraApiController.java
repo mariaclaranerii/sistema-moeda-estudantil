@@ -1,5 +1,6 @@
 package br.edu.pucminas.moedaestudantil.web.api;
 
+import br.edu.pucminas.moedaestudantil.config.PermissoesConfig;
 import br.edu.pucminas.moedaestudantil.model.EmpresaParceira;
 import br.edu.pucminas.moedaestudantil.repository.EmpresaParceiraRepository;
 import br.edu.pucminas.moedaestudantil.repository.UsuarioRepository;
@@ -7,6 +8,7 @@ import br.edu.pucminas.moedaestudantil.service.EmpresaParceiraService;
 import br.edu.pucminas.moedaestudantil.web.api.dto.EmpresaDto;
 import br.edu.pucminas.moedaestudantil.web.api.dto.SalvarEmpresaRequest;
 import br.edu.pucminas.moedaestudantil.web.form.EmpresaParceiraForm;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +55,10 @@ public class EmpresaParceiraApiController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<EmpresaDto> criar(@RequestBody SalvarEmpresaRequest request) {
+    public ResponseEntity<EmpresaDto> criar(@RequestBody SalvarEmpresaRequest request, HttpServletRequest httpRequest) {
+        if (PermissoesConfig.usuario(httpRequest) == null && (request.senha() == null || request.senha().isBlank())) {
+            throw new IllegalArgumentException("Informe uma senha para criar a conta.");
+        }
         EmpresaParceiraForm form = preencherForm(request, null);
         EmpresaParceira empresa = empresaService.criar(form);
         atualizarCamposExtras(empresa, request);

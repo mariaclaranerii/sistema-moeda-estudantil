@@ -1,10 +1,12 @@
 package br.edu.pucminas.moedaestudantil.repository;
 
 import br.edu.pucminas.moedaestudantil.model.Aluno;
+import jakarta.persistence.LockModeType;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
@@ -14,6 +16,9 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     @EntityGraph(attributePaths = "instituicao")
     Optional<Aluno> findOneById(Long id);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Optional<Aluno> findLockedById(Long id);
 
     Optional<Aluno> findByLoginIgnoreCase(String login);
 

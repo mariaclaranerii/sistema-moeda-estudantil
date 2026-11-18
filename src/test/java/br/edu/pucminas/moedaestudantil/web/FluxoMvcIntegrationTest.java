@@ -2,7 +2,7 @@ package br.edu.pucminas.moedaestudantil.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,15 +35,16 @@ class FluxoMvcIntegrationTest {
     @Test
     void deveAbrirPaginaInicialEListagens() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Sprint 02")));
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/index.html"));
+        MockHttpSession admin = sessaoAdmin();
+        mockMvc.perform(get("/alunos")).andExpect(status().isUnauthorized());
 
-        mockMvc.perform(get("/alunos"))
+        mockMvc.perform(get("/alunos").session(admin))
                 .andExpect(status().isOk())
                 .andExpect(view().name("alunos/lista"));
 
-        mockMvc.perform(get("/empresas"))
+        mockMvc.perform(get("/empresas").session(admin))
                 .andExpect(status().isOk())
                 .andExpect(view().name("empresas/lista"));
     }
@@ -50,7 +53,7 @@ class FluxoMvcIntegrationTest {
     void deveCadastrarAlunoPeloFormularioMvc() throws Exception {
         InstituicaoEnsino instituicao = instituicaoRepository.findAllByOrderByNomeAsc().get(0);
 
-        mockMvc.perform(post("/alunos")
+        mockMvc.perform(post("/alunos").session(sessaoAdmin())
                         .param("nome", "Aluno do MVC")
                         .param("email", "mvc@exemplo.com")
                         .param("cpf", "11122233344")
@@ -63,5 +66,12 @@ class FluxoMvcIntegrationTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern("/alunos/*"))
                 .andExpect(flash().attribute("sucesso", "Aluno cadastrado com sucesso."));
+    }
+
+    private MockHttpSession sessaoAdmin() throws Exception {
+        return (MockHttpSession) mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"login\":\"admin\",\"senha\":\"admin\"}"))
+                .andExpect(status().isOk()).andReturn().getRequest().getSession(false);
     }
 }
