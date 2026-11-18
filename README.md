@@ -1,55 +1,80 @@
 # Sistema de Moeda Estudantil
 
-Projeto acadêmico da disciplina Projeto de Software, do curso de Engenharia de Software da PUC Minas (Laboratório 3, 2º semestre de 2026).
+O **Sistema de Moeda Estudantil** reconhece o mérito estudantil por meio de uma moeda virtual. Professores distribuem moedas a alunos, que podem trocá-las por vantagens oferecidas por empresas parceiras.
 
-O sistema reconhece o mérito estudantil por meio de uma moeda virtual. Professores distribuem moedas a alunos, que podem trocá-las por vantagens oferecidas por empresas parceiras.
+O sistema foi desenvolvido na disciplina Projeto de Software do curso de Engenharia de Software da PUC Minas. Consulte os [requisitos](./docs/requisitos.md) e a [documentação](./docs/README.md) para conhecer o escopo e a modelagem.
 
-## Situação atual
+## Acesse o sistema
 
-Sprint 02 - Lab03S02 implementada. O projeto contém o Modelo ER, a estratégia de persistência relacional e os CRUDs MVC de alunos e empresas parceiras. A modelagem da Sprint 01 permanece preservada em `docs/sprint-01`.
+**[Entrar no Sistema de Moeda Estudantil](https://moeda-estudantil-svme.onrender.com/index.html)**
 
-## Organização
+## Conheça os recursos
+
+| Recurso | O que o sistema oferece |
+| --- | --- |
+| Cadastros | Cadastro e gerenciamento de alunos e empresas parceiras. |
+| Instituições | Listagem das instituições de ensino para vincular ao cadastro de aluno. |
+| Moedas | Envio de moedas por professores e consulta de saldo e extrato pelos alunos. |
+| Vantagens | Consulta e resgate de vantagens oferecidas por empresas parceiras. |
+
+## Arquitetura e tecnologias
+
+O front-end e a API Spring Boot estão hospedados no mesmo serviço Docker no **Render**. O banco de dados é **PostgreSQL**, hospedado no **Neon**.
+
+![Diagrama de implantação do Sistema de Moeda Estudantil](./docs/diagramas/diagrama-implantacao.jpeg)
+
 
 ```text
-docs/
-  requisitos.md
-  premissas-de-modelagem.md
-  rastreabilidade.md
-  sprint-01/
-    README.md
-    historias-de-usuario.md
-    diagramas/v1/
-      casos-de-uso.puml
-      classes.puml
-      componentes.puml
-      renderizados/
-  sprint-02/
-    README.md
-    decisao-persistencia.md
-    diagramas/v1/
-      modelo-er.puml
-      renderizados/
-src/
-  main/java/          # domínio, repositórios, serviços e controllers MVC
-  main/resources/     # configuração, templates Thymeleaf e estilos
-  test/java/          # testes automatizados de integração
+Navegador → Spring Boot no Render → PostgreSQL no Neon
+            ├── Interface HTML, CSS e JavaScript
+            ├── Páginas Spring MVC com Thymeleaf
+            └── API REST em /api
 ```
 
-Os arquivos `.puml` são as fontes editáveis dos diagramas. As imagens SVG e PNG são versões renderizadas para consulta. Novas versões dos modelos deverão ser adicionadas em uma nova pasta de versão, mantendo as anteriores e o histórico Git.
+| Camada | Tecnologias | Responsabilidade |
+| --- | --- | --- |
+| Interface | HTML, CSS, JavaScript e Thymeleaf | Portal web e formulários MVC. |
+| Aplicação | Java 17, Spring Boot, Spring MVC e Maven | Regras de negócio, endpoints REST e build. |
+| Persistência | Spring Data JPA, Hibernate, PostgreSQL e H2 | PostgreSQL no Neon para o deploy e H2 em arquivo para execução local. |
+| Hospedagem | Docker e Render | Build e execução da aplicação web em um único serviço. |
+| Modelagem | PlantUML | Diagramas de casos de uso, classes, componentes e modelo ER. |
 
-## Tecnologias definidas para orientar a modelagem
+## Estrutura do repositório
 
-- Java 17 LTS: versão estável, amplamente suportada e suficiente para o contexto acadêmico.
-- Spring Boot com Spring MVC: implementação direta do padrão MVC exigido e baixo custo de configuração.
-- Thymeleaf: views renderizadas no servidor, evitando a complexidade de uma aplicação front-end separada.
-- Maven: build e dependências com estrutura convencional para projetos Java.
-- Spring Data JPA com Hibernate: estratégia ORM adotada na Sprint 02.
-- H2 em modo arquivo: banco relacional da Sprint 02, substituível por outro SGBD compatível com JPA.
-- PlantUML: diagramas UML editáveis, versionáveis como texto e renderizáveis em SVG.
+```text
+.
+├── README.md
+├── Dockerfile                         # Build e execução no Render
+├── .dockerignore                      # Arquivos incluídos no contexto de build
+├── pom.xml                             # Dependências e configuração do Maven
+├── docs/
+│   ├── README.md                       # Índice da documentação
+│   ├── requisitos.md
+│   ├── premissas-de-modelagem.md
+│   ├── rastreabilidade.md
+│   ├── diagramas/
+│   │   ├── casos-de-uso.pdf
+│   │   ├── classes.pdf
+│   │   ├── componentes.pdf
+│   │   ├── diagramas-sprint-01.pdf
+│   │   ├── modelo-er-sprint-02.pdf
+│   │   └── diagrama-implantacao.jpeg
+│   ├── sprint-01/                      # Histórias de usuário e diagramas UML
+│   └── sprint-02/                      # Modelo ER e decisão de persistência
+└── src/
+    ├── main/
+    │   ├── java/                       # Domínio, serviços, repositórios e controllers
+    │   └── resources/
+    │       ├── application.yml          # Configuração local com H2
+    │       ├── application-render.yml   # Configuração do deploy com PostgreSQL
+    │       ├── static/                  # Portal web e estilos
+    │       └── templates/               # Páginas Thymeleaf
+    └── test/                           # Testes de integração e suas configurações
+```
 
-Os artefatos completos da Sprint 02, inclusive o Modelo ER em formatos editável e renderizados, estão relacionados em [`docs/sprint-02/README.md`](docs/sprint-02/README.md).
+## Instalação e configuração
 
-## Execução
+### Execução local
 
 Com Java 17 e Maven 3.9 ou superior instalados:
 
@@ -57,9 +82,9 @@ Com Java 17 e Maven 3.9 ou superior instalados:
 mvn spring-boot:run
 ```
 
-A aplicação ficará disponível em `http://localhost:8080`. Execute a suíte automatizada com `mvn test`.
+A aplicação ficará disponível em `http://localhost:8080/index.html` e usará o banco H2 local em `data/`.
 
-## Integrantes
+## Equipe
 
 - Bárbara Marcella Inácio da Silva
 - Lucas Gabriel de Oliveira Franco
