@@ -32,7 +32,7 @@ public class Transacao {
     private Integer valor;
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDateTime dataHora = LocalDateTime.now();
+    private LocalDateTime dataHora;
 
     @Column(name = "aluno_id")
     private Long alunoId;
@@ -48,13 +48,8 @@ public class Transacao {
     protected Transacao() {
     }
 
-    public Transacao(String tipo, String origem, String destino, String motivo, Integer valor) {
-        this.tipo = tipo;
-        this.origem = origem;
-        this.destino = destino;
-        this.motivo = motivo;
-        this.valor = valor;
-        this.dataHora = LocalDateTime.now();
+    private Transacao(String tipo, String origem, String destino, String motivo, Integer valor) {
+        this(tipo, origem, destino, motivo, valor, LocalDateTime.now());
     }
 
     public Transacao(String tipo, String origem, String destino, String motivo, Integer valor, LocalDateTime dataHora) {
@@ -66,17 +61,30 @@ public class Transacao {
         this.dataHora = dataHora;
     }
 
-    public void vincularTransferencia(Long professorId, Long alunoId) {
-        this.professorId = professorId;
-        this.alunoId = alunoId;
+    public static Transacao transferencia(Professor professor, Aluno aluno, String motivo, int quantidade) {
+        Transacao transacao = new Transacao("ENVIO_PROFESSOR", professor.getNome(), aluno.getNome(), motivo, quantidade);
+        transacao.professorId = professor.getId();
+        transacao.alunoId = aluno.getId();
+        return transacao;
     }
-    public void vincularResgate(Long alunoId, Long empresaId, Long vantagemId, String codigo) {
-        this.alunoId = alunoId;
-        this.empresaId = empresaId;
-        this.vantagemId = vantagemId;
-        this.codigoResgate = codigo;
+
+    public static Transacao resgate(Aluno aluno, EmpresaParceira empresa, Vantagem vantagem, String codigo) {
+        Transacao transacao = new Transacao("RESGATE_VANTAGEM", aluno.getNome(), empresa.getNome(),
+            "Resgate: " + vantagem.getTitulo(), vantagem.getCustoMoedas());
+        transacao.alunoId = aluno.getId();
+        transacao.empresaId = empresa.getId();
+        transacao.vantagemId = vantagem.getId();
+        transacao.codigoResgate = codigo;
+        return transacao;
     }
-    public void vincularCredito(Long professorId) { this.professorId = professorId; }
+
+    public static Transacao creditoSemestral(Professor professor, String semestre, int quantidade) {
+        Transacao transacao = new Transacao("CREDITO_SEMESTRAL", "Sistema",
+            professor.getNome(), "Crédito semestral " + semestre, quantidade);
+        transacao.professorId = professor.getId();
+        return transacao;
+    }
+
     public Long getAlunoId() { return alunoId; }
     public Long getProfessorId() { return professorId; }
     public Long getEmpresaId() { return empresaId; }

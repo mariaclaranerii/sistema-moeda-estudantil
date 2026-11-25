@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CreditoSemestralService {
+    private static final int CARGA_SEMESTRAL = 1000;
+
     private final ProfessorRepository professores;
     private final CreditoSemestralRepository creditos;
     private final TransacaoRepository transacoes;
@@ -25,13 +27,10 @@ public class CreditoSemestralService {
         String semestre = hoje.getYear() + "-" + (hoje.getMonthValue() <= 6 ? "1" : "2");
         for (Professor professor : professores.findAll()) {
             if (!professor.isAtivo() || creditos.existsByProfessorIdAndSemestre(professor.getId(), semestre)) continue;
-            professor.creditar(1000);
+            professor.creditar(CARGA_SEMESTRAL);
             professores.save(professor);
-            creditos.save(new CreditoSemestral(professor, semestre, 1000));
-            Transacao transacao = new Transacao("CREDITO_SEMESTRAL", "Sistema",
-                professor.getNome(), "Crédito semestral " + semestre, 1000);
-            transacao.vincularCredito(professor.getId());
-            transacoes.save(transacao);
+            creditos.save(new CreditoSemestral(professor, semestre, CARGA_SEMESTRAL));
+            transacoes.save(Transacao.creditoSemestral(professor, semestre, CARGA_SEMESTRAL));
         }
     }
 }

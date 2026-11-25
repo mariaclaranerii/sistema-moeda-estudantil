@@ -42,11 +42,7 @@ public class MovimentacaoService {
         aluno.creditarMoedas(quantidade);
         professores.save(professor);
         alunos.save(aluno);
-        Transacao t = new Transacao("ENVIO_PROFESSOR", professor.getNome(), aluno.getNome(),
-            motivo.trim(), quantidade);
-        t.vincularTransferencia(professor.getId(), aluno.getId());
-        t = transacoes.save(t);
-        return t;
+        return transacoes.save(Transacao.transferencia(professor, aluno, motivo.trim(), quantidade));
     }
 
     @Transactional
@@ -64,11 +60,7 @@ public class MovimentacaoService {
         aluno.debitarMoedas(vantagem.getCustoMoedas());
         alunos.save(aluno);
         String codigo = HexFormat.of().formatHex(RANDOM.generateSeed(16)).toUpperCase();
-        Transacao t = new Transacao("RESGATE_VANTAGEM", aluno.getNome(), empresa.getNome(),
-                "Resgate: " + vantagem.getTitulo(), vantagem.getCustoMoedas());
-        t.vincularResgate(aluno.getId(), empresa.getId(), vantagemId, codigo);
-        t = transacoes.save(t);
-        return t;
+        return transacoes.save(Transacao.resgate(aluno, empresa, vantagem, codigo));
     }
 
     @Transactional(readOnly = true)
@@ -78,5 +70,4 @@ public class MovimentacaoService {
         if (usuario instanceof Professor) return transacoes.findAllByProfessorIdOrderByDataHoraDesc(usuario.getId());
         return transacoes.findAllByEmpresaIdOrderByDataHoraDesc(usuario.getId());
     }
-
 }
