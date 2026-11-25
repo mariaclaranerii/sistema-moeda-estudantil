@@ -3,7 +3,6 @@ package br.edu.pucminas.moedaestudantil.web;
 import br.edu.pucminas.moedaestudantil.model.*;
 import br.edu.pucminas.moedaestudantil.repository.*;
 import br.edu.pucminas.moedaestudantil.service.*;
-import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +14,9 @@ public class PainelController {
     private final SessaoService sessao;
     private final MovimentacaoService movimentacao;
     private final AlunoRepository alunos;
-    private final VantagemRepository vantagens;
+    private final VantagemService vantagens;
     public PainelController(SessaoService sessao, MovimentacaoService movimentacao,
-                            AlunoRepository alunos, VantagemRepository vantagens) {
+                            AlunoRepository alunos, VantagemService vantagens) {
         this.sessao = sessao;
         this.movimentacao = movimentacao;
         this.alunos = alunos;
@@ -33,14 +32,13 @@ public class PainelController {
         model.addAttribute("extrato", movimentacao.extrato());
         if (usuario instanceof Aluno aluno) {
             model.addAttribute("saldo", aluno.getSaldo());
-            model.addAttribute("vantagens", vantagens.findAllByOrderByTituloAsc().stream()
-                .filter(Vantagem::isAtivo).toList());
+            model.addAttribute("vantagens", vantagens.listarPara(aluno));
         } else if (usuario instanceof Professor professor) {
             model.addAttribute("saldo", professor.getSaldo());
             model.addAttribute("alunos", alunos.findAll().stream()
                 .filter(Aluno::isAtivo).toList());
         } else if (usuario instanceof EmpresaParceira empresa) {
-            model.addAttribute("vantagens", vantagens.findByEmpresaIdOrderByTituloAsc(empresa.getId()));
+            model.addAttribute("vantagens", vantagens.listarPara(empresa));
         }
         return "painel";
     }
@@ -70,7 +68,7 @@ public class PainelController {
 
     @GetMapping("/vantagens/{id}/editar")
     public String editarVantagem(@PathVariable Long id, Model model) {
-        model.addAttribute("vantagem", movimentacao.consultarVantagemDaEmpresa(id));
+        model.addAttribute("vantagem", vantagens.consultarDaEmpresa(id));
         return "vantagens/editar";
     }
 
@@ -79,7 +77,7 @@ public class PainelController {
                                 @RequestParam Integer custo, @RequestParam String descricao,
                                 @RequestParam String fotoReferencia, RedirectAttributes redirect) {
         try {
-            movimentacao.atualizarVantagem(id, titulo, custo, descricao, fotoReferencia);
+            vantagens.atualizar(id, titulo, custo, descricao, fotoReferencia);
             redirect.addFlashAttribute("sucesso", "Vantagem atualizada com sucesso.");
             return "redirect:/painel";
         } catch (IllegalArgumentException ex) {
@@ -90,7 +88,7 @@ public class PainelController {
 
     @PostMapping("/vantagens/{id}/situacao")
     public String alterarSituacaoVantagem(@PathVariable Long id, RedirectAttributes redirect) {
-        Vantagem vantagem = movimentacao.alternarSituacaoVantagem(id);
+        Vantagem vantagem = vantagens.alternarSituacao(id);
         redirect.addFlashAttribute("sucesso", vantagem.isAtivo()
             ? "Vantagem reativada e disponível para resgate."
             : "Vantagem desativada. Os resgates anteriores foram preservados.");
@@ -102,7 +100,7 @@ public class PainelController {
                                @RequestParam String descricao, @RequestParam String fotoReferencia,
                                RedirectAttributes redirect) {
         try {
-            movimentacao.cadastrarVantagem(titulo, custo, descricao, fotoReferencia);
+            vantagens.cadastrar(titulo, custo, descricao, fotoReferencia);
             redirect.addFlashAttribute("sucesso", "Vantagem cadastrada com sucesso.");
         } catch (RuntimeException ex) {
             redirect.addFlashAttribute("erro", ex.getMessage());
