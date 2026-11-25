@@ -78,6 +78,9 @@ class ApiIntegrationTest {
 
         assertThat(professores.findById(professor.getId()).orElseThrow().getSaldo()).isEqualTo(850);
         assertThat(alunos.findById(aluno.getId()).orElseThrow().getSaldo()).isEqualTo(150);
+        assertThat(transacoes.findAllByProfessorIdOrderByDataHoraDesc(professor.getId()))
+            .extracting(Transacao::getTipo)
+            .containsExactlyInAnyOrder("ENVIO_PROFESSOR", "CREDITO_SEMESTRAL");
         assertThat(emails.count()).isZero();
         mockMvc.perform(post("/api/transacoes/enviar").with(csrf())
             .with(user("prof.teste").roles("PROFESSOR"))
@@ -111,8 +114,12 @@ class ApiIntegrationTest {
             .andExpect(jsonPath("$.codigoResgate").isString());
         assertThat(alunos.findById(aluno.getId()).orElseThrow().getSaldo()).isEqualTo(170);
         assertThat(emails.count()).isZero();
-        assertThat(transacoes.findAllByAlunoIdOrderByDataHoraDesc(aluno.getId()).get(0)
-            .getCodigoResgate()).isNotBlank();
+        Transacao resgate = transacoes.findAllByAlunoIdOrderByDataHoraDesc(aluno.getId()).get(0);
+        assertThat(resgate.getCodigoResgate()).isNotBlank();
+        assertThat(resgate.getVantagemId()).isEqualTo(vantagem.getId());
+        mockMvc.perform(get("/api/transacoes").with(user("parceira.teste").roles("EMPRESA")))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].codigoResgate").value(resgate.getCodigoResgate()));
     }
 
     @Test
