@@ -9,10 +9,7 @@ import br.edu.pucminas.moedaestudantil.web.form.AlunoForm;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.security.SecureRandom;
-import java.util.HexFormat;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,23 +17,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class AlunoService {
 
-    private static final SecureRandom RANDOM = new SecureRandom();
-
     private final AlunoRepository alunoRepository;
     private final UsuarioRepository usuarioRepository;
     private final InstituicaoEnsinoRepository instituicaoRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final SenhaService senhas;
     private final SessaoService sessao;
     private final String senhaInicial;
 
     public AlunoService(AlunoRepository alunoRepository, UsuarioRepository usuarioRepository,
                         InstituicaoEnsinoRepository instituicaoRepository,
-                        PasswordEncoder passwordEncoder, SessaoService sessao,
+                        SenhaService senhas, SessaoService sessao,
                         @Value("${app.aluno.senha-inicial:Aluno@2026!}") String senhaInicial) {
         this.alunoRepository = alunoRepository;
         this.usuarioRepository = usuarioRepository;
         this.instituicaoRepository = instituicaoRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.senhas = senhas;
         this.sessao = sessao;
         if (senhaInicial == null || senhaInicial.length() < 8 || senhaInicial.length() > 72) {
             throw new IllegalArgumentException("A senha inicial deve ter de 8 a 72 caracteres.");
@@ -61,7 +56,7 @@ public class AlunoService {
         validarUnicidade(dados, null);
         InstituicaoEnsino instituicao = buscarInstituicao(form.getInstituicaoId());
 
-        Aluno aluno = new Aluno(dados.nome(), dados.login(), passwordEncoder.encode(senhaInicial),
+        Aluno aluno = new Aluno(dados.nome(), dados.login(), senhas.codificar(senhaInicial),
                 dados.email(), dados.cpf(), dados.rg(), dados.endereco(), dados.curso(), instituicao);
         aluno.exigirTrocaSenhaInicial();
         return alunoRepository.save(aluno);
@@ -119,10 +114,8 @@ public class AlunoService {
     public String redefinirSenhaPeloProfessor(Long alunoId) {
         sessao.professor();
         Aluno aluno = buscar(alunoId);
-        byte[] bytes = new byte[12];
-        RANDOM.nextBytes(bytes);
-        String temporaria = HexFormat.of().formatHex(bytes).toUpperCase(Locale.ROOT);
-        aluno.alterarSenha(passwordEncoder.encode(temporaria));
+        String temporaria = senhas.gerarTemporaria();
+        aluno.alterarSenha(senhas.codificar(temporaria));
         aluno.exigirTrocaSenhaInicial();
         return temporaria;
     }
@@ -131,19 +124,7 @@ public class AlunoService {
     public void alterarMinhaSenha(String atual, String nova, String confirmacao) {
         Aluno aluno = alunoRepository.findById(sessao.aluno().getId())
             .orElseThrow(() -> new RegistroNaoEncontradoException("Aluno não encontrado."));
-        if (atual == null || !passwordEncoder.matches(atual, aluno.getSenhaHash())) {
-            throw new IllegalArgumentException("A senha atual está incorreta.");
-        }
-        if (nova == null || nova.length() < 8 || nova.length() > 72) {
-            throw new IllegalArgumentException("A nova senha deve ter entre 8 e 72 caracteres.");
-        }
-        if (!nova.equals(confirmacao)) {
-            throw new IllegalArgumentException("A confirmação da senha não confere.");
-        }
-        if (passwordEncoder.matches(nova, aluno.getSenhaHash())) {
-            throw new IllegalArgumentException("A nova senha deve ser diferente da atual.");
-        }
-        aluno.alterarSenha(passwordEncoder.encode(nova));
+        aluno.alterarSenha(senhas.codificarNovaSenha(aluno.getSenhaHash(), atual, nova, confirmacao));
         aluno.confirmarTrocaSenha();
     }
 
